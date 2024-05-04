@@ -7,6 +7,16 @@ public class Plant implements Attack{
     int range;
     int cooldown;
 
+    public Plant(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown){
+        this.name = name;
+        this.cost = cost;
+        this.health = health;
+        this.attack_damage = attack_damage;
+        this.attack_speed = attack_speed;
+        this.range = range;
+        this.cooldown = cooldown;
+    }
+
     public String getName(){
         return name;
     }
