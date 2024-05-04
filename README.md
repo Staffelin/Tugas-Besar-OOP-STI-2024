@@ -2,7 +2,7 @@
 
 ## Deskripsi
 
-> Repository ini ditujukan untuk memenuhi Tugas Besar IF2212 Pemrograman Berorientasi Objek STI tahun ajaran 2023/2024
+> Repository ini ditujukan untuk memenuhi Tugas Besar IF2212 Pemrograman Berorientasi Objek STI tahun ajaran 2023/2024 Kelompok 5 Kelas K02.
 
 **Kelompok 5 Kelas K02 :**
 
