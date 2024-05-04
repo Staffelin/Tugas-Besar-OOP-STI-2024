@@ -1,4 +1,7 @@
-public class Plant implements Attack{
+package Plants;
+import Zombies.*;
+
+public class Plant implements Attack {
     String name;
     int cost;
     int health;
@@ -46,5 +49,7 @@ public class Plant implements Attack{
     }
 
 
-    public void attack(){}
+    public void attack(){
+        // TO DO: Implementasi attack
+    }
 }

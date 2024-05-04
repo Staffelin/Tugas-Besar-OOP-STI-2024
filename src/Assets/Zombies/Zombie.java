@@ -1,3 +1,5 @@
+package Zombies;
+
 public class Zombie implements Attack {
     String name;
     int health;

@@ -1,4 +1,10 @@
+package Map;
+
 import java.util.ArrayList;
+
+import Zombies.*;
+
+
 
 public class Map {
     private Petak[][] MatriksPetak;

@@ -1,4 +1,7 @@
+package Player;
+
 import java.util.ArrayList; 
+import Plants.*;
 
 public class Deck{
     // private Plant[] deckOfPlants;

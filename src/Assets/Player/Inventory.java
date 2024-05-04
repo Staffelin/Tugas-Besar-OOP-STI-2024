@@ -1,4 +1,6 @@
+package Player;
 
+import Plants.*;
 
 public class Inventory{
     // ArrayList<Plant> InventoryTanaman;
@@ -29,6 +31,7 @@ public class Inventory{
     }
 
     public void showInventory() {
+        System.out.println(plant_inventory.length);
         for (int i = 0; i < plant_inventory.length; i++) {
             System.out.println((i+1) + ". " + plant_inventory[i].getName());
         }
