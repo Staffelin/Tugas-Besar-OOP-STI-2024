@@ -1,7 +1,9 @@
 package Player;
 
 public class Sun{
-    static int sun;
+    public static int sun = 0;
+    private static boolean running = false;
+    private static Thread sunThread;
 
     public static int getSun(){
         return sun;
@@ -14,6 +16,27 @@ public class Sun{
     public static void increaseSun (int cost) {
         sun += cost;
     }
+
+    public static void generateSun() {
+        running = true;
+        sunThread = new Thread(() -> {
+            while (running) {
+                sun += 25;
+                try {
+                    Thread.sleep((long) (Math.random() * (10000 - 5000) + 5000));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        sunThread.start();
+    }
+
+    public static void stopGenerateSun() {
+        running = false;
+        sunThread.interrupt();
+    }
+    
 
     // TO DO: Buat generate sun tiap berapa second
 }
