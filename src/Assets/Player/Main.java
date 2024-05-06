@@ -18,6 +18,7 @@ public class Main {
         Plant wallnut = new Wallnut();
 
         Inventory inventory = new Inventory();
+        Deck deck = new Deck();
         inventory.getInventory().add(peashooter);
         inventory.getInventory().add(potato);
         inventory.getInventory().add(sunflower);
@@ -35,9 +36,9 @@ public class Main {
         System.out.println("Add to deck: ");
         index1 = sc.nextInt();
 
-        while (inventory.getDeck().getDeckOfPlants().size() <= 6) {
+        while (deck.getDeckOfPlants().size() <= 6) {
             try {
-                inventory.addPlant(index1-1);
+                inventory.addPlant(deck, index1-1);
                 System.out.println(inventory.getInventory().get(index1-1).getName() + " added to deck");    
             }
             catch (DeckFullException e) {
@@ -55,7 +56,7 @@ public class Main {
 
         
         System.out.println("Deck:");
-        inventory.getDeck().displayDeck();
+        deck.displayDeck();
 
         System.out.println("Switch plants in deck? (Y/N)");
         char switchChoice = sc.next().charAt(0);
@@ -66,11 +67,11 @@ public class Main {
             int index2 = sc.nextInt();
             System.out.println("Mau ditukar ke mana?");
             int index3 = sc.nextInt();
-            inventory.getDeck().swapDeck(index2-1, index3-1);
+            deck.swapDeck(index2-1, index3-1);
 
-            System.out.println(inventory.getDeck().getDeckOfPlants().get(index2-1).getName() + " swapped with " + inventory.getDeck().getDeckOfPlants().get(index3-1).getName());
+            System.out.println(deck.getDeckOfPlants().get(index2-1).getName() + " swapped with " + inventory.getDeck().getDeckOfPlants().get(index3-1).getName());
             System.out.println("Deck:");
-            inventory.getDeck().displayDeck();
+            deck.displayDeck();
             }
             catch (CannotSwapDeckException e) {
                 System.out.println(e.getClass().getName() + "! " + "Cannot swap deck");
@@ -83,10 +84,10 @@ public class Main {
             try {
                 System.out.println("Masukkan indeks tanaman yang ingin dihapus : ");
                 int index4 = sc.nextInt();
-                System.out.println(inventory.getDeck().getDeckOfPlants().get(index4-1).getName() + " deleted");
-                inventory.deletePlant(index4-1);
+                System.out.println(deck.getDeckOfPlants().get(index4-1).getName() + " deleted");
+                deck.deletePlant(index4-1);
                 System.out.println("Deck:");
-                inventory.getDeck().displayDeck();
+                deck.displayDeck();
             }
             catch (CannotDeletePlantException e) {
                 System.out.println(e.getClass().getName() + "! " + "Tanaman tidak dapat dihapus");

@@ -33,8 +33,15 @@ public class Deck{
         deckOfPlants.set(indeks1, deckOfPlants.get(indeks2));
         deckOfPlants.set(indeks2, temp);
         
-        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null) {
+        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null || deckOfPlants.get(indeks1) == deckOfPlants.get(indeks2) ) {
             throw new CannotSwapDeckException();
+        }
+    }
+
+    public void deletePlant (int indeks) throws CannotDeletePlantException {
+        getDeckOfPlants().remove(indeks);
+        if (getDeckOfPlants().get(indeks) == null) {
+            throw new CannotDeletePlantException();
         }
     }
 
