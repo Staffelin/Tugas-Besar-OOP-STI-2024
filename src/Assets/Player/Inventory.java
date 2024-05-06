@@ -50,18 +50,31 @@ public class Inventory{
         return deckOfPlants;
     }
 
-    public void swapDeck (int indeks1, int indeks2) {
+    public void swapDeck (int indeks1, int indeks2) throws CannotSwapDeckException  {
         Plant temp = deckOfPlants.getDeckOfPlants().get(indeks1);
         deckOfPlants.getDeckOfPlants().set(indeks1, deckOfPlants.getDeckOfPlants().get(indeks2));
         deckOfPlants.getDeckOfPlants().set(indeks2, temp);
+        
+        if (deckOfPlants.getDeckOfPlants().get(indeks1) == null || deckOfPlants.getDeckOfPlants().get(indeks2) == null) {
+            throw new CannotSwapDeckException();
+        }
     }
 
-    public void deletePlant (int indeks) {
+    public void deletePlant (int indeks) throws CannotDeletePlantException {
         deckOfPlants.getDeckOfPlants().remove(indeks);
+        if (deckOfPlants.getDeckOfPlants().get(indeks) == null) {
+            throw new CannotDeletePlantException();
+        }
     }
 
-    public void addPlant (int indeks) {
+    public void addPlant (int indeks) throws DeckFullException, PlantAlreadyPickedException {
         deckOfPlants.getDeckOfPlants().add(plant_inventory.get(indeks));
+        if (deckOfPlants.getDeckOfPlants().size() > 6) {
+            throw new DeckFullException();
+        }
+        if (deckOfPlants.getDeckOfPlants().contains(plant_inventory.get(indeks))) {
+            throw new PlantAlreadyPickedException();
+        }
     }
 
 
