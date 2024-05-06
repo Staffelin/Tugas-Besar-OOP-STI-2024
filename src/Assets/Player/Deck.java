@@ -28,6 +28,16 @@ public class Deck{
         return deckOfPlants.get(indeks) == null;
     }
 
+    public void swapDeck (int indeks1, int indeks2) throws CannotSwapDeckException  {
+        Plant temp = deckOfPlants.get(indeks1);
+        deckOfPlants.set(indeks1, deckOfPlants.get(indeks2));
+        deckOfPlants.set(indeks2, temp);
+        
+        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null) {
+            throw new CannotSwapDeckException();
+        }
+    }
+
     public void displayDeck() {
         if (deckOfPlants.isEmpty()) {
             System.out.println("Deck is empty");
