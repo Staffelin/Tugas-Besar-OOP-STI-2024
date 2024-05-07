@@ -42,9 +42,11 @@ public class Deck{
     }
 
     public void deletePlant (int indeks) throws CannotDeletePlantException {
-        getDeckOfPlants().remove(indeks);
+       
         if (getDeckOfPlants().get(indeks) == null) {
             throw new CannotDeletePlantException();
+        } else {
+            getDeckOfPlants().remove(indeks);
         }
     }
 

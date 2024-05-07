@@ -1,7 +1,7 @@
 package Player;
 import java.util.ArrayList;
 
-import Exception.DeckFullException;
+
 import Exception.PlantAlreadyPickedException;
 import Plants.*;
 
@@ -53,10 +53,8 @@ public class Inventory{
         return deckOfPlants;
     }
 
-    public void addPlant (Deck deck, int indeks) throws DeckFullException, PlantAlreadyPickedException {
-        if (deck.getDeckOfPlants().size() > 6) {
-            throw new DeckFullException();
-        }
+    public void addPlant (Deck deck, int indeks) throws PlantAlreadyPickedException {
+
         Plant plantToAdd = plant_inventory.get(indeks);
         if (deck.getDeckOfPlants().contains(plantToAdd)) {
             throw new PlantAlreadyPickedException();
