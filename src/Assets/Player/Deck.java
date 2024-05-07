@@ -1,6 +1,9 @@
 package Player;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import Exception.CannotDeletePlantException;
+import Exception.CannotSwapDeckException;
 import Plants.*;
 
 public class Deck{
@@ -33,8 +36,17 @@ public class Deck{
         deckOfPlants.set(indeks1, deckOfPlants.get(indeks2));
         deckOfPlants.set(indeks2, temp);
         
-        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null) {
+        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null || deckOfPlants.get(indeks1) == deckOfPlants.get(indeks2) ) {
             throw new CannotSwapDeckException();
+        }
+    }
+
+    public void deletePlant (int indeks) throws CannotDeletePlantException {
+       
+        if (getDeckOfPlants().get(indeks) == null) {
+            throw new CannotDeletePlantException();
+        } else {
+            getDeckOfPlants().remove(indeks);
         }
     }
 

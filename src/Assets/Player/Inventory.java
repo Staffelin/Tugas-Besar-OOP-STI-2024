@@ -1,5 +1,8 @@
 package Player;
 import java.util.ArrayList;
+
+
+import Exception.PlantAlreadyPickedException;
 import Plants.*;
 
 public class Inventory{
@@ -50,24 +53,13 @@ public class Inventory{
         return deckOfPlants;
     }
 
-   
+    public void addPlant (Deck deck, int indeks) throws PlantAlreadyPickedException {
 
-    public void deletePlant (int indeks) throws CannotDeletePlantException {
-        deckOfPlants.getDeckOfPlants().remove(indeks);
-        if (deckOfPlants.getDeckOfPlants().get(indeks) == null) {
-            throw new CannotDeletePlantException();
-        }
-    }
-
-    public void addPlant (int indeks) throws DeckFullException, PlantAlreadyPickedException {
-        if (deckOfPlants.getDeckOfPlants().size() > 6) {
-            throw new DeckFullException();
-        }
         Plant plantToAdd = plant_inventory.get(indeks);
-        if (deckOfPlants.getDeckOfPlants().contains(plantToAdd)) {
+        if (deck.getDeckOfPlants().contains(plantToAdd)) {
             throw new PlantAlreadyPickedException();
         }
-        deckOfPlants.getDeckOfPlants().add(plantToAdd);
+        deck.getDeckOfPlants().add(plantToAdd);
     }
 
 
