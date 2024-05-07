@@ -80,7 +80,7 @@ public class Main {
 
                 if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
                     deck.swapDeck(index2-1, index3-1);
-                    System.out.println(deck.getDeckOfPlants().get(index2-1).getName() + " ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getName());
+                    System.out.println(deck.getDeckOfPlants().get(index2-1).getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getName());
                     System.out.println("Deck:");
                     deck.displayDeck();
                 } else {
