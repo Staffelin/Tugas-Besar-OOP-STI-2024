@@ -36,9 +36,9 @@ public class Game {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 11; j++) {
                 if (map[i][j] == 1) {
-                    System.out.print("[ z] ");
+                    System.out.print("[Z] ");
                 } else {
-                    System.out.print("[  ] ");
+                    System.out.print("[ ] ");
                 }
             }
             System.out.println();

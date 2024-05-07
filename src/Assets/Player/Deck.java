@@ -1,6 +1,9 @@
 package Player;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import Exception.CannotDeletePlantException;
+import Exception.CannotSwapDeckException;
 import Plants.*;
 
 public class Deck{
@@ -39,9 +42,11 @@ public class Deck{
     }
 
     public void deletePlant (int indeks) throws CannotDeletePlantException {
-        getDeckOfPlants().remove(indeks);
+       
         if (getDeckOfPlants().get(indeks) == null) {
             throw new CannotDeletePlantException();
+        } else {
+            getDeckOfPlants().remove(indeks);
         }
     }
 
