@@ -62,7 +62,7 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = 0; j < MatriksPetak[i].length; j++) {
                 Petak currentTile = MatriksPetak[i][j];
-                String tileRepresentation = currentTile instanceof PetakKolam ? "{}" : "[]";
+                String tileRepresentation = currentTile instanceof PetakKolam ? "{ }" : "[ ]";
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z" + zombieCount + tileRepresentation.charAt(1) + " ");

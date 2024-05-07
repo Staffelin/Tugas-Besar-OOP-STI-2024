@@ -13,6 +13,7 @@ public class GameEngine {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int index1;
+        Map map = new Map();
         Plant peashooter = new Peashooter();
         Plant potato = new PotatoMine();
         Plant sunflower = new Sunflower();
@@ -119,6 +120,8 @@ public class GameEngine {
             }
         }
         sc.close();
+        map.viewMap();
+        
 
     }
 }
