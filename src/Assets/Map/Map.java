@@ -6,33 +6,30 @@ import Zombies.*;
 
 public class Map {
     private Petak[][] MatriksPetak;
-    int wave;
-    ArrayList<Zombie> listZombieMap;
+    int wave = 0;
+    String[] listSpawnableZombie = {"BucketHead"};
+    ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
 
     public Map() {
-        // Initialize the matrix with the specified dimensions
         MatriksPetak = new Petak[6][11];
-    
-        // Assign protected area and zombie spawn columns
         for (int i = 0; i < 6; i++) {
-            MatriksPetak[i][0] = new ProtectedArea(i, 0);  // Protected area at the first column
-            MatriksPetak[i][10] = new ZombieSpawn(i, 10);  // Zombie spawn at the last column
+            MatriksPetak[i][0] = new ProtectedArea(i, 0);
+            MatriksPetak[i][10] = new ZombieSpawn(i, 10);
         }
-    
-        // Populate the map with PetakKolam and PetakDarat
-        for (int i = 0; i < 6; i++) {  // Loop through rows
-            for (int j = 1; j < 10; j++) { // Loop through columns, excluding first and last
-                if (i == 2 || i == 3) { // 3rd and 4th rows (indexed by 2 and 3)
-                    MatriksPetak[i][j] = new PetakKolam(i, j); // Assign PetakKolam
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 1; j < 10; j++) {
+                if (i == 2 || i == 3) {
+                    MatriksPetak[i][j] = new PetakKolam(i, j);
                 } else {
-                    MatriksPetak[i][j] = new PetakDarat(i, j); // Assign PetakDarat
+                    MatriksPetak[i][j] = new PetakDarat(i, j);
                 }
             }
         }
     }
-    
-    
+
+
 
     public void resetMap(){
         for (int i = 0; i < MatriksPetak.length; i++) {
@@ -44,6 +41,12 @@ public class Map {
     }
 
     public void spawnZombieMap() {
+        for(int i = 0; i < 6; i++){
+            if(random.nextDouble() < 0.3){
+                Zombie newZombie = new Zombie(listSpawnableZombie[random.nextInt(listSpawnableZombie.length)], 100, 100, 10, 5, false);
+                spawnedZombies.add(newZombie);
+            }
+        }
         int lastColumn = MatriksPetak[0].length - 1;
         for (int i = 0; i < MatriksPetak.length; i++) {
             Petak tile = MatriksPetak[i][lastColumn];
