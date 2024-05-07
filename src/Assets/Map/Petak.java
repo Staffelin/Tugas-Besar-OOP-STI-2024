@@ -17,7 +17,11 @@ public abstract class Petak {
         this.column = column;
         this.isAquatic = isAquatic;
         this.listZombies = new ArrayList<>();
-        this.listTanaman = new ArrayList<>();
+        if (isAquatic) {
+            this.listTanaman = new ArrayList<>(2);
+        } else {
+            this.listTanaman = new ArrayList<>(1);
+        }
     }
 
     public int getRow() {
@@ -40,27 +44,42 @@ public abstract class Petak {
         return listTanaman;
     }
 
-    public void tanamTanaman(Plant p){
-        if(!isAquatic && listTanaman.isEmpty()){
-            listTanaman.add(p);
+    public void tanamTanaman(Plant p) {
+        if (isAquatic) {
+            if (hasLilyPad() || p instanceof Lilypad) {
+                if (listTanaman.size() < 2) {
+                    listTanaman.add(p);
+                } else {
+                    System.out.println("Tidak bisa menanam lebih dari dua tanaman di Petak Kolam");
+                }
+            } else {
+                System.out.println("Tanam dulu Lilypad nya!");
+            }
+        } else {
+            if (listTanaman.isEmpty()) {
+                listTanaman.add(p);
+            } else {
+                System.out.println("Sudah ada tanaman di Petak Darat ini");
+            }
         }
     }
 
-    public void cabutTanaman(Plant p){
-        listTanaman.remove(p);
+    public void removeTanaman(){
+        if(listTanaman.isEmpty()){
+            System.out.println("Tidak ada Tanaman");
+        }
+        else{
+            listTanaman.remove(listTanaman.size() - 1);
+        }
     }
 
-    public void spawnZombie(Zombie z){
-        listZombies.add(z);
+    public boolean hasLilyPad() {
+        for (Plant plant : listTanaman) {
+            if (plant instanceof Lilypad) {
+                return true;
+            }
+        }
+        return false;
     }
-
-    public void removeZombie(Zombie z){
-        listZombies.remove(z);
-    }
-
-
-
-
-    
     
 }

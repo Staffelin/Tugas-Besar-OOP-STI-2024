@@ -1,4 +1,4 @@
-package Player;
+package Exception;
 
 public class PlantAlreadyPickedException extends Exception {
     public PlantAlreadyPickedException() {
