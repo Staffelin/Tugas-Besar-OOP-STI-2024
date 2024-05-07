@@ -1,4 +1,4 @@
-package Player;
+package Exception;
 
 public class CannotDeletePlantException extends Exception {
     public CannotDeletePlantException() {

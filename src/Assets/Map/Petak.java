@@ -6,11 +6,11 @@ import Zombies.*;
 
 
 public abstract class Petak {
-    int row;
-    int column;
-    boolean isAquatic;
-    ArrayList<Plant> listTanaman;
-    ArrayList<Zombie> listZombies;
+    private int row;
+    private int column;
+    private boolean isAquatic;
+    private ArrayList<Plant> listTanaman;
+    private ArrayList<Zombie> listZombies;
 
     public Petak(int row, int column, boolean isAquatic) {
         this.row = row;
@@ -38,6 +38,10 @@ public abstract class Petak {
 
     public ArrayList<Zombie> getListZombies() {
         return listZombies;
+    }
+
+    public int getJumlahZombie(){
+        return listZombies.size();
     }
 
     public ArrayList<Plant> getListTanaman() {
@@ -80,6 +84,10 @@ public abstract class Petak {
             }
         }
         return false;
+    }
+
+    public void addZombie(Zombie Z){
+        getListZombies().add(Z);
     }
     
 }

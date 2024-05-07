@@ -2,6 +2,11 @@ package Player;
 import Plants.*;
 import java.util.Scanner;
 
+import Exception.CannotDeletePlantException;
+import Exception.CannotSwapDeckException;
+import Exception.DeckFullException;
+import Exception.PlantAlreadyPickedException;
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

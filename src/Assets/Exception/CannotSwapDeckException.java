@@ -1,4 +1,4 @@
-package Player;
+package Exception;
 
 public class CannotSwapDeckException extends Exception{
     public CannotSwapDeckException() {
