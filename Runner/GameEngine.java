@@ -119,8 +119,28 @@ public class GameEngine {
                 System.out.println(e.getClass().getName() + "! " + "Indeks tidak valid!");
             }
         }
+
+        System.out.println("Ingin menanam tanaman? (Y/N)");
+        char plantChoice = sc.next().charAt(0);
+        if (plantChoice == 'Y') {
+            System.out.println("Masukkan indeks tanaman yang ingin ditanam : ");
+            System.out.println("Deck:");
+            deck.displayDeck();
+            int index5 = sc.nextInt();
+            System.out.println("Masukkan koordinat tanaman yang ingin ditanam : ");
+            int row = sc.nextInt();
+            int column = sc.nextInt();
+            if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
+                map.addPlantToTile(row-1, column-1, deck.getDeckOfPlants().get(index5-1));
+                System.out.println(deck.getDeckOfPlants().get(index5-1).getName() + " berhasil ditanam di (" + row + ", " + column + ")");
+                map.viewMap();
+            } else {
+                System.out.println("Indeks atau koordinat tidak valid!");
+            }
+        }
+        
         sc.close();
-        map.viewMap();
+        
         
 
     }
