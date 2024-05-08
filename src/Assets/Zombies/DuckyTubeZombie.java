@@ -1,7 +1,7 @@
-package Zombie;
+package Zombies;
 
-public class DukcyTubeZombie extends Zombie {
+public class DuckyTubeZombie extends Zombie {
     public DuckyTubeZombie () {
-        super("Ducky Tube Zombie", 175, 100, 1, 5, True);
+        super("Ducky Tube Zombie", 175, 100, 1, 5, true);
     }
 }
