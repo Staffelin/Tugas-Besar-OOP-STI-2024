@@ -66,6 +66,10 @@ public class Deck{
         }
     }
 
+    public Plant getPlant(int indeks) {
+        return deckOfPlants.get(indeks);
+    }
+
 
 
 }

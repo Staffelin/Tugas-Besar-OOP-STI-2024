@@ -3,6 +3,7 @@ package Map;
 import java.util.ArrayList;
 import java.util.Random;
 import Zombies.*;
+import Plants.*;
 
 public class Map {
     private Petak[][] MatriksPetak;
@@ -65,7 +66,9 @@ public class Map {
                 String tileRepresentation = currentTile instanceof PetakKolam ? "{ }" : "[ ]";
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
-                    System.out.print(tileRepresentation.charAt(0) + "Z" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    System.out.print(tileRepresentation.charAt(0) + "[Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                } else if (currentTile.getListTanaman().size() > 0) {
+                    System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
                 } else {
                     System.out.print(tileRepresentation + " ");
                 }
@@ -74,5 +77,9 @@ public class Map {
         }
     }
 
+    public void addPlantToTile(int row, int column, Plant plant) {
+        Petak tile = MatriksPetak[row][column];
+        tile.tanamTanaman(plant);
+    }
     
 }
