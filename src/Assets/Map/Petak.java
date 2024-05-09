@@ -3,6 +3,10 @@ package Map;
 import java.util.ArrayList;
 
 import Exception.CannotAddPlantException;
+import Exception.LilypadOnLandException;
+import Exception.OnlyOnePlantException;
+import Exception.PlantLilypadFirstException;
+import Exception.TwoPlantOnWaterException;
 
 import java.time.LocalDateTime;
 import Plants.*;
@@ -52,7 +56,7 @@ public abstract class Petak {
         return listTanaman;
     }
 
-    public void tanamTanaman(Plant p) throws CannotAddPlantException {
+    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException {
         if (p.isPlantable()) {
             if (isAquatic) {
                 if (hasLilyPad() || p instanceof Lilypad) {
@@ -60,17 +64,22 @@ public abstract class Petak {
                         listTanaman.add(p);
                         p.setLastPlantedTime(LocalDateTime.now());
                     } else {
-                        System.out.println("Tidak bisa menanam lebih dari dua tanaman di Petak Kolam");
+                        throw new TwoPlantOnWaterException();
                     }
                 } else {
-                    System.out.println("Tanam dulu Lilypad nya!");
+                    throw new PlantLilypadFirstException();
                 }
-            } else {
+            } 
+            
+            else {
+                if (p instanceof Lilypad) {
+                    throw new LilypadOnLandException();
+                }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
                     p.setLastPlantedTime(LocalDateTime.now());
                 } else {
-                    System.out.println("Sudah ada tanaman di Petak Darat ini");
+                    throw new OnlyOnePlantException();
                 }
             }
         }

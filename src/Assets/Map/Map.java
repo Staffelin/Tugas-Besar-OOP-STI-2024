@@ -68,7 +68,7 @@ public class Map {
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "[Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
-                } else if (currentTile.getListTanaman().size() > 0) {
+                } else if (currentTile.getListTanaman().size() == 1) {
                     if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
                         System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
                     }
@@ -94,12 +94,42 @@ public class Map {
                         System.out.print(tileRepresentation.charAt(0) + "J]" + tileRepresentation.charAt(1));
                     }
                     else if (currentTile.getListTanaman().get(0) instanceof Lilypad) {
-                        System.out.print(tileRepresentation.charAt(0) + "L}" + tileRepresentation.charAt(1));
+                            System.out.print(tileRepresentation.charAt(0) + "L}" + tileRepresentation.charAt(1));
                     }
                     else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
                         System.out.print(tileRepresentation.charAt(0) + "W]" + tileRepresentation.charAt(1));
                     }
-                } else {
+                } 
+                else if (currentTile.getListTanaman().size() == 2) {
+                    if (currentTile.getListTanaman().get(1) instanceof Peashooter) {
+                        System.out.print(tileRepresentation.charAt(0) + "P}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Sunflower) {
+                        System.out.print(tileRepresentation.charAt(0) + "S}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof PotatoMine) {
+                        System.out.print(tileRepresentation.charAt(0) + "M}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Repeater) {
+                        System.out.print(tileRepresentation.charAt(0) + "R}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Squash) {
+                        System.out.print(tileRepresentation.charAt(0) + "Q}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof SnowPea) {
+                        System.out.print(tileRepresentation.charAt(1) + "N}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Tallnut) {
+                        System.out.print(tileRepresentation.charAt(1) + "T}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Jalapeno) {
+                        System.out.print(tileRepresentation.charAt(1) + "J}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(1) instanceof Wallnut) {
+                        System.out.print(tileRepresentation.charAt(1) + "W]" + tileRepresentation.charAt(1));
+                    }
+                }
+                else {
                     System.out.print(tileRepresentation + " ");
                 }
             }
@@ -111,9 +141,21 @@ public class Map {
         Petak tile = MatriksPetak[row][column];
         try {
             tile.tanamTanaman(plant);
-            System.out.println(plant.getName() + " berhasil ditanam di (" + row + ", " + column + ")"); 
+            System.out.println(plant.getName() + " berhasil ditanam di (" + (row+1) + ", " + column + ")"); 
         } catch (CannotAddPlantException e) {
-            // Handle the exception here
+    
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        } 
+        catch (PlantLilypadFirstException e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
+        catch (LilypadOnLandException e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
+        catch (OnlyOnePlantException e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
+        catch (TwoPlantOnWaterException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         }
     }
