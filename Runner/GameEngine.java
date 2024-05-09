@@ -179,6 +179,20 @@ public class GameEngine {
 
         }
         
+        System.out.println("Ingin menggali tanaman? (Y/N)");
+        char digChoice = sc.next().charAt(0);
+        if (digChoice == 'Y') {
+            System.out.println("Masukkan koordinat tanaman yang ingin digali : ");
+            int row2 = sc.nextInt();
+            int column2 = sc.nextInt();
+            if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
+                map.removePlantFromTile(row2-1, column2);
+                map.viewMap();
+                System.out.println("Current sun: " + Sun.sun);                
+            } else {
+                System.out.println("Koordinat tidak valid!");
+            }
+        }
         sc.close();
         
         

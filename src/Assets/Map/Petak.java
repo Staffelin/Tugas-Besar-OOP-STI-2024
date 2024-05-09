@@ -94,9 +94,9 @@ public abstract class Petak {
     }
 
 
-    public void removeTanaman(){
+    public void removeTanaman() throws NoPlantException {
         if(listTanaman.isEmpty()){
-            System.out.println("Tidak ada Tanaman");
+            throw new NoPlantException();
         }
         else{
             listTanaman.remove(listTanaman.size() - 1);

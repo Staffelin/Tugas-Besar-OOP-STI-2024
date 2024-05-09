@@ -162,5 +162,15 @@ public class Map {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         }
     }
+
+    public void removePlantFromTile(int row, int column) {
+        Petak tile = MatriksPetak[row][column];
+        try {
+            tile.removeTanaman();
+            System.out.println("Tanaman di (" + (row+1) + ", " + column + ") berhasil dihapus");
+        } catch (NoPlantException e) {
+            System.out.println("Cannot remove plant from tile: " + e.getMessage());
+        }
+    }
     
 }
