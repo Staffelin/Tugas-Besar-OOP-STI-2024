@@ -1,4 +1,7 @@
 package Plants;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import Zombies.*;
 
 public class Plant implements Attack {
@@ -9,6 +12,7 @@ public class Plant implements Attack {
     int attack_speed;
     int range;
     int cooldown;
+    LocalDateTime lastPlantedTime;
 
     public Plant(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown){
         this.name = name;
@@ -46,6 +50,20 @@ public class Plant implements Attack {
 
     public int getCooldown(){
         return cooldown;
+    }
+
+    public boolean isPlantable() {
+        LocalDateTime now = LocalDateTime.now();
+        if (lastPlantedTime != null && (Duration.between(lastPlantedTime, now).getSeconds()) < getCooldown()) {
+            return false; 
+        }
+        else {
+            return true;    
+        }
+    }
+    
+    public void setLastPlantedTime(LocalDateTime lastPlantedTime) {
+        this.lastPlantedTime = lastPlantedTime;
     }
 
 

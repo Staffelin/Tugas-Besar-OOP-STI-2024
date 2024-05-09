@@ -1,30 +1,9 @@
 package Player;
 import java.util.ArrayList;
-
-
 import Exception.PlantAlreadyPickedException;
 import Plants.*;
 
-public class Inventory{
-    // ArrayList<Plant> InventoryTanaman;
-
-    // public void printListTanaman(){
-    //     for (Plant plant : InventoryTanaman){
-    //         System.out.println(plant.getName());
-    //     }
-    // }
-
-    // public void switchListTanaman (Plant plant1, Plant plant2){
-    //     int index1 = InventoryTanaman.indexOf(plant1);
-    //     int index2 = InventoryTanaman.indexOf(plant2);
-    //     InventoryTanaman.set(index1, plant2);
-    //     InventoryTanaman.set(index2, plant1);
-    // }
-
-    // public void addTanamanToDeck (Plant plant) {
-
-    // }
-    
+public class Inventory{    
     private ArrayList <Plant> plant_inventory;
     private Deck deckOfPlants;
 

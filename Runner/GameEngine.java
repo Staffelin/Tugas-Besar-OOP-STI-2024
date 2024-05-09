@@ -1,12 +1,8 @@
 import java.util.Scanner;
-
-import Exception.CannotDeletePlantException;
-import Exception.CannotSwapDeckException;
-import Exception.PlantAlreadyPickedException;
+import Exception.*;
 import Map.*;
 import Plants.*;
 import Player.*;
-import Times.*;
 import Zombies.*;
 
 public class GameEngine {
@@ -122,7 +118,8 @@ public class GameEngine {
 
         System.out.println("Ingin menanam tanaman? (Y/N)");
         char plantChoice = sc.next().charAt(0);
-        if (plantChoice == 'Y') {
+
+        while (plantChoice == 'Y') {
             System.out.println("Masukkan indeks tanaman yang ingin ditanam : ");
             System.out.println("Deck:");
             deck.displayDeck();
@@ -132,11 +129,14 @@ public class GameEngine {
             int column = sc.nextInt();
             if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
                 map.addPlantToTile(row-1, column, deck.getDeckOfPlants().get(index5-1));
-                System.out.println(deck.getDeckOfPlants().get(index5-1).getName() + " berhasil ditanam di (" + row + ", " + column + ")");
                 map.viewMap();
             } else {
                 System.out.println("Indeks atau koordinat tidak valid!");
             }
+
+            System.out.println("Ingin menanam tanaman? (Y/N)");
+            plantChoice = sc.next().charAt(0);
+
         }
         
         sc.close();

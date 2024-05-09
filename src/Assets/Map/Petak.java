@@ -1,6 +1,10 @@
 package Map;
 
 import java.util.ArrayList;
+
+import Exception.CannotAddPlantException;
+
+import java.time.LocalDateTime;
 import Plants.*;
 import Zombies.*;
 
@@ -48,25 +52,33 @@ public abstract class Petak {
         return listTanaman;
     }
 
-    public void tanamTanaman(Plant p) {
-        if (isAquatic) {
-            if (hasLilyPad() || p instanceof Lilypad) {
-                if (listTanaman.size() < 2) {
-                    listTanaman.add(p);
+    public void tanamTanaman(Plant p) throws CannotAddPlantException {
+        if (p.isPlantable()) {
+            if (isAquatic) {
+                if (hasLilyPad() || p instanceof Lilypad) {
+                    if (listTanaman.size() < 2) {
+                        listTanaman.add(p);
+                        p.setLastPlantedTime(LocalDateTime.now());
+                    } else {
+                        System.out.println("Tidak bisa menanam lebih dari dua tanaman di Petak Kolam");
+                    }
                 } else {
-                    System.out.println("Tidak bisa menanam lebih dari dua tanaman di Petak Kolam");
+                    System.out.println("Tanam dulu Lilypad nya!");
                 }
             } else {
-                System.out.println("Tanam dulu Lilypad nya!");
-            }
-        } else {
-            if (listTanaman.isEmpty()) {
-                listTanaman.add(p);
-            } else {
-                System.out.println("Sudah ada tanaman di Petak Darat ini");
+                if (listTanaman.isEmpty()) {
+                    listTanaman.add(p);
+                    p.setLastPlantedTime(LocalDateTime.now());
+                } else {
+                    System.out.println("Sudah ada tanaman di Petak Darat ini");
+                }
             }
         }
+        else {
+            throw new CannotAddPlantException();
+        }
     }
+
 
     public void removeTanaman(){
         if(listTanaman.isEmpty()){
