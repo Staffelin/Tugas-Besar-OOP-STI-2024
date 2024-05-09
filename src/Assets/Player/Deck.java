@@ -7,12 +7,6 @@ import Exception.CannotSwapDeckException;
 import Plants.*;
 
 public class Deck{
-    // private Plant[] deckOfPlants;
-
-    // public Deck() {
-    //     deckOfPlants = new Plant[6];
-    // }
-
     private ArrayList <Plant> deckOfPlants;
 
     public Deck() {

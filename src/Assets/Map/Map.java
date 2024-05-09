@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import Zombies.*;
 import Plants.*;
+import Exception.*;
 
 public class Map {
     private Petak[][] MatriksPetak;
@@ -108,7 +109,13 @@ public class Map {
 
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row][column];
-        tile.tanamTanaman(plant);
+        try {
+            tile.tanamTanaman(plant);
+            System.out.println(plant.getName() + " berhasil ditanam di (" + row + ", " + column + ")"); 
+        } catch (CannotAddPlantException e) {
+            // Handle the exception here
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
     }
     
 }
