@@ -49,6 +49,25 @@ public class GameEngine {
 
         System.out.println("Inventory:");
         inventory.showInventory();
+        System.out.println("Ingin mengubah urutan inventory? (Y/N)");
+        char sortChoice = sc.next().charAt(0);
+        if (sortChoice == 'Y') {
+            System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
+            int index6 = sc.nextInt();
+            System.out.println("Mau dipindah ke posisi mana?");
+            int index7 = sc.nextInt();
+            if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
+                inventory.switchInventoryTanaman(index6-1, index7-1);
+                System.out.println(inventory.getInventory().get(index6-1).getName() + " berhasil dipindah ke " + index7);
+                System.out.println("Inventory:");
+                inventory.showInventory();
+            } else {
+                System.out.println("Indeks tidak valid!");
+            }
+        }
+
+        sc.nextLine().trim();
+        
         System.out.println("Tambah tanaman ke deck: ");
         String input = sc.nextLine().trim();
         index1 = input.isEmpty() ? -1 : Integer.parseInt(input);
@@ -178,6 +197,20 @@ public class GameEngine {
 
         }
         
+        System.out.println("Ingin menggali tanaman? (Y/N)");
+        char digChoice = sc.next().charAt(0);
+        if (digChoice == 'Y') {
+            System.out.println("Masukkan koordinat tanaman yang ingin digali : ");
+            int row2 = sc.nextInt();
+            int column2 = sc.nextInt();
+            if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
+                map.removePlantFromTile(row2-1, column2);
+                map.viewMap();
+                System.out.println("Current sun: " + Sun.sun);                
+            } else {
+                System.out.println("Koordinat tidak valid!");
+            }
+        }
         sc.close();
         
         
