@@ -21,6 +21,18 @@ public class GameEngine {
         Plant lilypad = new Lilypad();
         Plant wallnut = new Wallnut();
 
+        Zombie normalZombie = new NormalZombie();
+        Zombie bucketHead = new BucketheadZombie();
+        Zombie coneHead = new ConeheadZombie();
+        Zombie dolphinRider = new DolphinRiderZombie();
+        Zombie football = new FootballZombie();
+        Zombie gargantuar = new Gargantuar();
+        Zombie newsPaper = new NewspaperZombie();
+        Zombie poleVaulting = new PoleVaultingZombie();
+        Zombie yeti = new YetiZombie();
+
+        
+
         Inventory inventory = new Inventory();
         Deck deck = new Deck();
         inventory.getInventory().add(peashooter);
@@ -126,6 +138,9 @@ public class GameEngine {
                 if (Sun.sun > lastSun) {
                     System.out.println("Current sun: " + Sun.sun);
                     lastSun = Sun.sun;
+                    map.spawnZombieMap();
+                    map.viewMap();
+                    map.moveZombies();
                 }
                 try {
                     Thread.sleep(1000);
@@ -135,6 +150,9 @@ public class GameEngine {
             }
         }).
         start();
+
+
+
 
         System.out.println("Ingin menanam tanaman? (Y/N)");
         char plantChoice = sc.next().charAt(0);

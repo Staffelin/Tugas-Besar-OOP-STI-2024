@@ -115,5 +115,13 @@ public abstract class Petak {
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
     }
+
+    public void removeZombie(){
+        if (listZombies.isEmpty()) {
+            System.out.println("Kosong");
+        }
+        listZombies.remove(0); // Remove the first zombie in the list
+    }
+    
     
 }
