@@ -71,6 +71,9 @@ public abstract class Petak {
                 if (p instanceof Lilypad) {
                     throw new LilypadOnLandException();
                 }
+                if (p instanceof Sunflower) {
+                    ((Sunflower) p).SunflowerGenerateSun();
+                }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
                     Sun.reduceSun(p.getCost());
