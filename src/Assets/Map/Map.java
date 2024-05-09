@@ -68,7 +68,36 @@ public class Map {
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "[Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                 } else if (currentTile.getListTanaman().size() > 0) {
-                    System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
+                    if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
+                        System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Sunflower) {
+                        System.out.print(tileRepresentation.charAt(0) + "S]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof PotatoMine) {
+                        System.out.print(tileRepresentation.charAt(0) + "M]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Repeater) {
+                        System.out.print(tileRepresentation.charAt(0) + "R]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Squash) {
+                        System.out.print(tileRepresentation.charAt(0) + "Q]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof SnowPea) {
+                        System.out.print(tileRepresentation.charAt(0) + "N]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Tallnut) {
+                        System.out.print(tileRepresentation.charAt(0) + "T]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Jalapeno) {
+                        System.out.print(tileRepresentation.charAt(0) + "J]" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Lilypad) {
+                        System.out.print(tileRepresentation.charAt(0) + "L}" + tileRepresentation.charAt(1));
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
+                        System.out.print(tileRepresentation.charAt(0) + "W]" + tileRepresentation.charAt(1));
+                    }
                 } else {
                     System.out.print(tileRepresentation + " ");
                 }
