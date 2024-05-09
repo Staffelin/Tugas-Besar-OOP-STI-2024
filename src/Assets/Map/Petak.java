@@ -1,15 +1,10 @@
 package Map;
 
 import java.util.ArrayList;
-
-import Exception.CannotAddPlantException;
-import Exception.LilypadOnLandException;
-import Exception.OnlyOnePlantException;
-import Exception.PlantLilypadFirstException;
-import Exception.TwoPlantOnWaterException;
-
+import Exception.*;
 import java.time.LocalDateTime;
 import Plants.*;
+import Player.Sun;
 import Zombies.*;
 
 
@@ -56,12 +51,13 @@ public abstract class Petak {
         return listTanaman;
     }
 
-    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException {
-        if (p.isPlantable()) {
+    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
+        if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
                 if (hasLilyPad() || p instanceof Lilypad) {
                     if (listTanaman.size() < 2) {
                         listTanaman.add(p);
+                        Sun.reduceSun(p.getCost());
                         p.setLastPlantedTime(LocalDateTime.now());
                     } else {
                         throw new TwoPlantOnWaterException();
@@ -77,6 +73,7 @@ public abstract class Petak {
                 }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
+                    Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
                 } else {
                     throw new OnlyOnePlantException();
@@ -84,7 +81,12 @@ public abstract class Petak {
             }
         }
         else {
-            throw new CannotAddPlantException();
+            if (!p.isPlantable()) {
+                throw new CannotAddPlantException();
+            }
+            if (Sun.getSun() < p.getCost()) {
+                throw new SunNotEnoughException();
+            }
         }
     }
 

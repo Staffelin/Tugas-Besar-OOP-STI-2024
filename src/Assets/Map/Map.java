@@ -158,6 +158,9 @@ public class Map {
         catch (TwoPlantOnWaterException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         }
+        catch (SunNotEnoughException e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
     }
     
 }

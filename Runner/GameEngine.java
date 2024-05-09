@@ -116,6 +116,26 @@ public class GameEngine {
             }
         }
 
+        // MULAI PERMAINAN
+
+        Sun.generateSun();
+
+        new Thread(() -> {
+            int lastSun = 0;
+            while (true) {
+                if (Sun.sun > lastSun) {
+                    System.out.println("Current sun: " + Sun.sun);
+                    lastSun = Sun.sun;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).
+        start();
+
         System.out.println("Ingin menanam tanaman? (Y/N)");
         char plantChoice = sc.next().charAt(0);
 
@@ -130,6 +150,7 @@ public class GameEngine {
             if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
                 map.addPlantToTile(row-1, column, deck.getDeckOfPlants().get(index5-1));
                 map.viewMap();
+                System.out.println("Current sun: " + Sun.sun);
             } else {
                 System.out.println("Indeks atau koordinat tidak valid!");
             }
