@@ -9,7 +9,7 @@ import Exception.*;
 public class Map {
     private Petak[][] MatriksPetak;
     int wave = 0;
-    String[] listSpawnableZombie = {"BucketHead"};
+    String[] listSpawnableZombie = {"BucketheadZombie", "ConeheadZombie", "DolphinRiderZombie", "DuckyTubeZombie","FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
 
@@ -43,22 +43,93 @@ public class Map {
     }
 
     public void spawnZombieMap() {
+        spawnedZombies = new ArrayList<>(); 
+    
         for(int i = 0; i < 6; i++){
             if(random.nextDouble() < 0.3){
-                Zombie newZombie = new Zombie(listSpawnableZombie[random.nextInt(listSpawnableZombie.length)], 100, 100, 10, 5, false);
-                spawnedZombies.add(newZombie);
+                String zombieType;
+                zombieType = listSpawnableZombie[random.nextInt(listSpawnableZombie.length)];
+                Petak tile = MatriksPetak[i][9];
+                
+                if(MatriksPetak[i][9] instanceof PetakDarat){
+                    if(zombieType == "BucketheadZombie"){
+                        BucketheadZombie newZombie = new BucketheadZombie();
+                        spawnedZombies.add(newZombie); 
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "ConeheadZombie"){
+                        ConeheadZombie newZombie = new ConeheadZombie();
+                        spawnedZombies.add(newZombie); 
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "FootballZombie"){
+                        FootballZombie newZombie = new FootballZombie();
+                        spawnedZombies.add(newZombie);
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "Gargantuar"){
+                        Gargantuar newZombie = new Gargantuar();
+                        spawnedZombies.add(newZombie);
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "NewspaperZombie"){
+                        NewspaperZombie newZombie = new NewspaperZombie();
+                        spawnedZombies.add(newZombie);
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "PoleVaultingZombie"){
+                        PoleVaultingZombie newZombie = new PoleVaultingZombie();
+                        spawnedZombies.add(newZombie);
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "Yetizombie"){
+                        YetiZombie newZombie = new YetiZombie();
+                        spawnedZombies.add(newZombie);
+                        tile.addZombie(newZombie);
+                    }
+                    else{
+                        NormalZombie newZombie = new NormalZombie();
+                        spawnedZombies.add(newZombie); 
+                        tile.addZombie(newZombie);
+                    }
+                }
+                else{
+                    if(zombieType == "DolphinRiderZombie"){
+                        DolphinRiderZombie newZombie = new DolphinRiderZombie();
+                        spawnedZombies.add(newZombie); 
+                        tile.addZombie(newZombie);
+                    }
+                    else if(zombieType == "DuckyTubeZombie"){
+                        DuckyTubeZombie newZombie = new DuckyTubeZombie();
+                        spawnedZombies.add(newZombie); 
+                        tile.addZombie(newZombie);
+                    }
+                }
+    
+                
+                System.out.println("Spawned a " + zombieType + " at row " + (i+1));
             }
         }
-        int lastColumn = MatriksPetak[0].length - 1;
+    
+
+            
+        
+    }
+
+    public void moveZombies() {
         for (int i = 0; i < MatriksPetak.length; i++) {
-            Petak tile = MatriksPetak[i][lastColumn];
-            if ((tile instanceof PetakKolam || tile instanceof PetakDarat) && random.nextDouble() < 0.3) {
-                Zombie newZombie = new Zombie("Z", 100, 100, 10, 5, false);
-                tile.addZombie(newZombie);
-                System.out.println("Spawned a zombie at (" + i + ", " + lastColumn + ")");
+            for (int j = 1; j < MatriksPetak[i].length - 1; j++) { // Exclude the first and last columns
+                Petak currentTile = MatriksPetak[i][j];
+                Petak nextTile = MatriksPetak[i][j - 1]; // Move to the tile on the left
+
+                for (Zombie zombie : currentTile.getListZombies()) {
+                    currentTile.removeZombie();
+                    nextTile.addZombie(zombie);
+                }
             }
         }
     }
+    
 
     public void viewMap() {
         for (int i = 0; i < MatriksPetak.length; i++) {
@@ -67,7 +138,7 @@ public class Map {
                 String tileRepresentation = currentTile instanceof PetakKolam ? "{ }" : "[ ]";
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
-                    System.out.print(tileRepresentation.charAt(0) + "[Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                 } else if (currentTile.getListTanaman().size() == 1) {
                     if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
                         System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
@@ -135,6 +206,10 @@ public class Map {
             }
             System.out.println();
         }
+        for(int x = 0; x < 22; x++){
+            System.out.print("==");
+        }
+        System.out.println();
     }
 
     public void addPlantToTile(int row, int column, Plant plant) {
@@ -160,6 +235,16 @@ public class Map {
         }
         catch (SunNotEnoughException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
+    }
+
+    public void removePlantFromTile(int row, int column) {
+        Petak tile = MatriksPetak[row][column];
+        try {
+            tile.removeTanaman();
+            System.out.println("Tanaman di (" + (row+1) + ", " + column + ") berhasil dihapus");
+        } catch (NoPlantException e) {
+            System.out.println("Cannot remove plant from tile: " + e.getMessage());
         }
     }
     

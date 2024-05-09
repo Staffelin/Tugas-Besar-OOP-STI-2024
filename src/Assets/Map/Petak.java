@@ -71,6 +71,9 @@ public abstract class Petak {
                 if (p instanceof Lilypad) {
                     throw new LilypadOnLandException();
                 }
+                if (p instanceof Sunflower) {
+                    ((Sunflower) p).SunflowerGenerateSun();
+                }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
                     Sun.reduceSun(p.getCost());
@@ -91,9 +94,9 @@ public abstract class Petak {
     }
 
 
-    public void removeTanaman(){
+    public void removeTanaman() throws NoPlantException {
         if(listTanaman.isEmpty()){
-            System.out.println("Tidak ada Tanaman");
+            throw new NoPlantException();
         }
         else{
             listTanaman.remove(listTanaman.size() - 1);
@@ -112,5 +115,13 @@ public abstract class Petak {
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
     }
+
+    public void removeZombie(){
+        if (listZombies.isEmpty()) {
+            System.out.println("Kosong");
+        }
+        listZombies.remove(0); // Remove the first zombie in the list
+    }
+    
     
 }
