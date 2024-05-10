@@ -132,7 +132,6 @@ public class Map {
                         }
                     }
                 }
-                viewMap(); // Update the map view after moving the zombies
             }
         };
 
