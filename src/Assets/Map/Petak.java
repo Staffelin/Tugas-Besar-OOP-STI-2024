@@ -120,7 +120,10 @@ public abstract class Petak {
         if (listZombies.isEmpty()) {
             System.out.println("Kosong");
         }
-        listZombies.remove(0); // Remove the first zombie in the list
+        else{
+            listZombies.remove(0);
+        }
+         // Remove the first zombie in the list
     }
     
     
