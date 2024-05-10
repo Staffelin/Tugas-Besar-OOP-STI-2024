@@ -2,6 +2,9 @@ package Map;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import Zombies.*;
 import Plants.*;
 import Exception.*;
@@ -31,75 +34,110 @@ public class Map {
         }
     }
 
-    public void spawnZombieMap() {
-        ArrayList<Zombie> spawnedZombies = new ArrayList<>(); // Fix: Change 'Zombie' to 'ArrayList<Zombie>'
+
+
+    public void resetMap(){
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = 0; j < MatriksPetak[i].length; j++) {
-                if (MatriksPetak[i][j] instanceof ZombieSpawn) {
-                    double probability = random.nextDouble();
-                    if (probability <= 0.3) {
-                        Zombie zombie = getRandomZombie();
-                        MatriksPetak[i][j].addZombie(zombie);
-                        spawnedZombies.add(zombie);
-                        System.out.println("Zombie " + zombie.getName() + " spawned on row " + i);
+                MatriksPetak[i][j].getListTanaman().clear();
+                MatriksPetak[i][j].getListZombies().clear();
+            }
+        }
+    }
+
+    public void spawnZombieMap() {
+        spawnedZombies = new ArrayList<>(); 
+    
+        for(int i = 0; i < 6; i++){
+            if(random.nextDouble() < 0.3){
+                String zombieType;
+                zombieType = listSpawnableZombie[random.nextInt(listSpawnableZombie.length)];
+                Petak tile = MatriksPetak[i][9];
+                Petak spawnSite = MatriksPetak[i][10];
+                
+                if(tile instanceof PetakDarat){
+                    if(zombieType == "BucketheadZombie"){
+                        BucketheadZombie newZombie = new BucketheadZombie();
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "ConeheadZombie"){
+                        ConeheadZombie newZombie = new ConeheadZombie();
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "FootballZombie"){
+                        FootballZombie newZombie = new FootballZombie();
+                        spawnedZombies.add(newZombie);
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "Gargantuar"){
+                        Gargantuar newZombie = new Gargantuar();
+                        spawnedZombies.add(newZombie);
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "NewspaperZombie"){
+                        NewspaperZombie newZombie = new NewspaperZombie();
+                        spawnedZombies.add(newZombie);
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "PoleVaultingZombie"){
+                        PoleVaultingZombie newZombie = new PoleVaultingZombie();
+                        spawnedZombies.add(newZombie);
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "Yetizombie"){
+                        YetiZombie newZombie = new YetiZombie();
+                        spawnedZombies.add(newZombie);
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else{
+                        NormalZombie newZombie = new NormalZombie();
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                    }
+                }
+                else{
+                    if(zombieType == "DolphinRiderZombie"){
+                        DolphinRiderZombie newZombie = new DolphinRiderZombie();
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                    }
+                    else if(zombieType == "DuckyTubeZombie"){
+                        DuckyTubeZombie newZombie = new DuckyTubeZombie();
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                    }
+                }
+    
+                
+                System.out.println("Spawned a " + zombieType + " at row " + (i+1));
+            }
+        }
+    }
+
+    public void moveZombies() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                for (int i = 0; i < MatriksPetak.length; i++) {
+                    for (int j = 1; j < MatriksPetak[i].length; j++) { // Start from the second column and move forwards
+                        Petak currentTile = MatriksPetak[i][j];
+                        Petak nextTile = MatriksPetak[i][j - 1]; // Move to the tile on the left
+
+                        for (Zombie zombie : currentTile.getListZombies()) {
+                            currentTile.removeZombie();
+                            nextTile.addZombie(zombie);
+                        }
                     }
                 }
             }
-        }
-    }
+        };
 
-    private Zombie getRandomZombie() {
-        int randomZombie = random.nextInt(listSpawnableZombie.length);
-        String zombieType = listSpawnableZombie[randomZombie];
-        Zombie zombie = null;
-        switch (zombieType) {
-            case "BucketheadZombie":
-                zombie = new BucketheadZombie();
-                break;
-            case "ConeheadZombie":
-                zombie = new ConeheadZombie();
-                break;
-            case "DolphinRiderZombie":
-                zombie = new DolphinRiderZombie();
-                break;
-            case "DuckyTubeZombie":
-                zombie = new DuckyTubeZombie();
-                break;
-            case "FootballZombie":
-                zombie = new FootballZombie();
-                break;
-            case "Gargantuar":
-                zombie = new Gargantuar();
-                break;
-            case "NewspaperZombie":
-                zombie = new NewspaperZombie();
-                break;
-            case "NormalZombie":
-                zombie = new NormalZombie();
-                break;
-            case "PoleVaultingZombie":
-                zombie = new PoleVaultingZombie();
-                break;
-            case "Yetizombie":
-                zombie = new YetiZombie();
-                break;
-        }
-        return zombie;
+        timer.schedule(task, 5000, 5000); // Schedule the task to run every 5 seconds
     }
     
-    public void moveZombies() { // Fix: Add missing method declaration
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for (int j = 1; j < MatriksPetak[i].length - 1; j++) { // Exclude the first and last columns
-                Petak currentTile = MatriksPetak[i][j];
-                Petak nextTile = MatriksPetak[i][j - 1]; // Move to the tile on the left
-
-                for (Zombie zombie : currentTile.getListZombies()) {
-                    currentTile.removeZombie();
-                    nextTile.addZombie(zombie);
-                }
-            }
-        }
-    }
     
 
     public void viewMap() {
