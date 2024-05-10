@@ -2,6 +2,9 @@ package Map;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import Zombies.*;
 import Plants.*;
 import Exception.*;
@@ -111,25 +114,31 @@ public class Map {
                 System.out.println("Spawned a " + zombieType + " at row " + (i+1));
             }
         }
-    
-
-            
-        
     }
 
     public void moveZombies() {
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for (int j = 1; j < MatriksPetak[i].length - 1; j++) { // Exclude the first and last columns
-                Petak currentTile = MatriksPetak[i][j];
-                Petak nextTile = MatriksPetak[i][j - 1]; // Move to the tile on the left
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                for (int i = 0; i < MatriksPetak.length; i++) {
+                    for (int j = 1; j < MatriksPetak[i].length; j++) { // Start from the second column and move forwards
+                        Petak currentTile = MatriksPetak[i][j];
+                        Petak nextTile = MatriksPetak[i][j - 1]; // Move to the tile on the left
 
-                for (Zombie zombie : currentTile.getListZombies()) {
-                    currentTile.removeZombie();
-                    nextTile.addZombie(zombie);
+                        for (Zombie zombie : currentTile.getListZombies()) {
+                            currentTile.removeZombie();
+                            nextTile.addZombie(zombie);
+                        }
+                    }
                 }
+                viewMap(); // Update the map view after moving the zombies
             }
-        }
+        };
+
+        timer.schedule(task, 5000, 5000); // Schedule the task to run every 5 seconds
     }
+    
     
 
     public void viewMap() {
