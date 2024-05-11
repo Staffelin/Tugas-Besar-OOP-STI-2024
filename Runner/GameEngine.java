@@ -152,9 +152,9 @@ public class GameEngine {
         // MULAI PERMAINAN
         Sun.generateSun();
        // Thread 1: Checks for changes in the sun count every second and updates the map view if there's a change.
-executor.submit(() -> {
-    int lastSun = 0;
-    while (!Thread.currentThread().isInterrupted()) {
+        executor.submit(() -> {
+        int lastSun = 0;
+        while (!Thread.currentThread().isInterrupted()) {
         if (Sun.sun > lastSun) {
             System.out.println("Current sun: " + Sun.sun);
             lastSun = Sun.sun;
@@ -162,16 +162,17 @@ executor.submit(() -> {
         }
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) {
             System.out.println("Thread was interrupted, stopping...");
             Thread.currentThread().interrupt(); // Properly handle interruption
         }
     }
 });
 
-// Thread 2: Spawns zombies every second with a 0.3 probability.
-executor.submit(() -> {
-    while (!Thread.currentThread().isInterrupted()) {
+        // Thread 2: Spawns zombies every second with a 0.3 probability.
+        executor.submit(() -> {
+        while (!Thread.currentThread().isInterrupted()) {
         try {
             Thread.sleep(1000);
             double probability = Math.random();
@@ -186,9 +187,9 @@ executor.submit(() -> {
     }
 });
 
-// Thread 3: Moves a zombie every 5 seconds.
-executor.submit(() -> {
-    while (!Thread.currentThread().isInterrupted()) {
+        // Thread 3: Moves a zombie every 5 seconds.
+        executor.submit(() -> {
+        while (!Thread.currentThread().isInterrupted()) {
         try {
             Thread.sleep(5000);
             map.moveZombies();
