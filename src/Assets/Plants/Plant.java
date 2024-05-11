@@ -1,10 +1,12 @@
 package Plants;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import Zombies.*;
+import Map.*;
 
-public class Plant implements Attack {
+public class Plant implements Position {
     String name;
     int cost;
     int health;
@@ -13,6 +15,7 @@ public class Plant implements Attack {
     int range;
     int cooldown;
     LocalDateTime lastPlantedTime;
+    LocalDateTime lastAttackTime;
 
     public Plant(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown){
         this.name = name;
@@ -22,6 +25,7 @@ public class Plant implements Attack {
         this.attack_speed = attack_speed;
         this.range = range;
         this.cooldown = cooldown;
+        this.lastAttackTime = LocalDateTime.MIN;
     }
 
     public String getName(){
@@ -67,7 +71,42 @@ public class Plant implements Attack {
     }
 
 
-    public void attack(){
-        // TO DO: Implementasi attack
+    public boolean canAttack() {
+        LocalDateTime now = LocalDateTime.now();
+        long secondsSinceLastAttack = Duration.between(lastAttackTime, now).getSeconds();
+        return secondsSinceLastAttack * 1000 >= attack_speed;
+    }
+
+    public void setLastAttackTime(LocalDateTime lastAttackTime) {
+        this.lastAttackTime = lastAttackTime;
+    }
+
+    @Override
+    public int positionColumn(Petak tile){
+        return tile.getColumn();
+    } 
+
+
+    public void attack(ArrayList<Zombie> zombies, Petak tile) {
+        if (canAttack()) {
+            for (Zombie zombie : zombies) {
+                if (zombie.positionColumn(tile) <= (this.getRange() + this.positionColumn(tile))) { // Assuming zombies have a method to get their position
+                    zombie.takeDamage(getAttackDamage());
+                    setLastAttackTime(LocalDateTime.now());
+                    break; // Only attacks one zombie per attack event
+                }
+            }
+        }
+    }
+
+    public void takeDamage(int damage) {
+        this.health -= damage;
+        if (this.health <= 0) {
+            die();
+        }
+    }
+
+    protected void die() {
+        System.out.println(name + " has died.");
     }
 }

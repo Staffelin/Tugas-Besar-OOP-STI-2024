@@ -193,7 +193,6 @@ public class GameEngine {
         try {
             Thread.sleep(5000);
             map.moveZombies();
-            map.viewMap();
         } catch (InterruptedException e) {
             System.out.println("Thread was interrupted, stopping...");
             Thread.currentThread().interrupt(); // Properly handle interruption
