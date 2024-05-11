@@ -116,14 +116,14 @@ public abstract class Petak {
         getListZombies().add(Z);
     }
 
-    public void removeZombie(){
+    public void removeZombie(Zombie zombie) {
         if (listZombies.isEmpty()) {
-            System.out.println("Kosong");
+            System.out.println("No zombies to remove");
+        } else if (!listZombies.contains(zombie)) {
+            System.out.println("Zombie not found");
+        } else {
+            listZombies.remove(zombie);
         }
-        else{
-            listZombies.remove(0);
-        }
-         // Remove the first zombie in the list
     }
     
     

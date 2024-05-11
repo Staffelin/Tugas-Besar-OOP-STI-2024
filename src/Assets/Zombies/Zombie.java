@@ -7,6 +7,7 @@ public class Zombie implements Attack {
     int attack_speed;
     int current_speed;
     boolean isAquatic;
+    private long spawnTime;
 
     public Zombie(String name, int health, int attack_damage, int attack_speed, int current_speed, boolean isAquatic) {
         this.name = name;
@@ -40,6 +41,15 @@ public class Zombie implements Attack {
     public boolean isAquatic() {
         return isAquatic;
     }
+
+    public void setSpawnTime(long spawnTime) {
+        this.spawnTime = spawnTime;
+    }
+
+    public long getSpawnTime() {
+        return this.spawnTime;
+    }
+
 
     // Implement methods from the Attack interface here
     public void attack(){}
