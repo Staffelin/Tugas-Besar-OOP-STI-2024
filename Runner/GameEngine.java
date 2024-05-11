@@ -3,7 +3,7 @@ import Exception.*;
 import Map.*;
 import Plants.*;
 import Player.*;
-import Zombies.*;
+// import Zombies.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,15 +23,15 @@ public class GameEngine {
         Plant lilypad = new Lilypad();
         Plant wallnut = new Wallnut();
 
-        Zombie normalZombie = new NormalZombie();
-        Zombie bucketHead = new BucketheadZombie();
-        Zombie coneHead = new ConeheadZombie();
-        Zombie dolphinRider = new DolphinRiderZombie();
-        Zombie football = new FootballZombie();
-        Zombie gargantuar = new Gargantuar();
-        Zombie newsPaper = new NewspaperZombie();
-        Zombie poleVaulting = new PoleVaultingZombie();
-        Zombie yeti = new YetiZombie();
+        // Zombie normalZombie = new NormalZombie();
+        // Zombie bucketHead = new BucketheadZombie();
+        // Zombie coneHead = new ConeheadZombie();
+        // Zombie dolphinRider = new DolphinRiderZombie();
+        // Zombie football = new FootballZombie();
+        // Zombie gargantuar = new Gargantuar();
+        // Zombie newsPaper = new NewspaperZombie();
+        // Zombie poleVaulting = new PoleVaultingZombie();
+        // Zombie yeti = new YetiZombie();
         ExecutorService executor = Executors.newFixedThreadPool(3);
         
 
