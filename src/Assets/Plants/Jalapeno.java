@@ -14,8 +14,9 @@ public class Jalapeno extends Plant {
         int jalapenoRow = tile.getRow();
     
         for (Zombie zombie : zombies) {
-            if (zombie.getRow() == jalapenoRow) {
+            if (zombie.getPositionRow() == jalapenoRow) {
                 zombie.takeDamage(this.getAttackDamage());
             }
         }
     }
+}
