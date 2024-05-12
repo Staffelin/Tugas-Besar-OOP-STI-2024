@@ -119,8 +119,17 @@ public abstract class Petak {
         getListZombies().add(Z);
     }
 
-    public void attackTile(){
-        
+    public void attackTile(Petak enemyTile){
+        if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
+            if(this instanceof PetakDarat){
+                this.getListTanaman().get(0).attack(enemyTile.getListZombies().get(0));
+            }
+            else if(this instanceof PetakKolam){
+                if(this.getListTanaman().size() == 2){
+                    this.getListTanaman().get(1).attack(enemyTile.getListZombies().get(0));
+                }
+            }
+        }
     }
 
     public void removeZombie(Zombie zombie) {

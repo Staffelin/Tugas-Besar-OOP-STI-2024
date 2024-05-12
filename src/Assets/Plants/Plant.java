@@ -91,14 +91,10 @@ public class Plant implements Position {
         this.lastAttackTime = lastAttackTime;
     }
 
-    public void attack(ArrayList<Zombie> zombies) {
+    public void attack(Zombie zombie) {
         if (canAttack()) {
-            for (Zombie zombie : zombies) {
-                if (zombie.getRow() == row) {
-                    zombie.takeDamage(attack_damage);
-                    lastAttackTime = LocalDateTime.now();
-                }
-            }
+            zombie.takeDamage(attack_damage);
+            lastAttackTime = LocalDateTime.now();
         }
     }
 
