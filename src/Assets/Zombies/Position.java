@@ -4,5 +4,6 @@ import Map.*;
 
 public interface Position {
     public int positionColumn(Petak tile);
+
     
 }

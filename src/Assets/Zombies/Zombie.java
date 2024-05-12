@@ -67,6 +67,8 @@ public class Zombie implements Position {
         return tile.getColumn();
     } 
 
+ 
+
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
         this.lastAttackTime = lastAttackTime;
     }
@@ -103,5 +105,6 @@ public class Zombie implements Position {
 
     protected void die() {
         System.out.println(name + " has died.");
+        
     }
 }
