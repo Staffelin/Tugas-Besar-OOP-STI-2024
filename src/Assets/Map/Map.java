@@ -12,7 +12,7 @@ public class Map {
     private Petak[][] MatriksPetak;
     int wave = 0;
     String[] listSpawnableZombie = {"BucketheadZombie", "ConeheadZombie", "DolphinRiderZombie", "DuckyTubeZombie","FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
-    ArrayList<Zombie> spawnedZombies;
+    public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
 
     public Map() {
@@ -96,6 +96,7 @@ public class Map {
                     spawnedZombies.add(newZombie); 
                     spawnSite.addZombie(newZombie);
                     System.out.println("Spawned a " + zombieType + " at row " + (i+1));
+                    newZombie.setPosition(spawnSite);
                     newZombie.setSpawnTime(System.currentTimeMillis());
                 }
             }
@@ -114,8 +115,9 @@ public class Map {
                         // Move the zombie from the current tile to the next tile
                         petak.removeZombie(zombie); // Pass the zombie to be removed
                         nextPetak.addZombie(zombie);
-                        System.out.println("Moving zombies...");
                         System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                        // Update the zombie's position
+                        zombie.setPosition(nextPetak);
                         // Update the spawn time
                         zombie.setSpawnTime(System.currentTimeMillis());
                     }
