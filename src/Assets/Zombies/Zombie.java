@@ -15,10 +15,11 @@ public class Zombie implements Position {
     int attack_damage;
     int attack_speed;
     int current_speed;
+    int row;
     boolean isAquatic;
     private long spawnTime;
     LocalDateTime lastAttackTime;
-    Petak position;
+    
 
     public Zombie(String name, int health, int attack_damage, int attack_speed, int current_speed, boolean isAquatic) {
         this.name = name;
@@ -30,6 +31,14 @@ public class Zombie implements Position {
         this.lastAttackTime = LocalDateTime.MIN;
 
         
+    }
+    
+    public void setRow(int row){
+        this.row = row;
+    }
+
+    public int getRow(){
+        return row;
     }
 
     public String getName() {
@@ -64,28 +73,6 @@ public class Zombie implements Position {
         return this.spawnTime;
     }
 
-    public Petak getPosition() {
-        return position;
-    }
-
-    public int getPositionRow() {
-        return this.position.getRow();
-    }
-
-    public int getPositionColumn() {
-        return this.position.getColumn();
-    }
-
-    public void setPosition(Petak position) {
-        this.position = position;
-    }
-
-    @Override
-    public int positionColumn(Petak tile){
-        return tile.getColumn();
-    } 
-
- 
 
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
         this.lastAttackTime = lastAttackTime;
@@ -122,8 +109,6 @@ public class Zombie implements Position {
     }
 
     protected void die() {
-        System.out.println(name + " has died.");
-        position.removeZombie(this);
-        
+        System.out.println(name + " has died.");        
     }
 }

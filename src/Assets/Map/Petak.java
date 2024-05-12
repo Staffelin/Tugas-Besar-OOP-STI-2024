@@ -19,7 +19,7 @@ public abstract class Petak {
         this.row = row;
         this.column = column;
         this.isAquatic = isAquatic;
-        this.listZombies = new ArrayList<>();
+        this.listZombies = new ArrayList<>(10);
         if (isAquatic) {
             this.listTanaman = new ArrayList<>(2);
         } else {
@@ -75,7 +75,7 @@ public abstract class Petak {
                     ((Sunflower) p).SunflowerGenerateSun();
                 }
                 if (p instanceof Jalapeno) {
-                    ((Jalapeno) p).attack(Map.spawnedZombies, this);
+                    // ((Jalapeno) p).attack(Map.spawnedZombies, this);
                 }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
@@ -117,6 +117,10 @@ public abstract class Petak {
 
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
+    }
+
+    public void attackTile(){
+        
     }
 
     public void removeZombie(Zombie zombie) {

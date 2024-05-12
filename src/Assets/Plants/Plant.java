@@ -14,8 +14,10 @@ public class Plant implements Position {
     int attack_speed;
     int range;
     int cooldown;
+    int row;
     LocalDateTime lastPlantedTime;
     LocalDateTime lastAttackTime;
+    
 
     public Plant(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown){
         this.name = name;
@@ -26,6 +28,14 @@ public class Plant implements Position {
         this.range = range;
         this.cooldown = cooldown;
         this.lastAttackTime = LocalDateTime.MIN;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getRow(){
+        return row;
     }
 
     public String getName(){
@@ -81,19 +91,12 @@ public class Plant implements Position {
         this.lastAttackTime = lastAttackTime;
     }
 
-    @Override
-    public int positionColumn(Petak tile){
-        return tile.getColumn();
-    } 
-
-
-    public void attack(ArrayList<Zombie> zombies, Petak tile) {
+    public void attack(ArrayList<Zombie> zombies) {
         if (canAttack()) {
             for (Zombie zombie : zombies) {
-                if (zombie.positionColumn(tile) <= (this.getRange() + this.positionColumn(tile))) { // Assuming zombies have a method to get their position
-                    zombie.takeDamage(getAttackDamage());
-                    setLastAttackTime(LocalDateTime.now());
-                    break; // Only attacks one zombie per attack event
+                if (zombie.getRow() == row) {
+                    zombie.takeDamage(attack_damage);
+                    lastAttackTime = LocalDateTime.now();
                 }
             }
         }
