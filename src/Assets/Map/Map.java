@@ -44,10 +44,12 @@ public class Map {
         }
     }
     public void spawnZombieMap() {
-        spawnedZombies = new ArrayList<>(); 
+        if (spawnedZombies == null) {
+            spawnedZombies = new ArrayList<>();
+        }
     
         for(int i = 0; i < 6; i++){
-            if(random.nextDouble() < 0.3){
+            if(random.nextDouble() < 0.3 && spawnedZombies.size() < 10){
                 String zombieType;
                 zombieType = listSpawnableZombie[random.nextInt(listSpawnableZombie.length)];
                 Petak tile = MatriksPetak[i][9];
@@ -96,7 +98,6 @@ public class Map {
                     newZombie.setRow(i);
                     spawnedZombies.add(newZombie); 
                     spawnSite.addZombie(newZombie);
-                    // System.out.println("Spawned a " + zombieType + " at row " + (i+1));
                     newZombie.setSpawnTime(System.currentTimeMillis());
                 }
             }
