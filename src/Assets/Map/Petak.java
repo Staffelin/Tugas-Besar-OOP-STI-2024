@@ -75,7 +75,12 @@ public abstract class Petak {
                     ((Sunflower) p).SunflowerGenerateSun();
                 }
                 if (p instanceof Jalapeno) {
-                    // ((Jalapeno) p).attack(Map.spawnedZombies, this);
+                    for (int i = this.column + 1; i <= this.column + p.getRange(); i++) {
+                        Petak tile = Map.getFromMatriksPetak(this.row, i);
+                        if (tile != null) {
+                            p.attack(tile.getListZombies());
+                        }
+                    }
                 }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);

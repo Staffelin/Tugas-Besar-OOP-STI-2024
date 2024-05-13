@@ -9,7 +9,7 @@ import Plants.*;
 import Exception.*;
 
 public class Map {
-    private Petak[][] MatriksPetak;
+    private static Petak[][] MatriksPetak;
     int wave = 0;
     String[] listSpawnableZombie = {"BucketheadZombie", "ConeheadZombie", "DolphinRiderZombie", "DuckyTubeZombie","FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     public static ArrayList<Zombie> spawnedZombies;
@@ -31,6 +31,10 @@ public class Map {
                 }
             }
         }
+    }
+
+    public static Petak getFromMatriksPetak(int row, int column) {
+        return MatriksPetak[row][column];
     }
 
 
@@ -128,10 +132,10 @@ public class Map {
 
 
     public void attackZombies() {
-        for (int i = 1; i < MatriksPetak.length; i++) {
-            for (int j = 0; j < MatriksPetak[i].length; j++) {
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            for (int j = 1; j < MatriksPetak[i].length; j++) {
                 Petak petak = MatriksPetak[i][j];
-                for(int x = j; x<10; x++){
+                for(int x = j; x<11; x++){
                     Petak enemyTile = MatriksPetak[i][x];
                     petak.attackTile(enemyTile);
                 }
