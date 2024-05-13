@@ -8,31 +8,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GameEngine {
-    private static void handleCommand(char command, Map map, Deck deck) {
-        switch (command) {
-            case 'T':
-                // Handle planting a new plant
-                handlePlanting(map, deck);
-                break;
-            case 'G':
-                // Handle removing a plant
-                handleDigging(map);
-                break;
-            default:
-                System.out.println("Invalid command.");
-                break;
-        }
-    }
-
-    private static void handlePlanting(Map map, Deck deck) {
-        
-        System.out.println("Handling planting...");
-    }
-
-    private static void handleDigging(Map map) {
-        // Your existing code for handling digging
-        System.out.println("Handling digging...");
-    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int index1;
