@@ -124,7 +124,19 @@ public class Map {
             }
         }
     }
-    
+
+
+    public void attackZombies() {
+        for (int i = 1; i < MatriksPetak.length; i++) {
+            for (int j = 0; j < MatriksPetak[i].length; j++) {
+                Petak petak = MatriksPetak[i][j];
+                for(int x = j; x<10; x++){
+                    Petak enemyTile = MatriksPetak[i][x];
+                    petak.attackTile(enemyTile);
+                }
+            }
+        }
+    }
     
 
     public void viewMap() {
