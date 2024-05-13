@@ -16,7 +16,7 @@ public class Sunflower extends Plant {
             while (running) {
                 Sun.increaseSun(25);
                 try {
-                    Thread.sleep((long) (Math.random() * (10000 - 5000) + 5000));
+                    Thread.sleep(3000); // Sleep for 3 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

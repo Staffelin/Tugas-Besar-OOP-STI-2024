@@ -12,13 +12,13 @@ public class Jalapeno extends Plant {
     
     }
 
-    @Override
-    public void attack(ArrayList<Zombie> zombies) {
+    //@Override
+    //public void attack(ArrayList<Zombie> zombies) {
     
         // for (Zombie zombie : zombies) {
         //     if (zombie.getPositionRow() == jalapenoRow) {
         //         zombie.takeDamage(this.getAttackDamage());
         //     }
         // }
-    }
+    //}
 }

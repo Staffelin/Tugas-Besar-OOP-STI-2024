@@ -174,55 +174,84 @@ public class GameEngine {
             }
         }
 
-        // MULAI PERMAINAN
-        Sun.generateSun();
-       // Thread 1: Checks for changes in the sun count every second and updates the map view if there's a change.
+        // Thread 1: Generates sun every second during the day time.
         executor.submit(() -> {
-        int lastSun = 0;
-        while (!Thread.currentThread().isInterrupted()) {
-        if (Sun.sun > lastSun) {
-            System.out.println("Current sun: " + Sun.sun);
-            lastSun = Sun.sun;
-            map.viewMap();
-            
-        }
-        try {
-            Thread.sleep(1000);
-        } 
-        catch (InterruptedException e) {
-            System.out.println("Thread was interrupted, stopping...");
-            Thread.currentThread().interrupt(); // Properly handle interruption
-        }
-    }
-});
+            int lastSun = 0;
+            long startTime = System.currentTimeMillis();
+            boolean isDay = false;
+            while (!Thread.currentThread().isInterrupted()) {
+                long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+                long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
+                if (cycleTime < 100) { // Day time
+                    if (!isDay) {
+                        System.out.println("It's now day time.");
+                        isDay = true;
+                        Sun.generateSun();
+                    }
+                } else { // Night time
+                    if (isDay) {
+                        System.out.println("It's now night time.");
+                        isDay = false;
+                        Sun.stopGenerateSun();
+                    }
+                }
+                if (Sun.sun > lastSun) {
+                    System.out.println("Current sun: " + Sun.sun);
+                    lastSun = Sun.sun;
+                    map.viewMap();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Thread was interrupted, stopping...");
+                    Thread.currentThread().interrupt(); // Preserve the interrupted status
+                }
+            }
+        });
 
         // Thread 2: Spawns zombies every second with a 0.3 probability.
+        // Zombies start spawning from second 20 to second 160 of each cycle.
         executor.submit(() -> {
-        while (!Thread.currentThread().isInterrupted()) {
-            map.spawnZombieMap();
-        try {
-            Thread.sleep(1000);
-            
-        } catch (InterruptedException e) {
-            System.out.println("Thread was interrupted, stopping...");
-            Thread.currentThread().interrupt(); // Properly handle interruption
-        }
-    }
-});
+            long startTime = System.currentTimeMillis();
+            boolean isSpawning = false;
+            while (!Thread.currentThread().isInterrupted()) {
+                long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+                long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
+                if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
+                    if (!isSpawning) {
+                        System.out.println("Zombies have started spawning.");
+                        isSpawning = true;
+                    }
+                    map.spawnZombieMap();
+                    map.viewMap();
+                } else {
+                    if (isSpawning) {
+                        System.out.println("Zombies have stopped spawning.");
+                        isSpawning = false;
+                        map.viewMap();
+                    }
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Thread was interrupted, stopping...");
+                    Thread.currentThread().interrupt(); // Preserve the interrupted status
+                }
+            }
+        });
 
         // Thread 3: Moves a zombie every 5 seconds.
         executor.submit(() -> {
-        while (!Thread.currentThread().isInterrupted()) {
-        try {
-            Thread.sleep(5000);
-            map.moveZombies();
-        } catch (InterruptedException e) {
-            System.out.println("Thread was interrupted, stopping...");
-            Thread.currentThread().interrupt(); // Properly handle interruption
-        }
-    }
-});
-
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    Thread.sleep(5000);
+                    map.moveZombies();
+                } catch (InterruptedException e) {
+                    System.out.println("Thread was interrupted, stopping...");
+                    Thread.currentThread().interrupt(); // Preserve the interrupted status
+                }
+            }
+        });
 
         char choice = sc.next().charAt(0);
         if(choice == 'T'){
