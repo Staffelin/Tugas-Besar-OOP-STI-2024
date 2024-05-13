@@ -25,18 +25,20 @@ public class Sun{
                 try {
                     Thread.sleep((long) (Math.random() * (10000 - 5000) + 5000));
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    running = false;
+                    Thread.currentThread().interrupt(); // Preserve the interrupted status
                 }
             }
         });
         sunThread.start();
     }
-
+    
     public static void stopGenerateSun() {
         running = false;
-        sunThread.interrupt();
+        if (sunThread != null) {
+            sunThread.interrupt();
+        }
     }
-    
 
     // TO DO: Buat generate sun tiap berapa second
 }

@@ -19,6 +19,7 @@ public class Zombie implements Position {
     boolean isAquatic;
     private long spawnTime;
     LocalDateTime lastAttackTime;
+    // private Petak tile;
     
 
     public Zombie(String name, int health, int attack_damage, int attack_speed, int current_speed, boolean isAquatic) {
@@ -29,6 +30,7 @@ public class Zombie implements Position {
         this.current_speed = current_speed;
         this.isAquatic = isAquatic;
         this.lastAttackTime = LocalDateTime.MIN;
+        // this.tile = tile;
 
         
     }
@@ -102,6 +104,7 @@ public class Zombie implements Position {
     }
 
     public void takeDamage(int damage) {
+        System.out.println("Zombie taking damage"); // Add this line
         this.health -= damage;
         if (this.health <= 0) {
             die();
@@ -109,6 +112,9 @@ public class Zombie implements Position {
     }
 
     protected void die() {
-        System.out.println(name + " has died.");        
+        System.out.println(name + " has died.");  
+
+        
+         
     }
 }

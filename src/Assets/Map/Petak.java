@@ -65,28 +65,35 @@ public abstract class Petak {
                 } else {
                     throw new PlantLilypadFirstException();
                 }
-            } 
-            
-            else {
+            } else {
                 if (p instanceof Lilypad) {
                     throw new LilypadOnLandException();
                 }
                 if (p instanceof Sunflower) {
                     ((Sunflower) p).SunflowerGenerateSun();
                 }
-                if (p instanceof Jalapeno) {
-                    // ((Jalapeno) p).attack(Map.spawnedZombies, this);
-                }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
+    
+                    if (p instanceof Jalapeno) {
+                        ArrayList<Zombie> zombiesInRow = new ArrayList<>();
+                        for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
+                            Petak tile = Map.getFromMatriksPetak(this.row, i);
+                            if (tile != null) {
+                                System.out.println("Tile at row " + this.row + ", column " + i + " has " + tile.getListZombies().size() + " zombies");
+                                zombiesInRow.addAll(tile.getListZombies());
+                            }
+                        }
+                        System.out.println("Zombies in row: " + zombiesInRow.size());
+                        p.attack(zombiesInRow);
+                    }
                 } else {
                     throw new OnlyOnePlantException();
                 }
             }
-        }
-        else {
+        } else {
             if (!p.isPlantable()) {
                 throw new CannotAddPlantException();
             }
@@ -95,8 +102,6 @@ public abstract class Petak {
             }
         }
     }
-
-
     public void removeTanaman() throws NoPlantException {
         if(listTanaman.isEmpty()){
             throw new NoPlantException();
@@ -122,11 +127,11 @@ public abstract class Petak {
     public void attackTile(Petak enemyTile){
         if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
             if(this instanceof PetakDarat){
-                this.getListTanaman().get(0).attack(enemyTile.getListZombies().get(0));
+                this.getListTanaman().get(0).attack(enemyTile.getListZombies());
             }
             else if(this instanceof PetakKolam){
                 if(this.getListTanaman().size() == 2){
-                    this.getListTanaman().get(1).attack(enemyTile.getListZombies().get(0));
+                    this.getListTanaman().get(1).attack(enemyTile.getListZombies());
                 }
             }
         }

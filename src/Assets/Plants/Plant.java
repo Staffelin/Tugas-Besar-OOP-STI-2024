@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Zombies.*;
-import Map.*;
 
 public class Plant implements Position {
     String name;
@@ -82,18 +81,16 @@ public class Plant implements Position {
 
 
     public boolean canAttack() {
-        LocalDateTime now = LocalDateTime.now();
-        long secondsSinceLastAttack = Duration.between(lastAttackTime, now).getSeconds();
-        return secondsSinceLastAttack * 1000 >= attack_speed;
+        return true;
     }
 
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
         this.lastAttackTime = lastAttackTime;
     }
 
-    public void attack(Zombie zombie) {
+    public void attack(ArrayList<Zombie> zombie) {
         if (canAttack()) {
-            zombie.takeDamage(attack_damage);
+            zombie.get(0).takeDamage(attack_damage);
             lastAttackTime = LocalDateTime.now();
         }
     }
@@ -107,5 +104,6 @@ public class Plant implements Position {
 
     protected void die() {
         System.out.println(name + " has died.");
+
     }
 }
