@@ -33,8 +33,18 @@ public class Map {
         }
     }
 
+    // Get the matriksPetak array
+    public static Petak[][] getMatriksPetak() {
+        return MatriksPetak;
+    }
+
+    // Get a specific Petak from the matriksPetak array
     public static Petak getFromMatriksPetak(int row, int column) {
-        return MatriksPetak[row][column];
+        if (row >= 0 && row < MatriksPetak.length && column >= 0 && column < MatriksPetak[0].length) {
+            return MatriksPetak[row][column];
+        } else {
+            return null;
+        }
     }
 
 

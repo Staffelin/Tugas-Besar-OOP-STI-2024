@@ -81,9 +81,7 @@ public class Plant implements Position {
 
 
     public boolean canAttack() {
-        LocalDateTime now = LocalDateTime.now();
-        long secondsSinceLastAttack = Duration.between(lastAttackTime, now).getSeconds();
-        return secondsSinceLastAttack * 1000 >= attack_speed;
+        return true;
     }
 
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
@@ -106,5 +104,6 @@ public class Plant implements Position {
 
     protected void die() {
         System.out.println(name + " has died.");
+
     }
 }
