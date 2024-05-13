@@ -18,6 +18,7 @@ public class Jalapeno extends Plant {
         if (canAttack()) {
             for(Zombie z : zombies) {
                 z.takeDamage(attack_damage);
+                System.out.println("Jalapeno menyerang zombie di petak " + z.getRow());
             }
             die();
         }
