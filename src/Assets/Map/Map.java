@@ -93,10 +93,10 @@ public class Map {
                 }
     
                 if (newZombie != null) {
+                    newZombie.setRow(i);
                     spawnedZombies.add(newZombie); 
                     spawnSite.addZombie(newZombie);
-                    System.out.println("Spawned a " + zombieType + " at row " + (i+1));
-                    newZombie.setPosition(spawnSite);
+                    // System.out.println("Spawned a " + zombieType + " at row " + (i+1));
                     newZombie.setSpawnTime(System.currentTimeMillis());
                 }
             }
@@ -115,9 +115,8 @@ public class Map {
                         // Move the zombie from the current tile to the next tile
                         petak.removeZombie(zombie); // Pass the zombie to be removed
                         nextPetak.addZombie(zombie);
-                        System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                        // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
                         // Update the zombie's position
-                        zombie.setPosition(nextPetak);
                         // Update the spawn time
                         zombie.setSpawnTime(System.currentTimeMillis());
                     }
