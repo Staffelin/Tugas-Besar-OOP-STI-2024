@@ -19,7 +19,6 @@ public class Jalapeno extends Plant {
     @Override
     public void attack(ArrayList<Zombie> zombies) {
         System.out.println("Jalapeno attack method called");
-        if (canAttack()) {
             Iterator<Zombie> iterator = zombies.iterator();
             while (iterator.hasNext()) {
                 Zombie z = iterator.next();
@@ -32,6 +31,6 @@ public class Jalapeno extends Plant {
                     }
                 }
             }
-        }
+            this.die();
     }
 }
