@@ -144,6 +144,7 @@ public abstract class Petak {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
+            System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
         }
     }
     

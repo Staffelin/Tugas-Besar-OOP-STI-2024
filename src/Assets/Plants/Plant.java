@@ -3,6 +3,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import Map.*;
 import Zombies.*;
 
 public class Plant implements Position {
@@ -14,8 +15,10 @@ public class Plant implements Position {
     int range;
     int cooldown;
     int row;
+    int column;
     LocalDateTime lastPlantedTime;
     LocalDateTime lastAttackTime;
+    private boolean plantDie = false;
     
 
     public Plant(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown){
@@ -35,6 +38,22 @@ public class Plant implements Position {
 
     public int getRow(){
         return row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setPlantDie(){
+        this.plantDie = true;
+    }
+
+    public boolean getPlantDie(){
+        return plantDie;
+    }
+
+    public int getColumn(){
+        return column;
     }
 
     public String getName(){
@@ -104,6 +123,10 @@ public class Plant implements Position {
 
     protected void die() {
         System.out.println(name + " has died.");
+        setPlantDie();
+        Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());
+        tile.getListTanaman().remove(this); 
+
 
     }
 }

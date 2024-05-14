@@ -2,7 +2,7 @@ package Plants;
 
 import java.util.ArrayList;
 
-import Map.Petak;
+import Map.*;
 import Zombies.Zombie;
 
 public class Squash extends Plant{
@@ -10,15 +10,20 @@ public class Squash extends Plant{
         super("Squash", 50, 100, 5000, 0, 1, 20);
     }
 
-    // @Override
-    // public void attack(ArrayList<Zombie> zombies, Petak tile) {
-    //     int squashRow = tile.getRow();
-    //     int squashColumn = tile.getColumn();
-    
-    //     for (Zombie zombie : zombies) {
-    //         if (zombie.getRow() == squashRow && zombie.getColumn() == squashColumn + 1) {
-    //             zombie.takeDamage(zombie.getHealth());
-    //         }
-    //     }
-    // }
+
+    @Override
+    public void attack(ArrayList<Zombie> zombies) {
+        // Get the tile next to the squash
+        Petak nextTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() + 1);
+
+        // If the next tile exists and has zombies, attack
+        if (nextTile != null && !nextTile.getListZombies().isEmpty()) {
+            for (Zombie zombie : nextTile.getListZombies()) {
+                zombie.takeDamage(this.attack_damage); // The squash kills the zombie
+            }
+            nextTile.getListZombies().clear(); // Remove all zombies from the next tile
+            this.die(); // The squash dies after attacking
+        }
+    }
 }
+
