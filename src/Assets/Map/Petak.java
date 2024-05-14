@@ -92,18 +92,9 @@ public abstract class Petak {
                     }
                     if (p instanceof Squash) {
                         ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-                        Squash.setWaiting(true); // Set the Squash to wait for the next tile
-                        while (Squash.getWaiting() == true) {
-                            // Assuming you have a method to get zombies in the same row
-                            zombiesInRow = getZombiesInSameRow(((Squash)p).getRow());
-                            if (!zombiesInRow.isEmpty()) {
-                                for (Zombie zombie : zombiesInRow) {
-                                    ((Squash)p).attack(zombie);
-                                }
-                                // After attacking, the Squash should stop waiting
-                                Squash.setWaiting(false);
-                            }
-                        }                   
+                        if(!this.getListZombies().isEmpty()){
+                            p.attack(this.getListZombies());
+                        }
                     }
     
                     // If the plant is a Squash, it should wait for a zombie to appear in the next tile
@@ -146,6 +137,10 @@ public abstract class Petak {
     public void attackTile(Petak enemyTile){
         if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
             if(this instanceof PetakDarat){
+                Plant attackingPLant = this.getListTanaman().get(0);
+                if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
+                    attackingPLant.attack(enemyTile.getListZombies());
+                }
                 this.getListTanaman().get(0).attack(enemyTile.getListZombies());
             }
             else if(this instanceof PetakKolam){
@@ -163,7 +158,7 @@ public abstract class Petak {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
-            System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
             
         }
     }

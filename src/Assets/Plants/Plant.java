@@ -100,17 +100,17 @@ public class Plant implements Position {
 
 
     public boolean canAttack() {
-        return true;
+        return Duration.between(lastAttackTime, LocalDateTime.now()).getSeconds() >= attack_speed*1000;
     }
 
-    public void setLastAttackTime(LocalDateTime lastAttackTime) {
-        this.lastAttackTime = lastAttackTime;
+    public void setLastAttackTime() {
+        this.lastAttackTime = LocalDateTime.now();
     }
 
     public void attack(ArrayList<Zombie> zombie) {
         if (canAttack()) {
             zombie.get(0).takeDamage(attack_damage);
-            lastAttackTime = LocalDateTime.now();
+            setLastAttackTime();
         }
     }
 
