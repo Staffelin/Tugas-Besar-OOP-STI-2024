@@ -61,61 +61,64 @@ public class Map {
         if (spawnedZombies == null) {
             spawnedZombies = new ArrayList<>();
         }
-    
-        for(int i = 0; i < 6; i++){
-            if(random.nextDouble() < 0.3 && spawnedZombies.size() < 10){
-                String zombieType;
-                zombieType = listSpawnableZombie[random.nextInt(listSpawnableZombie.length)];
-                Petak tile = MatriksPetak[i][9];
-                Petak spawnSite = MatriksPetak[i][10];
-                Zombie newZombie = null;
-    
-                if(tile instanceof PetakDarat){
-                    switch (zombieType) {
-                        case "BucketheadZombie":
-                            newZombie = new BucketheadZombie();
-                            break;
-                        case "ConeheadZombie":
-                            newZombie = new ConeheadZombie();
-                            break;
-                        case "FootballZombie":
-                            newZombie = new FootballZombie();
-                            break;
-                        case "Gargantuar":
-                            newZombie = new Gargantuar();
-                            break;
-                        case "NewspaperZombie":
-                            newZombie = new NewspaperZombie();
-                            break;
-                        case "PoleVaultingZombie":
-                            newZombie = new PoleVaultingZombie();
-                            break;
-                        case "Yetizombie":
-                            newZombie = new YetiZombie();
-                            break;
-                        default:
-                            newZombie = new NormalZombie();
-                            break;
+        if(spawnedZombies.size() < 10){
+            for(int i = 0; i < 6; i++){
+                if(random.nextDouble() < 0.3 && spawnedZombies.size() < 10){
+                    String zombieType;
+                    zombieType = listSpawnableZombie[random.nextInt(listSpawnableZombie.length)];
+                    Petak tile = MatriksPetak[i][9];
+                    Petak spawnSite = MatriksPetak[i][10];
+                    Zombie newZombie = null;
+        
+                    if(tile instanceof PetakDarat){
+                        switch (zombieType) {
+                            case "BucketheadZombie":
+                                newZombie = new BucketheadZombie();
+                                break;
+                            case "ConeheadZombie":
+                                newZombie = new ConeheadZombie();
+                                break;
+                            case "FootballZombie":
+                                newZombie = new FootballZombie();
+                                break;
+                            case "Gargantuar":
+                                newZombie = new Gargantuar();
+                                break;
+                            case "NewspaperZombie":
+                                newZombie = new NewspaperZombie();
+                                break;
+                            case "PoleVaultingZombie":
+                                newZombie = new PoleVaultingZombie();
+                                break;
+                            case "Yetizombie":
+                                newZombie = new YetiZombie();
+                                break;
+                            default:
+                                newZombie = new NormalZombie();
+                                break;
+                        }
+                    } else {
+                        switch (zombieType) {
+                            case "DolphinRiderZombie":
+                                newZombie = new DolphinRiderZombie();
+                                break;
+                            case "DuckyTubeZombie":
+                                newZombie = new DuckyTubeZombie();
+                                break;
+                        }
                     }
-                } else {
-                    switch (zombieType) {
-                        case "DolphinRiderZombie":
-                            newZombie = new DolphinRiderZombie();
-                            break;
-                        case "DuckyTubeZombie":
-                            newZombie = new DuckyTubeZombie();
-                            break;
+        
+                    if (newZombie != null) {
+                        newZombie.setRow(i);
+                        spawnedZombies.add(newZombie); 
+                        spawnSite.addZombie(newZombie);
+                        newZombie.setSpawnTime(System.currentTimeMillis());
+                        System.out.println(zombieType + " spawned at (" + (i+1) + ", 10)");
                     }
-                }
-    
-                if (newZombie != null) {
-                    newZombie.setRow(i);
-                    spawnedZombies.add(newZombie); 
-                    spawnSite.addZombie(newZombie);
-                    newZombie.setSpawnTime(System.currentTimeMillis());
                 }
             }
         }
+        
     }
 
     public void moveZombies() {    
@@ -128,17 +131,14 @@ public class Map {
                     if (zombie.getDie() == false) {
                     // Check if 5 seconds have passed since the zombie was spawned
                         if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                            // Move the zombie from the current tile to the next tile
                             petak.removeZombie(zombie); // Pass the zombie to be removed
                             nextPetak.addZombie(zombie);
-                            // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
-                            // Update the zombie's position
-                            // Update the spawn time
                             zombie.setSpawnTime(System.currentTimeMillis());
                         }
                     }
                     else {
                         petak.removeZombie(zombie);
+                        
                     }
                 }
             }

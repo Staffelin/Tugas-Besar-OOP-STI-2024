@@ -4,9 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import Map.Petak;
-import Map.PetakDarat;
-import Map.PetakKolam;
+import Map.*;
 import Plants.*;
 
 public class Zombie implements Position {
@@ -122,7 +120,7 @@ public class Zombie implements Position {
     protected void die() {
         System.out.println(name + " has died.");  
         setDie();
-        
+        Map.spawnedZombies.remove(this);
          
     }
 }
