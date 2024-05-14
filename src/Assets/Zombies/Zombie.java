@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Map.*;
 import Plants.*;
 
+
 public class Zombie implements Position {
     String name;
     int health;
@@ -14,6 +15,7 @@ public class Zombie implements Position {
     int attack_speed;
     int current_speed;
     int row;
+    int column;
     boolean isAquatic;
     private long spawnTime;
     LocalDateTime lastAttackTime;
@@ -39,6 +41,14 @@ public class Zombie implements Position {
 
     public int getRow(){
         return row;
+    }
+
+    public void setColumn(int column){
+        this.column = column;
+    }
+
+    public int getColumn(){
+        return column;
     }
 
     public boolean getDie(){
@@ -123,4 +133,7 @@ public class Zombie implements Position {
         Map.spawnedZombies.remove(this);
          
     }
+
+
 }
+

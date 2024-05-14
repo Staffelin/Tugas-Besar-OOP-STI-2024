@@ -90,6 +90,24 @@ public abstract class Petak {
                         System.out.println("Zombies in row: " + zombiesInRow.size());
                         p.attack(zombiesInRow);
                     }
+                    if (p instanceof Squash) {
+                        ArrayList<Zombie> zombiesInRow = new ArrayList<>();
+                        Squash.setWaiting(true); // Set the Squash to wait for the next tile
+                        while (Squash.getWaiting() == true) {
+                            // Assuming you have a method to get zombies in the same row
+                            zombiesInRow = getZombiesInSameRow(((Squash)p).getRow());
+                            if (!zombiesInRow.isEmpty()) {
+                                for (Zombie zombie : zombiesInRow) {
+                                    ((Squash)p).attack(zombie);
+                                }
+                                // After attacking, the Squash should stop waiting
+                                Squash.setWaiting(false);
+                            }
+                        }                   
+                    }
+    
+                    // If the plant is a Squash, it should wait for a zombie to appear in the next tile
+
                 } else {
                     throw new OnlyOnePlantException();
                 }
