@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import Plants.*;
 import Player.Sun;
 import Zombies.*;
+import Map.*;
 
 
 public abstract class Petak {
@@ -145,6 +146,7 @@ public abstract class Petak {
         } else {
             listZombies.remove(zombie);
             System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+            Map.spawnedZombies.remove(zombie);
         }
     }
     
