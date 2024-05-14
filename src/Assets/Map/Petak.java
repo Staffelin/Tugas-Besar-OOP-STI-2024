@@ -146,7 +146,7 @@ public abstract class Petak {
         } else {
             listZombies.remove(zombie);
             System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
-            Map.spawnedZombies.remove(zombie);
+            
         }
     }
     
