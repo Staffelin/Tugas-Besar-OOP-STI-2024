@@ -109,8 +109,11 @@ public class Plant implements Position {
 
     public void attack(ArrayList<Zombie> zombie) {
         if (canAttack()) {
-            zombie.get(0).takeDamage(attack_damage);
+            for(Zombie z : zombie){
+                z.takeDamage(attack_damage);
+            }
             setLastAttackTime();
+            System.out.println(name + " attacks " + zombie.get(0).getName() + " for " + attack_damage + " damage.");
         }
     }
 

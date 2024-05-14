@@ -98,6 +98,19 @@ public abstract class Petak {
                         
                         }
                     }
+                    else{
+                        boolean belumKena = true;
+                        while(belumKena){
+                            for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
+                                Petak tile = Map.getFromMatriksPetak(this.row, i);
+                                if (tile != null && tile.getJumlahZombie() > 0) {
+                                    System.out.println("Tile at row " + this.row + ", column " + i + " has " + tile.getListZombies().size() + " zombies");
+                                    p.attack(tile.getListZombies());
+                                    belumKena = false;
+                                }
+                            }
+                        }
+                    }
     
                     // If the plant is a Squash, it should wait for a zombie to appear in the next tile
 
