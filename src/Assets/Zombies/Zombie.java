@@ -102,22 +102,22 @@ public class Zombie implements Position {
         return secondsSinceLastAttack * 1000 >= attack_speed;
     }
 
-    public void attack(ArrayList<Plant> plants, Petak tile) {
-        if (canAttack()) {
-            if(tile instanceof PetakDarat){
-                plants.get(0).takeDamage(attack_damage);
-            }
-            else if(tile instanceof PetakKolam){
-                if(plants.size() == 2){
-                    plants.get(1).takeDamage(attack_damage);
-                }
-                else{
-                    plants.get(0).takeDamage(attack_damage);
-                }
-            }
-        }
-        setLastAttackTime(LocalDateTime.now());
-    }
+    // public void attack(ArrayList<Plant> plants, Petak tile) {
+    //     if (canAttack()) {
+    //         if(tile instanceof PetakDarat){
+    //             plants.get(0).takeDamage(attack_damage);
+    //         }
+    //         else if(tile instanceof PetakKolam){
+    //             if(plants.size() == 2){
+    //                 plants.get(1).takeDamage(attack_damage);
+    //             }
+    //             else{
+    //                 plants.get(0).takeDamage(attack_damage);
+    //             }
+    //         }
+    //     }
+    //     setLastAttackTime(LocalDateTime.now());
+    // }
 
     public void takeDamage(int damage) {
         System.out.println("Zombie taking damage"); // Add this line
@@ -133,6 +133,14 @@ public class Zombie implements Position {
         Map.spawnedZombies.remove(this);
          
     }
+
+    public boolean isPlantInFront (Petak tile) {
+        Petak infront = Map.getFromMatriksPetak(this.getRow(), this.getColumn() - 1);
+        if (infront != null && !infront.getListTanaman().isEmpty()) {
+            return true;
+        }
+        return false;
+    } 
 
 
 }

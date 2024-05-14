@@ -1,6 +1,7 @@
 package Map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -37,6 +38,7 @@ public class Map {
     public static Petak[][] getMatriksPetak() {
         return MatriksPetak;
     }
+
 
     // Get a specific Petak from the matriksPetak array
     public static Petak getFromMatriksPetak(int row, int column) {
@@ -128,17 +130,15 @@ public class Map {
                 Petak nextPetak = MatriksPetak[i][j - 1];
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
-                    if (zombie.getDie() == false) {
                     // Check if 5 seconds have passed since the zombie was spawned
-                        if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                            petak.removeZombie(zombie); // Pass the zombie to be removed
-                            nextPetak.addZombie(zombie);
-                            zombie.setSpawnTime(System.currentTimeMillis());
-                        }
-                    }
-                    else {
-                        petak.removeZombie(zombie);
-                        
+                    if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                        // Move the zombie from the current tile to the next tile
+                        petak.removeZombie(zombie); // Pass the zombie to be removed
+                        nextPetak.addZombie(zombie);
+                        System.out.println("Moving zombies...");
+                        System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                        // Update the spawn time
+                        zombie.setSpawnTime(System.currentTimeMillis());
                     }
                 }
             }
@@ -146,14 +146,24 @@ public class Map {
     }
 
 
-    public void attackZombies() {
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for (int j = 1; j < MatriksPetak[i].length; j++) {
-                Petak petak = MatriksPetak[i][j];
-                for(int x = j; x<11; x++){
-                    Petak enemyTile = MatriksPetak[i][x];
-                    petak.attackTile(enemyTile);
+    public static void attackZombies() throws NoPlantException {
+        for (int i = 0; i < 6; i++) {
+             ArrayList<Petak> tileRow = new ArrayList<>(Arrays.asList(MatriksPetak[i]));
+             for (int j = 1; j < tileRow.size(); j++) {
+                if (tileRow.get(j).getJumlahTanaman() > 0) {
+                    Plant p = tileRow.get(j).getListTanaman().get(0);   
+                    p.attack();
+                    if (p.getHealth() <= 0) {
+                        tileRow.get(j).removeTanaman();
+                    }
                 }
+                // if (tileRow.get(j).getJumlahZombie() > 0) {
+                //     Zombie z = tileRow.get(j).getListZombies().get(0);
+                //     z.attack(tileRow.get(j-1).getListTanaman(), tileRow.get(j-1));
+                //     if (z.getHealth() <= 0) {
+                //         tileRow.get(j).removeZombie(z);
+                //     }
+                // }
             }
         }
     }

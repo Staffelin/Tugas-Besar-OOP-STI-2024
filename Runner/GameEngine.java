@@ -228,6 +228,28 @@ public class GameEngine {
             }
         });
 
+        Thread attackAll = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Map.attackZombies();
+                    } catch (NoPlantException e) {
+                        System.out.println(e.getClass().getName());
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        System.out.println("Print thread interrupted");
+                        return;
+                    }
+                }
+            }
+        });
+        attackAll.start();
+
+
         char choice = sc.next().charAt(0);
         if(choice == 'T'){
             System.out.println("Ingin menanam tanaman? (Y/N)");

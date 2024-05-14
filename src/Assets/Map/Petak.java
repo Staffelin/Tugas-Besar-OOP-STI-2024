@@ -52,6 +52,10 @@ public abstract class Petak {
         return listTanaman;
     }
 
+    public int getJumlahTanaman(){
+        return listTanaman.size();
+    }
+
     public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
         if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
@@ -78,27 +82,7 @@ public abstract class Petak {
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
     
-                    if (p instanceof Jalapeno) {
-                        ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-                        for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
-                            Petak tile = Map.getFromMatriksPetak(this.row, i);
-                            if (tile != null) {
-                                System.out.println("Tile at row " + this.row + ", column " + i + " has " + tile.getListZombies().size() + " zombies");
-                                zombiesInRow.addAll(tile.getListZombies());
-                            }
-                        }
-                        System.out.println("Zombies in row: " + zombiesInRow.size());
-                        p.attack(zombiesInRow);
-                    }
-                    if (p instanceof Squash) {
-                        ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-                        if(!this.getListZombies().isEmpty()){
-                            p.attack(this.getListZombies());
-                        }
-                    }
-    
-                    // If the plant is a Squash, it should wait for a zombie to appear in the next tile
-
+                   
                 } else {
                     throw new OnlyOnePlantException();
                 }
@@ -134,22 +118,22 @@ public abstract class Petak {
         getListZombies().add(Z);
     }
 
-    public void attackTile(Petak enemyTile){
-        if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
-            if(this instanceof PetakDarat){
-                Plant attackingPLant = this.getListTanaman().get(0);
-                if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
-                    attackingPLant.attack(enemyTile.getListZombies());
-                }
-                this.getListTanaman().get(0).attack(enemyTile.getListZombies());
-            }
-            else if(this instanceof PetakKolam){
-                if(this.getListTanaman().size() == 2){
-                    this.getListTanaman().get(1).attack(enemyTile.getListZombies());
-                }
-            }
-        }
-    }
+    // public void attackTile(Petak enemyTile){
+    //     if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
+    //         if(this instanceof PetakDarat){
+    //             Plant attackingPLant = this.getListTanaman().get(0);
+    //             if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
+    //                 attackingPLant.attack(enemyTile.getListZombies());
+    //             }
+    //             this.getListTanaman().get(0).attack(enemyTile.getListZombies());
+    //         }
+    //         else if(this instanceof PetakKolam){
+    //             if(this.getListTanaman().size() == 2){
+    //                 this.getListTanaman().get(1).attack(enemyTile.getListZombies());
+    //             }
+    //         }
+    //     }
+    // }
 
     public void removeZombie(Zombie zombie) {
         if (listZombies.isEmpty()) {

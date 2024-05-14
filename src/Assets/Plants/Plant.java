@@ -107,10 +107,29 @@ public class Plant implements Position {
         this.lastAttackTime = LocalDateTime.now();
     }
 
-    public void attack(ArrayList<Zombie> zombie) {
-        if (canAttack()) {
-            zombie.get(0).takeDamage(attack_damage);
-            setLastAttackTime();
+    public void setCooldown (int cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public void attack() {
+        if (getCooldown() > 0) {
+            setCooldown(getCooldown() - 1);
+            return;
+        }
+        ArrayList<Petak> tileRow = new ArrayList<>();
+        int currentRow = this.getRow();
+        for (Petak[] row : Map.getMatriksPetak()) {
+            tileRow.add(row[currentRow]);
+        }
+        for (int i = currentRow; i < tileRow.size(); i++) {
+            if (tileRow.get(i).getJumlahZombie() > 0) {
+                System.out.println("Ada zombie");
+                for (Zombie z : tileRow.get(i).getListZombies()) {
+                    z.takeDamage(attack_damage);
+                }
+                setCooldown(getAttackSpeed());
+                return;   
+            }
         }
     }
 
