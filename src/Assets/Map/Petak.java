@@ -77,7 +77,7 @@ public abstract class Petak {
                     listTanaman.add(p);
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
-    
+
                     if (p instanceof Jalapeno) {
                         ArrayList<Zombie> zombiesInRow = new ArrayList<>();
                         for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
@@ -91,9 +91,11 @@ public abstract class Petak {
                         p.attack(zombiesInRow);
                     }
                     if (p instanceof Squash) {
-                        ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-                        if(!this.getListZombies().isEmpty()){
-                            p.attack(this.getListZombies());
+                        Petak tile = this;
+                        if(tile != null){
+                            System.out.println("Tile at row " + this.row + ", column " + this.column + " has " + tile.getListZombies().size() + " zombies");
+                            p.attack(tile.getListZombies());
+                        
                         }
                     }
     

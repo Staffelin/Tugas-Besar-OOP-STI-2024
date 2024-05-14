@@ -150,9 +150,13 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = 1; j < MatriksPetak[i].length; j++) {
                 Petak petak = MatriksPetak[i][j];
+                boolean belumKena = true;
                 for(int x = j; x<11; x++){
                     Petak enemyTile = MatriksPetak[i][x];
-                    petak.attackTile(enemyTile);
+                    if(enemyTile.getListZombies().size() > 0 && belumKena){
+                        petak.attackTile(enemyTile);
+                    }
+                    belumKena = false;
                 }
             }
         }
