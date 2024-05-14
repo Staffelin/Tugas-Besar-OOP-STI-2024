@@ -162,14 +162,7 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = 0; j < MatriksPetak[i].length; j++) {
                 Petak currentTile = MatriksPetak[i][j];
-                String tileRepresentation;
-                if (currentTile instanceof ProtectedArea) {
-                    tileRepresentation = "\u001B[93m{ }\u001B[0m"; // Creme color
-                } else if (currentTile instanceof ZombieSpawn) {
-                    tileRepresentation = "\u001B[90m[ ]\u001B[0m"; // Gray color
-                } else {
-                    tileRepresentation = currentTile instanceof PetakKolam ? "\u001B[34m{ }\u001B[0m" : "\u001B[32m[ ]\u001B[0m";
-                }
+                String tileRepresentation = currentTile instanceof PetakKolam ? "{ }" : "[ ]";
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
