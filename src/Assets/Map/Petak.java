@@ -128,6 +128,10 @@ public abstract class Petak {
     public void attackTile(Petak enemyTile){
         if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
             if(this instanceof PetakDarat){
+                Plant attackingPLant = this.getListTanaman().get(0);
+                if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
+                    attackingPLant.attack(enemyTile.getListZombies());
+                }
                 this.getListTanaman().get(0).attack(enemyTile.getListZombies());
             }
             else if(this instanceof PetakKolam){
