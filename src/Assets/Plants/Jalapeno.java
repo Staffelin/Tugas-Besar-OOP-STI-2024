@@ -1,10 +1,14 @@
 package Plants;
 import Zombies.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Map.*;
 
 //import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.ArrayList;
+// import java.util.Arrays;
 //import java.util.Iterator;
 
 
@@ -16,28 +20,33 @@ public class Jalapeno extends Plant {
 
     @Override
     public void attack() {
-        if (getCooldown() > 0) {
-            setCooldown(getCooldown() - 1);
-            return;
-        }
-        System.out.println("Jalapeno attack  " + getAttackDamage());  
-        int currentRow = this.getRow();
-        Petak[] row = Map.getMatriksPetak()[currentRow];
-        ArrayList<Petak> tileRow = new ArrayList<>(Arrays.asList(row));
 
-        for (int i = this.getColumn(); i < tileRow.size(); i++) {
-            if (tileRow.get(i).getJumlahZombie() > 0) {
-                System.out.println("Ada zombie, Jalapenoo gaskeunn");
-                for (Zombie z : tileRow.get(i).getListZombies()) {
-                    z.takeDamage(attack_damage);
+           ArrayList<Zombie> zombiesInRow = new ArrayList<>();
+            for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
+                Petak tile = Map.getFromMatriksPetak(this.row, i);
+                if (tile != null) {
+                    System.out.println("Tile at row " + this.row + ", column " + i + " has " + tile.getListZombies().size() + " zombies");
+                        zombiesInRow.addAll(tile.getListZombies());
                 }
-                
-                return;   
             }
+            System.out.println("Zombies in row: " + zombiesInRow.size());
+
+            Iterator<Zombie> iterator = zombiesInRow.iterator();
+            while (iterator.hasNext()) {
+                Zombie z = iterator.next();
+                if (this.getRow() == z.getRow()) {
+                    z.takeDamage(attack_damage);
+                    System.out.println("Jalapeno menyerang zombie di petak " + z.getRow());
+                    if (z.getHealth() <= 0) {
+                        iterator.remove();
+                        System.out.println("Zombie di petak " + z.getRow() + " mati");
+                    }
+                }
+            }
+            this.die();
         }
-        this.die();
     }
-}
+
 
 
 

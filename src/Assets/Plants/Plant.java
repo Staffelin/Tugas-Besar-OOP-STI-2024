@@ -1,7 +1,7 @@
 package Plants;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 import Map.*;
 import Zombies.*;
@@ -116,20 +116,19 @@ public class Plant implements Position {
             setCooldown(getCooldown() - 1);
             return;
         }
-        ArrayList<Petak> tileRow = new ArrayList<>();
-        int currentRow = this.getRow();
-        for (Petak col : Map.getMatriksPetak()[currentRow]) {
-            tileRow.add(col);
-        }
-        for (int i = currentRow; i < tileRow.size(); i++) {
-            if (tileRow.get(i).getJumlahZombie() > 0) {
-                System.out.println("Ada zombie");
-                for (Zombie z : tileRow.get(i).getListZombies()) {
-                    z.takeDamage(attack_damage);
-                    // System.out.println(this.getName()+ " Deals " + this.getAttackDamage()+ " Damage to " + z.getName());
+        boolean attacked = false;
+        while(!attacked){
+            for(int i = column; i < 10; i++){
+                Petak tile = Map.getFromMatriksPetak(row, i);
+                if(tile.getListZombies().size() > 0){
+                    for(Zombie z : tile.getListZombies()){
+                        z.takeDamage(attack_damage);
+                        System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + tile.getRow() + ", " + tile.getColumn() + ")");
+                    }
+                    attacked = true;
+                    break;
                 }
-                setCooldown(getAttackSpeed());
-                return;   
+
             }
         }
     }
