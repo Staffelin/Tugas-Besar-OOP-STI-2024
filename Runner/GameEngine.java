@@ -3,9 +3,7 @@ import Exception.*;
 import Map.*;
 import Plants.*;
 import Player.*;
-// import Zombies.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class GameEngine {
     public static void main(String[] args) {
@@ -32,7 +30,6 @@ public class GameEngine {
         // Zombie newsPaper = new NewspaperZombie();
         // Zombie poleVaulting = new PoleVaultingZombie();
         // Zombie yeti = new YetiZombie();
-        ExecutorService executor = Executors.newFixedThreadPool(3);
         
 
         Inventory inventory = new Inventory();

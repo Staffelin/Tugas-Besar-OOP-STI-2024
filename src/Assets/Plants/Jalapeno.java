@@ -3,8 +3,7 @@ import Zombies.*;
 import Map.*;
 
 //import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 //import java.util.Iterator;
 
 
@@ -20,15 +19,12 @@ public class Jalapeno extends Plant {
             setCooldown(getCooldown() - 1);
             return;
         }
-        boolean attacked = false;
         for(int i = 0; i < 10; i++){
             Petak tile = Map.getFromMatriksPetak(row, i);
             if(tile.getListZombies().size() > 0){
                 for(Zombie z : tile.getListZombies()){
                     z.takeDamage(attack_damage);
                 }
-                attacked = true;
-                break;
             }
         
         }
