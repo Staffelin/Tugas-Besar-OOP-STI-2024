@@ -158,7 +158,7 @@ public class Map {
     public static void attackZombies() throws NoPlantException {
         for (int i = 0; i < 6; i++) {
              ArrayList<Petak> tileRow = new ArrayList<>(Arrays.asList(MatriksPetak[i]));
-             for (int j = 1; j < tileRow.size(); j++) {
+             for (int j = 1; j < 10; j++) {
                 if (tileRow.get(j).getJumlahTanaman() > 0) {
                     Plant p = tileRow.get(j).getListTanaman().get(0);   
                     p.attack();
@@ -238,10 +238,10 @@ public class Map {
         System.out.println();
     }
     public void addPlantToTile(int row, int column, Plant plant) {
-        Petak tile = MatriksPetak[row][column];
+        Petak tile = MatriksPetak[row-1][column];
         try {
             tile.tanamTanaman(plant);
-            System.out.println(plant.getName() + " berhasil ditanam di (" + (row+1) + ", " + column + ")"); 
+            System.out.println(plant.getName() + " berhasil ditanam di (" + (row) + ", " + column + ")"); 
         } catch (CannotAddPlantException e) {
     
             System.out.println("Cannot add plant to tile: " + e.getMessage());

@@ -263,8 +263,8 @@ public class GameEngine {
                 System.out.println("Masukkan koordinat tanaman yang ingin ditanam : ");
                 int row = sc.nextInt();
                 int column = sc.nextInt();
-                if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
-                    map.addPlantToTile(row-1, column, deck.getDeckOfPlants().get(index5-1));
+                if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
+                    map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1));
                     map.viewMap();
                     System.out.println("Current sun: " + Sun.sun);
                 } else {
