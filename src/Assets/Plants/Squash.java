@@ -1,36 +1,46 @@
 package Plants;
 
+// import java.util.ArrayList;
+// import java.util.Iterator;
+
 import Map.*;
 import Zombies.Zombie;
 
 public class Squash extends Plant{
-    private static boolean isWaiting;
     public Squash () {
         super("Squash", 50, 100, 5000, 0, 1, 20);
     }
 
-    public static void setWaiting(boolean booleanValue) {
-        isWaiting = booleanValue;
-    }
-    public static boolean getWaiting() {
-        return isWaiting;
-    }
 
+    @Override
     public void attack() {
-        if (getCooldown() > 0) {
-            setCooldown(getCooldown() - 1);
-            return;
-        }
-        for(int i = this.row; i < this.row+3; i++){
-            Petak tile = Map.getFromMatriksPetak(row, i);
-            if(tile.getListZombies().size() > 0){
-                for(Zombie z : tile.getListZombies()){
-                    z.takeDamage(attack_damage);
-                }
+        System.out.println("Squash attack method called");
+    
+        boolean attacked = false;
+    
+        // Get the tiles next to the squash
+        Petak leftTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() - 1);
+        Petak rightTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() + 1);
+    
+        // If the next tiles exist and have zombies, attack
+        if (leftTile != null) {
+            for (Zombie z : leftTile.getListZombies()) {
+                z.takeDamage(z.getHealth()); // Squash kills the zombies
+                System.out.println("Squash menyerang zombie di petak " + z.getRow());
+                attacked = true;
             }
-        
         }
-        
-        this.die();
+    
+        if (rightTile != null) {
+            for (Zombie z : rightTile.getListZombies()) {
+                z.takeDamage(z.getHealth()); // Squash kills the zombies
+                System.out.println("Squash menyerang zombie di petak " + z.getRow());
+                attacked = true;
+            }
+        }
+    
+        if (attacked) {
+            this.die();
+        }
     }
 }

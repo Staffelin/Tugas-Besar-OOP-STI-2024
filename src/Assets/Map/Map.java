@@ -134,7 +134,12 @@ public class Map {
                         if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
                             petak.removeZombie(zombie); // Pass the zombie to be removed
                             nextPetak.addZombie(zombie);
+                            // System.out.println("Moving zombies...");
+                            // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                            zombie.setRow(i);
                             zombie.setColumn(j - 1);
+                            // Update the spawn time
+
                             zombie.setSpawnTime(System.currentTimeMillis());
                         }
                     }

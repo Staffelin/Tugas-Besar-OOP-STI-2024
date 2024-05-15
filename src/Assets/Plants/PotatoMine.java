@@ -3,25 +3,35 @@ package Plants;
 import Map.*;
 import Zombies.Zombie;
 
+import Map.*;
+import Zombies.Zombie;
+
+
 public class PotatoMine extends Plant {
     public PotatoMine () {
-        super("Potato Mine", 75, 100, 5000, 0, 3, 20);
+        super("Potato Mine", 25, 100, 5000, 0, 3, 20);
     }
 
-    @Override
     public void attack() {
-        if (getCooldown() > 0) {
-            setCooldown(getCooldown() - 1);
-            return;
-        }
-        Petak tile = Map.getFromMatriksPetak(row, column);
-        if(tile.getListZombies().size() > 0){
-            for(Zombie z : tile.getListZombies()){
-                z.takeDamage(attack_damage);
+        System.out.println("Potato mine attack method called");
+    
+        boolean attacked = false;
+    
+        // Get the tiles next to the squash
+        Petak rightTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() + 1);
+    
+        // If the next tiles exist and have zombies, attack
+        if (rightTile != null) {
+            for (Zombie z : rightTile.getListZombies()) {
+                z.takeDamage(z.getHealth()); // Squash kills the zombies
+                System.out.println("Squash menyerang zombie di petak " + z.getRow());
+                attacked = true;
             }
         }
-        
-        this.die();
+    
+        if (attacked) {
+            this.die();
+        }
     }
 }
 

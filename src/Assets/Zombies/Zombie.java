@@ -2,6 +2,7 @@ package Zombies;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+// import java.util.ArrayList;
 
 import Map.*;
 import Plants.*;
@@ -106,12 +107,11 @@ public class Zombie implements Position {
     }
 
     public void attack() {
-        Petak petak = Map.getFromMatriksPetak(row, column-1);
-        System.out.println("Petak: " + petak); // This will print the Petak object
-        if (petak != null) {
-            System.out.println("JumlahTanaman: " + petak.getJumlahTanaman() + "Nama tanaman: " + petak.getListTanaman().get(0)); // This will print the number of plants
-        }
-        if (petak != null && petak.getJumlahTanaman() > 0) {
+        // System.out.println("Row" + getRow() + "Column" + (getColumn()));
+        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn()-1);
+        // System.out.println("Petak: " + petak); // This will print the Petak object
+        if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
+            // System.out.println("JumlahTanaman: " + petak.getJumlahTanaman() + "Nama tanaman: " + petak.getListTanaman().get(0)); // This will print the number of plants
             Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
             System.out.println("ZOMBIEE IS COMINGG RAWR");
