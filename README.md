@@ -1,4 +1,5 @@
 # Tugas-Besar-OOP-STI-2024
+# Michael VS Lalapan
 
 ## Deskripsi
 
