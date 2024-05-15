@@ -157,13 +157,12 @@ public class Map {
                         tileRow.get(j).removeTanaman();
                     }
                 }
-                // if (tileRow.get(j).getJumlahZombie() > 0) {
-                //     Zombie z = tileRow.get(j).getListZombies().get(0);
-                //     z.attack(tileRow.get(j-1).getListTanaman(), tileRow.get(j-1));
-                //     if (z.getHealth() <= 0) {
-                //         tileRow.get(j).removeZombie(z);
-                //     }
-                // }
+                if (tileRow.get(j).getJumlahZombie() > 0) {
+                    for (Zombie z : tileRow.get(j).getListZombies()) {
+                        z.attack();
+                    }
+                }
+                
             }
         }
     }
