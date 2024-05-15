@@ -335,7 +335,7 @@ public class GameEngine {
         //                 }
         
         //                 System.out.println("Ingin menanam tanaman? (Y/N)");
-        //                 char plantChoice = sc.next().charAt(0);
+        //                 plantChoice = sc.next().charAt(0);
         
         //             }
         //         case 'G':   

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import Plants.*;
 import Player.Sun;
 import Zombies.*;
-import Map.*;
+//import Map.*;
 
 
 public abstract class Petak {

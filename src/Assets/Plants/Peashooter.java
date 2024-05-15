@@ -24,7 +24,7 @@ public class Peashooter extends Plant {
 
         for (int i = this.getColumn(); i < tileRow.size(); i++) {
             if (tileRow.get(i).getJumlahZombie() > 0) {
-                System.out.println("Ada zombie");
+                System.out.println("Ada zombie, Peashooter siap membantu");
                 for (Zombie z : tileRow.get(i).getListZombies()) {
                     z.takeDamage(attack_damage);
                 }
