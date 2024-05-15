@@ -177,7 +177,7 @@ public class Map {
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                 } else if (currentTile.getListTanaman().size() == 1) {
-                    if(currentTile.getListTanaman().get(0).getHealth() <= 0){
+                    if(currentTile.getListTanaman().get(0).getHealth() <= 0 || currentTile.getListTanaman().get(0).getPlantDie() == true){
                         try{
                             currentTile.removeTanaman();
                             System.out.print(tileRepresentation + " ");
