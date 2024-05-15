@@ -1,9 +1,9 @@
 package Plants;
 
-// import java.util.ArrayList;
 
 import Map.*;
 import Zombies.Zombie;
+
 
 public class PotatoMine extends Plant {
     public PotatoMine () {

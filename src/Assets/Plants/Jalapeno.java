@@ -20,6 +20,7 @@ public class Jalapeno extends Plant {
 
     @Override
     public void attack() {
+
            ArrayList<Zombie> zombiesInRow = new ArrayList<>();
             for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
                 Petak tile = Map.getFromMatriksPetak(this.row, i);
@@ -44,7 +45,6 @@ public class Jalapeno extends Plant {
             }
             this.die();
         }
-                    
     }
 
 

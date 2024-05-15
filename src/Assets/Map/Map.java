@@ -132,9 +132,7 @@ public class Map {
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
-                    // Check if 5 seconds have passed since the zombie was spawned
                         if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                            // Move the zombie from the current tile to the next tile
                             petak.removeZombie(zombie); // Pass the zombie to be removed
                             nextPetak.addZombie(zombie);
                             // System.out.println("Moving zombies...");
@@ -142,12 +140,12 @@ public class Map {
                             zombie.setRow(i);
                             zombie.setColumn(j - 1);
                             // Update the spawn time
+
                             zombie.setSpawnTime(System.currentTimeMillis());
                         }
                     }
                     else {
                         petak.removeZombie(zombie);
-                    
                     }
                 }
             }
@@ -185,6 +183,50 @@ public class Map {
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                 } else if (currentTile.getListTanaman().size() == 1) {
+                    if(currentTile.getListTanaman().get(0).getHealth() <= 0 || currentTile.getListTanaman().get(0).getPlantDie() == true){
+                        try{
+                            currentTile.removeTanaman();
+                            System.out.print(tileRepresentation + " ");
+                        }
+                        catch(NoPlantException e){
+                            System.out.println("Emang gaada tanaman" + e.getMessage());
+                        
+                        }
+                    }
+                    else{
+                        if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
+                            System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Sunflower) {
+                            System.out.print(tileRepresentation.charAt(0) + "S]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof PotatoMine) {
+                            System.out.print(tileRepresentation.charAt(0) + "M]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Repeater) {
+                            System.out.print(tileRepresentation.charAt(0) + "R]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Squash) {
+                            System.out.print(tileRepresentation.charAt(0) + "Q]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Jalapeno) {
+                            System.out.print(tileRepresentation.charAt(0) + "J]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Lilypad) {
+                            System.out.print(tileRepresentation.charAt(0) + "L}" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof SnowPea) {
+                            System.out.print(tileRepresentation.charAt(0) + "O]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Tallnut) {
+                            System.out.print(tileRepresentation.charAt(0) + "T]" + tileRepresentation.charAt(1));
+                        }
+                        else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
+                            System.out.print(tileRepresentation.charAt(0) + "N]" + tileRepresentation.charAt(1));
+                        }
+                    }
+                    
+                } else if (currentTile.getListTanaman().size() == 2) {
                     if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
                         System.out.print(tileRepresentation.charAt(0) + "P]" + tileRepresentation.charAt(1));
                     }
@@ -214,16 +256,6 @@ public class Map {
                     }
                     else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
                         System.out.print(tileRepresentation.charAt(0) + "N]" + tileRepresentation.charAt(1));
-                    }
-                } else if (currentTile.getListTanaman().size() == 2) {
-                    if (currentTile.getListTanaman().get(1) instanceof Peashooter) {
-                        System.out.print(tileRepresentation.charAt(0) + "P}" + tileRepresentation.charAt(1));
-                    }
-                    else if (currentTile.getListTanaman().get(1) instanceof Sunflower) {
-                        System.out.print(tileRepresentation.charAt(0) + "S}" + tileRepresentation.charAt(1));
-                    }
-                    else if (currentTile.getListTanaman().get(1) instanceof PotatoMine) {
-                        // Handle the case when there is a second plant
                     }
                 } else {
                     System.out.print(tileRepresentation + " ");

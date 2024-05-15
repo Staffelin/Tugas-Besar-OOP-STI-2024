@@ -64,6 +64,7 @@ public abstract class Petak {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
                         p.setLastPlantedTime(LocalDateTime.now());
+                        p.attack();
                     } else {
                         throw new TwoPlantOnWaterException();
                     }
@@ -87,7 +88,7 @@ public abstract class Petak {
                     System.out.println("Jumlah Tanaman: " + tile.getJumlahTanaman() + "Nama tanaman: " + tile.getListTanaman().get(0));
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
-    
+                    p.attack();
                    
                 } else {
                     throw new OnlyOnePlantException();
