@@ -118,14 +118,15 @@ public class Plant implements Position {
         }
         ArrayList<Petak> tileRow = new ArrayList<>();
         int currentRow = this.getRow();
-        for (Petak[] row : Map.getMatriksPetak()) {
-            tileRow.add(row[currentRow]);
+        for (Petak col : Map.getMatriksPetak()[currentRow]) {
+            tileRow.add(col);
         }
         for (int i = currentRow; i < tileRow.size(); i++) {
             if (tileRow.get(i).getJumlahZombie() > 0) {
                 System.out.println("Ada zombie");
                 for (Zombie z : tileRow.get(i).getListZombies()) {
                     z.takeDamage(attack_damage);
+                    // System.out.println(this.getName()+ " Deals " + this.getAttackDamage()+ " Damage to " + z.getName());
                 }
                 setCooldown(getAttackSpeed());
                 return;   

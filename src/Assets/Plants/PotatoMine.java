@@ -1,9 +1,5 @@
 package Plants;
 
-import java.util.ArrayList;
-
-import Map.Petak;
-import Zombies.Zombie;
 
 public class PotatoMine extends Plant {
     public PotatoMine () {

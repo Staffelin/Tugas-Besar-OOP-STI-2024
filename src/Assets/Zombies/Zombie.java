@@ -120,7 +120,7 @@ public class Zombie implements Position {
     // }
 
     public void takeDamage(int damage) {
-        System.out.println("Zombie taking damage"); // Add this line
+        System.out.println("Zombie taking "+damage+" damage"); // Add this line
         this.health -= damage;
         if (this.health <= 0) {
             die();
