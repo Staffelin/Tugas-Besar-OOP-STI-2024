@@ -79,6 +79,10 @@ public abstract class Petak {
                 }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
+                    System.out.println(p.getName() + " planted");
+                    Petak tile = Map.getFromMatriksPetak(row, column);
+                    System.out.println("Petak: " + tile);   
+                    System.out.println("JumlahTanaman: " + tile.getJumlahTanaman() + "Nama tanaman: " + tile.getListTanaman().get(0));
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
     

@@ -75,6 +75,10 @@ public class Zombie implements Position {
         return attack_speed;
     }
 
+    public void setMovementSpeed(int speed) {
+        this.current_speed = speed;
+    }
+
     public int getCurrentSpeed() {
         return current_speed;
     }
@@ -102,22 +106,19 @@ public class Zombie implements Position {
         return secondsSinceLastAttack * 1000 >= attack_speed;
     }
 
-    // public void attack(ArrayList<Plant> plants, Petak tile) {
-    //     if (canAttack()) {
-    //         if(tile instanceof PetakDarat){
-    //             plants.get(0).takeDamage(attack_damage);
-    //         }
-    //         else if(tile instanceof PetakKolam){
-    //             if(plants.size() == 2){
-    //                 plants.get(1).takeDamage(attack_damage);
-    //             }
-    //             else{
-    //                 plants.get(0).takeDamage(attack_damage);
-    //             }
-    //         }
-    //     }
-    //     setLastAttackTime(LocalDateTime.now());
-    // }
+    public void attack() {
+        Petak petak = Map.getFromMatriksPetak(row, column-1);
+        System.out.println("Petak: " + petak); // This will print the Petak object
+        if (petak != null) {
+            System.out.println("JumlahTanaman: " + petak.getJumlahTanaman() + "Nama tanaman: " + petak.getListTanaman().get(0)); // This will print the number of plants
+        }
+        if (petak != null && petak.getJumlahTanaman() > 0) {
+            Plant p = petak.getListTanaman().get(0);
+            p.takeDamage(attack_damage);
+            System.out.println("ZOMBIEE IS COMINGG RAWR");
+            setMovementSpeed(getCurrentSpeed() + 1);
+        }
+    }
 
     public void takeDamage(int damage) {
         System.out.println("Zombie taking damage"); // Add this line
