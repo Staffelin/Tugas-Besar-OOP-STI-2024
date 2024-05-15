@@ -21,19 +21,18 @@ public class Jalapeno extends Plant {
             return;
         }
         boolean attacked = false;
-        while(!attacked){
-            for(int i = 0; i < 10; i++){
-                Petak tile = Map.getFromMatriksPetak(row, i);
-                if(tile.getListZombies().size() > 0){
-                    for(Zombie z : tile.getListZombies()){
-                        z.takeDamage(attack_damage);
-                    }
-                    attacked = true;
-                    break;
+        for(int i = 0; i < 10; i++){
+            Petak tile = Map.getFromMatriksPetak(row, i);
+            if(tile.getListZombies().size() > 0){
+                for(Zombie z : tile.getListZombies()){
+                    z.takeDamage(attack_damage);
                 }
-            
+                attacked = true;
+                break;
             }
+        
         }
+        
         this.die();
     }
 }

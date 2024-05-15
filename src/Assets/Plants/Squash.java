@@ -1,8 +1,5 @@
 package Plants;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import Map.*;
 import Zombies.Zombie;
 
@@ -19,25 +16,21 @@ public class Squash extends Plant{
         return isWaiting;
     }
 
-    // @Override
-    // public void attack(ArrayList<Zombie> zombies) {
-    //     // Get the tile next to the squash    
-    //     // If the next tile exists and has zombies, attack
-    //     System.out.println("Squash attack method called");
-    //     Iterator<Zombie> iterator = zombies.iterator();
-    //     while (iterator.hasNext()) {
-    //         Zombie z = iterator.next();
-    //         if (this.getRow() == z.getRow()) {
-    //             z.takeDamage(attack_damage);
-    //             System.out.println("Squash menyerang zombie di petak " + z.getRow());
-    //             if (z.getHealth() <= 0) {
-    //                 iterator.remove();
-    //                 System.out.println("Zombie di petak " + z.getRow() + " mati");
-    //             }
-    //         }
-    //     }
-    //     this.die();
-    //     isWaiting = false; 
-    // }
+    public void attack() {
+        if (getCooldown() > 0) {
+            setCooldown(getCooldown() - 1);
+            return;
+        }
+        for(int i = this.row; i < this.row+3; i++){
+            Petak tile = Map.getFromMatriksPetak(row, i);
+            if(tile.getListZombies().size() > 0){
+                for(Zombie z : tile.getListZombies()){
+                    z.takeDamage(attack_damage);
+                }
+            }
+        
+        }
+        
+        this.die();
+    }
 }
-
