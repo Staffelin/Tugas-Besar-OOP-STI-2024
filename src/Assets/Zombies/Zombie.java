@@ -131,6 +131,8 @@ public class Zombie implements Position {
         System.out.println(name + " has died.");  
         setDie();
         Map.spawnedZombies.remove(this);
+        // Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());  
+        // tile.removeZombie(this);
          
     }
 

@@ -130,15 +130,21 @@ public class Map {
                 Petak nextPetak = MatriksPetak[i][j - 1];
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
+                    if (zombie.getDie() == false) {
                     // Check if 5 seconds have passed since the zombie was spawned
-                    if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                        // Move the zombie from the current tile to the next tile
-                        petak.removeZombie(zombie); // Pass the zombie to be removed
-                        nextPetak.addZombie(zombie);
-                        System.out.println("Moving zombies...");
-                        System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
-                        // Update the spawn time
-                        zombie.setSpawnTime(System.currentTimeMillis());
+                        if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                            // Move the zombie from the current tile to the next tile
+                            petak.removeZombie(zombie); // Pass the zombie to be removed
+                            nextPetak.addZombie(zombie);
+                            System.out.println("Moving zombies...");
+                            System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                            // Update the spawn time
+                            zombie.setSpawnTime(System.currentTimeMillis());
+                        }
+                    }
+                    else {
+                        petak.removeZombie(zombie);
+                    
                     }
                 }
             }
