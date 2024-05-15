@@ -115,7 +115,7 @@ public class Zombie implements Position {
             Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
             System.out.println("ZOMBIEE IS COMINGG RAWR");
-            setMovementSpeed(getCurrentSpeed() + 1);
+            // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
 

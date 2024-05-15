@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 import Exception.*;
 import Map.*;
@@ -19,18 +20,7 @@ public class GameEngine {
         Plant tallnut = new Tallnut();
         Plant jalapeno = new Jalapeno();
         Plant lilypad = new Lilypad();
-        Plant wallnut = new Wallnut();
-
-        // Zombie normalZombie = new NormalZombie();
-        // Zombie bucketHead = new BucketheadZombie();
-        // Zombie coneHead = new ConeheadZombie();
-        // Zombie dolphinRider = new DolphinRiderZombie();
-        // Zombie football = new FootballZombie();
-        // Zombie gargantuar = new Gargantuar();
-        // Zombie newsPaper = new NewspaperZombie();
-        // Zombie poleVaulting = new PoleVaultingZombie();
-        // Zombie yeti = new YetiZombie();
-        
+        Plant wallnut = new Wallnut();      
 
         Inventory inventory = new Inventory();
         Deck deck = new Deck();
