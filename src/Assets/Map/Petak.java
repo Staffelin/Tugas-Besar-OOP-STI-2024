@@ -64,6 +64,7 @@ public abstract class Petak {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
                         p.setLastPlantedTime(LocalDateTime.now());
+                        p.attack();
                     } else {
                         throw new TwoPlantOnWaterException();
                     }
@@ -81,7 +82,7 @@ public abstract class Petak {
                     listTanaman.add(p);
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
-    
+                    p.attack();
                    
                 } else {
                     throw new OnlyOnePlantException();

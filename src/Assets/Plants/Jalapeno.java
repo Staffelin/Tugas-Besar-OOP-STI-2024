@@ -15,7 +15,7 @@ public class Jalapeno extends Plant {
     }
 
     @Override
-           public void attack() {
+    public void attack() {
         if (getCooldown() > 0) {
             setCooldown(getCooldown() - 1);
             return;
@@ -31,10 +31,11 @@ public class Jalapeno extends Plant {
                 for (Zombie z : tileRow.get(i).getListZombies()) {
                     z.takeDamage(attack_damage);
                 }
-                this.die();
+                
                 return;   
             }
         }
+        this.die();
     }
 }
 

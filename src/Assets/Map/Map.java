@@ -264,7 +264,7 @@ public class Map {
         System.out.println();
     }
     public void addPlantToTile(int row, int column, Plant plant) {
-        Petak tile = MatriksPetak[row][column];
+        Petak tile = MatriksPetak[row-1][column];
         try {
             tile.tanamTanaman(plant);
             System.out.println(plant.getName() + " berhasil ditanam di (" + (row+1) + ", " + column + ")"); 
