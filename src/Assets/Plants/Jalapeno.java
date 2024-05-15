@@ -20,19 +20,18 @@ public class Jalapeno extends Plant {
             setCooldown(getCooldown() - 1);
             return;
         }
-        System.out.println("Jalapeno attack  " + getAttackDamage());  
-        int currentRow = this.getRow();
-        Petak[] row = Map.getMatriksPetak()[currentRow];
-        ArrayList<Petak> tileRow = new ArrayList<>(Arrays.asList(row));
-
-        for (int i = this.getColumn(); i < tileRow.size(); i++) {
-            if (tileRow.get(i).getJumlahZombie() > 0) {
-                System.out.println("Ada zombie, Jalapenoo gaskeunn");
-                for (Zombie z : tileRow.get(i).getListZombies()) {
-                    z.takeDamage(attack_damage);
+        boolean attacked = false;
+        while(!attacked){
+            for(int i = 0; i < 10; i++){
+                Petak tile = Map.getFromMatriksPetak(row, i);
+                if(tile.getListZombies().size() > 0){
+                    for(Zombie z : tile.getListZombies()){
+                        z.takeDamage(attack_damage);
+                    }
+                    attacked = true;
+                    break;
                 }
-                
-                return;   
+            
             }
         }
         this.die();
