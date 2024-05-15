@@ -111,6 +111,7 @@ public class Map {
         
                     if (newZombie != null) {
                         newZombie.setRow(i);
+                        newZombie.setColumn(10);
                         spawnedZombies.add(newZombie); 
                         spawnSite.addZombie(newZombie);
                         newZombie.setSpawnTime(System.currentTimeMillis());
@@ -133,6 +134,7 @@ public class Map {
                         if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
                             petak.removeZombie(zombie); // Pass the zombie to be removed
                             nextPetak.addZombie(zombie);
+                            zombie.setColumn(j - 1);
                             zombie.setSpawnTime(System.currentTimeMillis());
                         }
                     }
