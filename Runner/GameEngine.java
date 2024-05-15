@@ -229,13 +229,95 @@ public class GameEngine {
             }
         });
 
-        try{
-            System.out.println("Enter command:");
-            char command = sc.next().charAt(0);
-            switch(command){
-                case 'T':
-                    System.out.println("Ingin menanam tanaman? (Y/N)");
-                    char plantChoice = sc.next().charAt(0);
+        Thread attackAll = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Map.attackZombies();
+                    } catch (NoPlantException e) {
+                        System.out.println(e.getClass().getName());
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        System.out.println("Print thread interrupted");
+                        return;
+                    }
+                }
+            }
+        });
+        attackAll.start();
+
+
+        char choice = sc.next().charAt(0);
+        if(choice == 'T'){
+            System.out.println("Ingin menanam tanaman? (Y/N)");
+            char plantChoice = sc.next().charAt(0);
+
+            while (plantChoice == 'Y') {
+                System.out.println("Masukkan indeks tanaman yang ingin ditanam : ");
+                System.out.println("Deck:");
+                deck.displayDeck();
+                int index5 = sc.nextInt();
+                System.out.println("Masukkan koordinat tanaman yang ingin ditanam : ");
+                int row = sc.nextInt();
+                int column = sc.nextInt();
+                if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
+                    map.addPlantToTile(row-1, column, deck.getDeckOfPlants().get(index5-1));
+                    map.viewMap();
+                    System.out.println("Current sun: " + Sun.sun);
+                } else {
+                    System.out.println("Indeks atau koordinat tidak valid!");
+                }
+
+                System.out.println("Ingin menanam tanaman? (Y/N)");
+                plantChoice = sc.next().charAt(0);
+
+            }
+        }
+        else if(choice == 'G'){
+            System.out.println("Ingin menggali tanaman? (Y/N)");
+            char digChoice = sc.next().charAt(0);
+            if (digChoice == 'Y') {
+                System.out.println("Masukkan koordinat tanaman yang ingin digali : ");
+                int row2 = sc.nextInt();
+                int column2 = sc.nextInt();
+                if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
+                    map.removePlantFromTile(row2-1, column2);
+                    map.viewMap();
+                    System.out.println("Current sun: " + Sun.sun);                
+                } else {
+                    System.out.println("Koordinat tidak valid!");
+                }
+            }
+        }
+
+
+        // System.out.println("Ingin menanam tanaman? (Y/N)");
+        // char plantChoice = sc.next().charAt(0);
+
+        // while (plantChoice == 'Y') {
+        //     System.out.println("Masukkan indeks tanaman yang ingin ditanam : ");
+        //     System.out.println("Deck:");
+        //     deck.displayDeck();
+        //     int index5 = sc.nextInt();
+        //     System.out.println("Masukkan koordinat tanaman yang ingin ditanam : ");
+        //     int row = sc.nextInt();
+        //     int column = sc.nextInt();
+        //     if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 5 && column >= 0 && column <= 9) {
+        //         map.addPlantToTile(row-1, column, deck.getDeckOfPlants().get(index5-1));
+        //         map.viewMap();
+        //         System.out.println("Current sun: " + Sun.sun);
+        //     } else {
+        //         System.out.println("Indeks atau koordinat tidak valid!");
+        //     }
+
+        //     System.out.println("Ingin menanam tanaman? (Y/N)");
+        //     plantChoice = sc.next().charAt(0);
+
+        // }
         
                     while (plantChoice == 'Y') {
                         System.out.println("Masukkan indeks tanaman yang ingin ditanam : ");

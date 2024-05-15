@@ -11,26 +11,30 @@ import java.util.Iterator;
 public class Jalapeno extends Plant {
     public Jalapeno () {
         super("Jalapeno", 125, 100, 5000, 0, -1, 25);
-        
-        
-    
     }
 
     @Override
-    public void attack(ArrayList<Zombie> zombies) {
-        System.out.println("Jalapeno attack method called");
-            Iterator<Zombie> iterator = zombies.iterator();
-            while (iterator.hasNext()) {
-                Zombie z = iterator.next();
-                if (this.getRow() == z.getRow()) {
+    public void attack() {
+        if (getCooldown() > 0) {
+            setCooldown(getCooldown() - 1);
+            return;
+        }
+        ArrayList<Petak> tileRow = new ArrayList<>();
+        int currentRow = this.getRow();
+        for (Petak[] row : Map.getMatriksPetak()) {
+            tileRow.add(row[currentRow]);
+        }
+        for (int i = currentRow; i < tileRow.size(); i++) {
+            if (tileRow.get(i).getJumlahZombie() > 0) {
+                System.out.println("Ada zombie");
+                for (Zombie z : tileRow.get(i).getListZombies()) {
                     z.takeDamage(attack_damage);
-                    System.out.println("Jalapeno menyerang zombie di petak " + z.getRow());
-                    if (z.getHealth() <= 0) {
-                        iterator.remove();
-                        System.out.println("Zombie di petak " + z.getRow() + " mati");
-                    }
                 }
+                setCooldown(getAttackSpeed());
+                return;   
             }
-            this.die();
+        }
     }
+
+
 }
