@@ -136,8 +136,8 @@ public class Map {
                             // Move the zombie from the current tile to the next tile
                             petak.removeZombie(zombie); // Pass the zombie to be removed
                             nextPetak.addZombie(zombie);
-                            System.out.println("Moving zombies...");
-                            System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                            // System.out.println("Moving zombies...");
+                            // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
                             // Update the spawn time
                             zombie.setSpawnTime(System.currentTimeMillis());
                         }

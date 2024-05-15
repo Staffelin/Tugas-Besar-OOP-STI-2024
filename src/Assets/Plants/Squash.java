@@ -19,25 +19,25 @@ public class Squash extends Plant{
         return isWaiting;
     }
 
-    @Override
-    public void attack(ArrayList<Zombie> zombies) {
-        // Get the tile next to the squash    
-        // If the next tile exists and has zombies, attack
-        System.out.println("Squash attack method called");
-        Iterator<Zombie> iterator = zombies.iterator();
-        while (iterator.hasNext()) {
-            Zombie z = iterator.next();
-            if (this.getRow() == z.getRow()) {
-                z.takeDamage(attack_damage);
-                System.out.println("Squash menyerang zombie di petak " + z.getRow());
-                if (z.getHealth() <= 0) {
-                    iterator.remove();
-                    System.out.println("Zombie di petak " + z.getRow() + " mati");
-                }
-            }
-        }
-        this.die();
-        isWaiting = false; 
-    }
+    // @Override
+    // public void attack(ArrayList<Zombie> zombies) {
+    //     // Get the tile next to the squash    
+    //     // If the next tile exists and has zombies, attack
+    //     System.out.println("Squash attack method called");
+    //     Iterator<Zombie> iterator = zombies.iterator();
+    //     while (iterator.hasNext()) {
+    //         Zombie z = iterator.next();
+    //         if (this.getRow() == z.getRow()) {
+    //             z.takeDamage(attack_damage);
+    //             System.out.println("Squash menyerang zombie di petak " + z.getRow());
+    //             if (z.getHealth() <= 0) {
+    //                 iterator.remove();
+    //                 System.out.println("Zombie di petak " + z.getRow() + " mati");
+    //             }
+    //         }
+    //     }
+    //     this.die();
+    //     isWaiting = false; 
+    // }
 }
 
