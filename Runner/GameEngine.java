@@ -212,6 +212,7 @@ public class GameEngine {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Thread.sleep(5000);
+                        map.attackZombies();
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -302,30 +303,30 @@ public class GameEngine {
         //     }
         // });
 
-        Thread attackAll = new Thread (new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    // System.out.println("Attack all zombies");
-                    try {
-                        Map.attackZombies();
-                    } catch (NoPlantException e) {
-                        System.out.println(e.getClass().getName());
-                        e.printStackTrace();
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println("Print thread interrupted");
-                        return;
-                    }
-                }
-            }
-        });
+        // Thread attackAll = new Thread (new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         while (true) {
+        //             // System.out.println("Attack all zombies");
+        //             try {
+        //                 Map.attackZombies();
+        //             } catch (NoPlantException e) {
+        //                 System.out.println(e.getClass().getName());
+        //                 e.printStackTrace();
+        //             }
+        //             try {
+        //                 Thread.sleep(1000);
+        //             } catch (InterruptedException e) {
+        //                 System.out.println("Print thread interrupted");
+        //                 return;
+        //             }
+        //         }
+        //     }
+        // });
         sunGeneration.start();
         zombieSpawner.start();
         zombieMover.start();
-        attackAll.start();
+        // attackAll.start();
 
 
         char choice = sc.next().charAt(0);

@@ -117,19 +117,19 @@ public class Plant implements Position {
             return;
         }
         boolean attacked = false;
-        while(!attacked){
             for(int i = column; i < 10; i++){
-                Petak tile = Map.getFromMatriksPetak(row, i);
-                if(tile.getListZombies().size() > 0){
-                    for(Zombie z : tile.getListZombies()){
-                        z.takeDamage(attack_damage);
+                if(attacked == false){
+                    Petak tile = Map.getFromMatriksPetak(row, i);
+                    if(tile.getListZombies().size() > 0){
+                        for(Zombie z : tile.getListZombies()){
+                            z.takeDamage(attack_damage);
+                        }
+                        attacked = true;
+                        break;
                     }
-                    attacked = true;
-                    break;
                 }
-            
             }
-        }
+        setLastAttackTime();
     }
 
     public void takeDamage(int damage) {
