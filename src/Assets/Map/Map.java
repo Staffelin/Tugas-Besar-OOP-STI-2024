@@ -14,6 +14,7 @@ public class Map {
     String[] listSpawnableZombie = {"BucketheadZombie", "ConeheadZombie", "DolphinRiderZombie", "DuckyTubeZombie","FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
+    private boolean stillPlaying = true;
 
     public Map() {
         MatriksPetak = new Petak[6][11];
@@ -36,6 +37,10 @@ public class Map {
     // Get the matriksPetak array
     public static Petak[][] getMatriksPetak() {
         return MatriksPetak;
+    }
+
+    public boolean getPlayingStatus(){
+        return stillPlaying;
     }
 
 
@@ -147,6 +152,9 @@ public class Map {
                         petak.removeZombie(zombie);
                     }
                 }
+            }
+            if(MatriksPetak[i][0].getListZombies().size() > 0){
+                stillPlaying = false;
             }
         }
     }
