@@ -140,7 +140,7 @@ public class Plant implements Position {
         }
     }
 
-    protected void die() {
+    public void die() {
         System.out.println(name + " has died.");
         setPlantDie();
         Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());
