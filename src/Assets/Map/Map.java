@@ -177,6 +177,9 @@ public class Map {
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    for(Zombie z : currentTile.getListZombies()){
+                        z.checkEffect();
+                    }
                 } else if (currentTile.getListTanaman().size() == 1) {
                     if(currentTile.getListTanaman().get(0).getHealth() <= 0 || currentTile.getListTanaman().get(0).getPlantDie() == true){
                         try{
