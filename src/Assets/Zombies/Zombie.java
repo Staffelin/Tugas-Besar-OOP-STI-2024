@@ -116,15 +116,21 @@ public class Zombie implements Position {
     }
 
     public void attack() {
-        // System.out.println("Row" + getRow() + "Column" + (getColumn()));
-        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn()-1);
-        // System.out.println("Petak: " + petak); // This will print the Petak object
-        if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
-            // System.out.println("JumlahTanaman: " + petak.getJumlahTanaman() + "Nama tanaman: " + petak.getListTanaman().get(0)); // This will print the number of plants
-            Plant p = petak.getListTanaman().get(0);
+
+        Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
+        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn()-1);
+        if (currentTile != null && currentTile.getJumlahTanaman() > 0 && !currentTile.getListTanaman().isEmpty()) {
+            Plant p = currentTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-            System.out.println("ZOMBIEE IS COMINGG RAWR");
-            // setMovementSpeed(getCurrentSpeed() + 1);
+            System.out.println("ZOMBIEE IS ATTACK CURRENT TILE");
+            setMovementSpeed(getCurrentSpeed() + 1);
+        }
+        if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
+            Plant p = nextTile.getListTanaman().get(0);
+            p.takeDamage(attack_damage);
+
+            System.out.println("ZOMBIEE IS ATTACK NEXT TILE");
+            setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
 
