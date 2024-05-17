@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import Plants.*;
 import Player.Sun;
 import Zombies.*;
+//import Map.*;
 
 
 public abstract class Petak {
@@ -19,7 +20,7 @@ public abstract class Petak {
         this.row = row;
         this.column = column;
         this.isAquatic = isAquatic;
-        this.listZombies = new ArrayList<>();
+        this.listZombies = new ArrayList<>(10);
         if (isAquatic) {
             this.listTanaman = new ArrayList<>(2);
         } else {
@@ -51,6 +52,10 @@ public abstract class Petak {
         return listTanaman;
     }
 
+    public int getJumlahTanaman(){
+        return listTanaman.size();
+    }
+
     public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
         if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
@@ -59,15 +64,14 @@ public abstract class Petak {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
                         p.setLastPlantedTime(LocalDateTime.now());
+                        p.attack();
                     } else {
                         throw new TwoPlantOnWaterException();
                     }
                 } else {
                     throw new PlantLilypadFirstException();
                 }
-            } 
-            
-            else {
+            } else {
                 if (p instanceof Lilypad) {
                     throw new LilypadOnLandException();
                 }
@@ -76,14 +80,17 @@ public abstract class Petak {
                 }
                 if (listTanaman.isEmpty()) {
                     listTanaman.add(p);
+                    p.setColumn(column);
+                    p.setRow(row);
+                    System.out.println(p.getName() + " planted");
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
+                    p.attack();                   
                 } else {
                     throw new OnlyOnePlantException();
                 }
             }
-        }
-        else {
+        } else {
             if (!p.isPlantable()) {
                 throw new CannotAddPlantException();
             }
@@ -92,8 +99,6 @@ public abstract class Petak {
             }
         }
     }
-
-
     public void removeTanaman() throws NoPlantException {
         if(listTanaman.isEmpty()){
             throw new NoPlantException();
@@ -115,5 +120,35 @@ public abstract class Petak {
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
     }
+
+    // public void attackTile(Petak enemyTile){
+    //     if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
+    //         if(this instanceof PetakDarat){
+    //             Plant attackingPLant = this.getListTanaman().get(0);
+    //             if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
+    //                 attackingPLant.attack(enemyTile.getListZombies());
+    //             }
+    //             this.getListTanaman().get(0).attack(enemyTile.getListZombies());
+    //         }
+    //         else if(this instanceof PetakKolam){
+    //             if(this.getListTanaman().size() == 2){
+    //                 this.getListTanaman().get(1).attack(enemyTile.getListZombies());
+    //             }
+    //         }
+    //     }
+    // }
+
+    public void removeZombie(Zombie zombie) {
+        if (listZombies.isEmpty()) {
+            System.out.println("No zombies to remove");
+        } else if (!listZombies.contains(zombie)) {
+            System.out.println("Zombie not found");
+        } else {
+            listZombies.remove(zombie);
+            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+            
+        }
+    }
+    
     
 }
