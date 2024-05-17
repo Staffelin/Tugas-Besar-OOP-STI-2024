@@ -1,8 +1,10 @@
 package Plants;
 
-
 import Map.*;
-import Zombies.Zombie;
+import Zombies.*;
+
+// import Map.*;
+// import Zombies.Zombie;
 
 
 public class PotatoMine extends Plant {

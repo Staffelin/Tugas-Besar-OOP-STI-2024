@@ -1,7 +1,6 @@
 package Map;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -15,6 +14,7 @@ public class Map {
     String[] listSpawnableZombie = {"BucketheadZombie", "ConeheadZombie", "DolphinRiderZombie", "DuckyTubeZombie","FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
+    private boolean stillPlaying = true;
 
     public Map() {
         MatriksPetak = new Petak[6][11];
@@ -37,6 +37,10 @@ public class Map {
     // Get the matriksPetak array
     public static Petak[][] getMatriksPetak() {
         return MatriksPetak;
+    }
+
+    public boolean getPlayingStatus(){
+        return stillPlaying;
     }
 
 
@@ -132,44 +136,49 @@ public class Map {
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
-                        if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                            petak.removeZombie(zombie); // Pass the zombie to be removed
-                            nextPetak.addZombie(zombie);
-                            // System.out.println("Moving zombies...");
-                            // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
-                            zombie.setRow(i);
-                            zombie.setColumn(j - 1);
-                            // Update the spawn time
-
-                            zombie.setSpawnTime(System.currentTimeMillis());
+                        if(petak.getListTanaman().size() == 0){
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                                petak.removeZombie(zombie); // Pass the zombie to be removed
+                                nextPetak.addZombie(zombie);
+                                // System.out.println("Moving zombies...");
+                                // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                                zombie.setRow(i);
+                                zombie.setColumn(j - 1);
+                                // Update the spawn time
+    
+                                zombie.setSpawnTime(System.currentTimeMillis());
+                            }
                         }
+                        else{
+                            zombie.attack();
+                        }
+                        
                     }
                     else {
                         petak.removeZombie(zombie);
                     }
                 }
             }
+            if(MatriksPetak[i][0].getListZombies().size() > 0){
+                stillPlaying = false;
+            }
         }
     }
 
 
-    public static void attackZombies() throws NoPlantException {
+    public static void attackPlants() {
         for (int i = 0; i < 6; i++) {
-             ArrayList<Petak> tileRow = new ArrayList<>(Arrays.asList(MatriksPetak[i]));
-             for (int j = 1; j < 10; j++) {
-                if (tileRow.get(j).getJumlahTanaman() > 0) {
-                    Plant p = tileRow.get(j).getListTanaman().get(0);   
-                    p.attack();
-                    if (p.getHealth() <= 0) {
-                        tileRow.get(j).removeTanaman();
+            for(int j = 1; j < 10; j++){
+                Petak currTile = getFromMatriksPetak(i, j);
+                if(currTile.getListTanaman().size() > 0){
+                    Plant currPlant = currTile.getListTanaman().get(0);
+                    if(currPlant instanceof Jalapeno){
+                        currPlant.attack();
+                    }
+                    else{
+                        currPlant.attack();
                     }
                 }
-                if (tileRow.get(j).getJumlahZombie() > 0) {
-                    for (Zombie z : tileRow.get(j).getListZombies()) {
-                        z.attack();
-                    }
-                }
-                
             }
         }
     }
@@ -182,6 +191,9 @@ public class Map {
                 int zombieCount = currentTile.getJumlahZombie();
                 if (zombieCount > 0) {
                     System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    for(Zombie z : currentTile.getListZombies()){
+                        z.checkEffect();
+                    }
                 } else if (currentTile.getListTanaman().size() == 1) {
                     if(currentTile.getListTanaman().get(0).getHealth() <= 0 || currentTile.getListTanaman().get(0).getPlantDie() == true){
                         try{
