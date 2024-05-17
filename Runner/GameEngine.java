@@ -109,6 +109,7 @@ public class GameEngine {
 
     public static void startGame() {
         Scanner sc = new Scanner(System.in);
+        boolean continueLoop = true;
         int index1;
         Map map = new Map();
         Plant peashooter = new Peashooter();
@@ -138,22 +139,31 @@ public class GameEngine {
 
         System.out.println("Inventory:");
         inventory.showInventory();
-        System.out.println("Ingin mengubah urutan inventory? (Y/N)");
-        char sortChoice = sc.next().charAt(0);
-        if (sortChoice == 'Y') {
-            System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
-            int index6 = sc.nextInt();
-            System.out.println("Mau dipindah ke posisi mana?");
-            int index7 = sc.nextInt();
-            if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
-                inventory.switchInventoryTanaman(index6-1, index7-1);
-                System.out.println(inventory.getInventory().get(index6-1).getName() + " berhasil dipindah ke " + index7);
-                System.out.println("Inventory:");
-                inventory.showInventory();
-            } else {
-                System.out.println("Indeks tidak valid!");
+        while (continueLoop) {
+            System.out.println("Ingin mengubah urutan inventory? (Y/N)");
+            char sortChoice = sc.next().charAt(0);
+            if (sortChoice == 'Y') {
+                System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
+                int index6 = sc.nextInt();
+                System.out.println("Mau dipindah ke posisi mana?");
+                int index7 = sc.nextInt();
+                if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
+                    inventory.switchInventoryTanaman(index6-1, index7-1);
+                    System.out.println(inventory.getInventory().get(index7-1).getName() + " berhasil dipindah ke " + index7);
+                    System.out.println("Inventory:");
+                    inventory.showInventory();
+                } else {
+                    System.out.println("Indeks tidak valid!");
+                }
+            }
+            else if(sortChoice == 'N') {
+                break;
+            }
+            else {
+                System.out.println("Masukkan tidak valid!");
             }
         }
+    
 
         sc.nextLine().trim();
         
