@@ -200,11 +200,42 @@ public class Map {
                 Petak currentTile = MatriksPetak[i][j];
                 String tileRepresentation = currentTile instanceof PetakKolam ? "{ }" : "[ ]";
                 int zombieCount = currentTile.getJumlahZombie();
-                if (zombieCount > 0) {
-                    System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
-                    for(Zombie z : currentTile.getListZombies()){
-                        z.checkEffect();
+                    // Cek jika ada tanaman dan zombie di petak yang sama
+                if ((currentTile.getListTanaman().size() == 1  && zombieCount > 0) || currentTile.getListTanaman().size() == 2  && zombieCount > 0) {
+                // Menampilkan simbol tanaman dan jumlah zombie
+                    if (currentTile.getListTanaman().get(0) instanceof Peashooter) {
+                        System.out.print(tileRepresentation.charAt(0) + "P Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                     }
+                    else if (currentTile.getListTanaman().get(0) instanceof Sunflower) {
+                        System.out.print(tileRepresentation.charAt(0) + "S Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof PotatoMine) {
+                        System.out.print(tileRepresentation.charAt(0) + "M Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Repeater) {
+                        System.out.print(tileRepresentation.charAt(0) + "R Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Squash) {
+                        System.out.print(tileRepresentation.charAt(0) + "Q Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Jalapeno) {
+                        System.out.print(tileRepresentation.charAt(0) + "J Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Lilypad) {
+                        System.out.print(tileRepresentation.charAt(0) + "L Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof SnowPea) {
+                        System.out.print(tileRepresentation.charAt(0) + "O Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Tallnut) {
+                        System.out.print(tileRepresentation.charAt(0) + "T Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                    else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
+                        System.out.print(tileRepresentation.charAt(0) + "N Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
+                    }
+                }
+                else if (currentTile.getListTanaman().size() == 0 && zombieCount > 0) {
+                    System.out.print(tileRepresentation.charAt(0) + "Z]" + zombieCount + tileRepresentation.charAt(1) + " ");
                 } else if (currentTile.getListTanaman().size() == 1) {
                     if(currentTile.getListTanaman().get(0).getHealth() <= 0 || currentTile.getListTanaman().get(0).getPlantDie() == true){
                         try{
