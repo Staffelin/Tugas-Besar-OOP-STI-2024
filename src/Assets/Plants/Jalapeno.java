@@ -20,9 +20,8 @@ public class Jalapeno extends Plant {
 
     @Override
     public void attack() {
-
            ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-            for (int i = this.column; i < Map.getMatriksPetak()[this.row].length; i++) {
+            for (int i = 0; i < Map.getMatriksPetak()[this.row].length; i++) {
                 Petak tile = Map.getFromMatriksPetak(this.row, i);
                 if (tile != null) {
                     System.out.println("Tile at row " + this.row + ", column " + i + " has " + tile.getListZombies().size() + " zombies");

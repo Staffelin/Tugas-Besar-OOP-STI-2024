@@ -274,7 +274,7 @@ public class GameEngine {
                         map.viewMap();
                     }
                     try {
-                        Map.attackPlants();
+                        map.attackPlants(); // Access the static method in a static way
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
