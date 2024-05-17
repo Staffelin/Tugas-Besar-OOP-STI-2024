@@ -11,7 +11,7 @@ public class DolphinRiderZombie extends Zombie {
 
     @Override
     public void attack() {
-        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn() - 1);
+        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasDived) {
             vault(nextTile);
         }
