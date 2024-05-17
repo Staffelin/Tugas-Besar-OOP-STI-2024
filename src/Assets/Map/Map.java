@@ -172,12 +172,7 @@ public class Map {
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
-                    if(currPlant instanceof Jalapeno){
-                        currPlant.attack();
-                    }
-                    else{
-                        currPlant.attack();
-                    }
+                    currPlant.attack();
                 }
             }
         }
