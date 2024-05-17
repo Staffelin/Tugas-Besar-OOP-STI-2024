@@ -10,7 +10,7 @@ package Plants;
 
 public class Repeater extends Plant {
     public Repeater () {
-        super("Repeater", 200, 100, 75, 4, -1, 10);
+        super("REPEATER", 200, 100, 75, 4, -1, 10);
     }
     
 //     @Override

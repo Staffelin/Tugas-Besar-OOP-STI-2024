@@ -15,50 +15,49 @@ public class GameEngine {
         String reset = "\033[0m";  // Reset warna
 
         // Print Michael vs Lalapan
-        System.out.println(green + "        ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset);
-        System.out.println(green + "        ████╗ ████║██║██╔════╝██║  ██║██╔══██╗██╔════╝██║         " + reset);
-        System.out.println(green + "        ██╔████╔██║██║██║     ███████║███████║█████╗  ██║         " + reset);
-        System.out.println(green + "        ██║╚██╔╝██║██║██║     ██╔══██║██╔══██║██╔══╝  ██║         " + reset);
-        System.out.println(green + "        ██║ ╚═╝ ██║██║╚██████╗██║  ██║██║  ██║███████╗███████╗    " + reset);
-        System.out.println(green + "        ╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    " + reset);
-        System.out.println(red + "                         ██╗   ██╗███████╗                         " + reset);
-        System.out.println(red + "                         ██║   ██║██╔════╝                         " + reset);
-        System.out.println(red + "                         ██║   ██║███████╗                         " + reset);
-        System.out.println(red + "                         ╚██╗ ██╔╝╚════██║                         " + reset);
-        System.out.println(red + "                          ╚████╔╝ ███████║                         " + reset);
-        System.out.println(red + "                           ╚═══╝  ╚══════╝                         " + reset);
-        System.out.println(green + "      ██╗      █████╗ ██╗      █████╗ ██████╗  █████╗ ███╗   ██╗    " + reset);
-        System.out.println(green + "      ██║     ██╔══██╗██║     ██╔══██╗██╔══██╗██╔══██╗████╗  ██║    " + reset);
-        System.out.println(green + "      ██║     ███████║██║     ███████║██████╔╝███████║██╔██╗ ██║    " + reset);
-        System.out.println(green + "      ██║     ██╔══██║██║     ██╔══██║██╔═══╝ ██╔══██║██║╚██╗██║    " + reset);
-        System.out.println(green + "      ███████╗██║  ██║███████╗██║  ██║██║     ██║  ██║██║ ╚████║    " + reset);
-        System.out.println(green + "      ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝    " + reset);
+        System.out.println(green + "            ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset);
+        System.out.println(green + "            ████╗ ████║██║██╔════╝██║  ██║██╔══██╗██╔════╝██║         " + reset);
+        System.out.println(green + "            ██╔████╔██║██║██║     ███████║███████║█████╗  ██║         " + reset);
+        System.out.println(green + "            ██║╚██╔╝██║██║██║     ██╔══██║██╔══██║██╔══╝  ██║         " + reset);
+        System.out.println(green + "            ██║ ╚═╝ ██║██║╚██████╗██║  ██║██║  ██║███████╗███████╗    " + reset);
+        System.out.println(green + "            ╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    " + reset);
+        System.out.println(red + "                              ██╗   ██╗███████╗                         " + reset);
+        System.out.println(red + "                              ██║   ██║██╔════╝                         " + reset);
+        System.out.println(red + "                              ██║   ██║███████╗                         " + reset);
+        System.out.println(red + "                              ╚██╗ ██╔╝╚════██║                         " + reset);
+        System.out.println(red + "                               ╚████╔╝ ███████║                         " + reset);
+        System.out.println(red + "                                ╚═══╝  ╚══════╝                         " + reset);
+        System.out.println(green + "          ██╗      █████╗ ██╗      █████╗ ██████╗  █████╗ ███╗   ██╗    " + reset);
+        System.out.println(green + "          ██║     ██╔══██╗██║     ██╔══██╗██╔══██╗██╔══██╗████╗  ██║    " + reset);
+        System.out.println(green + "          ██║     ███████║██║     ███████║██████╔╝███████║██╔██╗ ██║    " + reset);
+        System.out.println(green + "          ██║     ██╔══██║██║     ██╔══██║██╔═══╝ ██╔══██║██║╚██╗██║    " + reset);
+        System.out.println(green + "          ███████╗██║  ██║███████╗██║  ██║██║     ██║  ██║██║ ╚████║    " + reset);
+        System.out.println(green + "          ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝    " + reset);
     
  
         System.out.println("                                                                     ");
-        System.out.println(" ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄ ");
-        System.out.println("▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌");
-        System.out.println(" ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀ ");
+        System.out.println(" ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄");
+        System.out.println("▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌");
+        System.out.println(" ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀ ");
         System.out.println("                                                                     ");
         
         Scanner sc = new Scanner(System.in);
         boolean exitGame = false;
 
         while (!exitGame) {
-            System.out.println(yellow);
-            System.out.println("   ███    ███████████    ███    ██     ██████ ████████    █████████ ");
-            System.out.println("   ████  █████    ████   ███    ██    ██     ██   █████  █████      ");
-            System.out.println("   ██ ████ ██████ ██ ██  ███    ██    ██   ██████████ ████ ██████   ");
-            System.out.println("   ██  ██  ███    ██  ██ ███    ██    ██    ███   ███  ██  ███      ");
-            System.out.println("   ██      █████████   ██████████      ████████   ███      ████████ ");
-            System.out.println(                                                                 reset);
+            System.out.println(yellow + "███╗   ███╗███████╗███╗   ██╗██╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗" + reset);
+            System.out.println(yellow + "████╗ ████║██╔════╝████╗  ██║██║   ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝" + reset);
+            System.out.println(yellow + "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║    ██║  ███╗███████║██╔████╔██║█████╗  " + reset);
+            System.out.println(yellow + "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " + reset);
+            System.out.println(yellow + "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" + reset);
+            System.out.println(yellow + "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝" + reset);
             System.out.println(yellow + bold + " 1. START" + reset);
             System.out.println(yellow + bold +" 2. HELP" + reset);
             System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
             System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
             System.out.println(yellow + bold +" 5. EXIT" + reset);
             System.out.println(yellow + bold + "\r\n" + //
-                                "███████████████████████████████████████████████████████████████████ \r\n" + reset);
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
             System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
             int choice = sc.nextInt();
             sc.nextLine();
@@ -108,6 +107,10 @@ public class GameEngine {
     }
 
     public static void startGame() {
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String green = "\033[32m"; // Kode warna hijau
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
         Scanner sc = new Scanner(System.in);
         boolean continueLoop = true;
         int index1;
@@ -136,11 +139,22 @@ public class GameEngine {
         inventory.getInventory().add(lilypad);
         inventory.getInventory().add(wallnut);
 
-
-        System.out.println("Inventory:");
+        System.out.println(yellow + bold + "\r\n" + //
+                                "█████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(yellow + "██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗" + reset);
+        System.out.println(yellow + "██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝" + reset);
+        System.out.println(yellow + "██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝ " + reset);
+        System.out.println(yellow + "██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  " + reset);
+        System.out.println(yellow + "██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║   " + reset);
+        System.out.println(yellow + bold + "╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ");
+        System.out.println(yellow + bold + "\r\n" + //
+                                "█████████████████████████████████████████████████████████████████████████████  \r\n");
         inventory.showInventory();
+        System.out.println(yellow + bold + "\r\n" + //
+        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(" " + reset);
         while (continueLoop) {
-            System.out.println("Ingin mengubah urutan inventory? (Y/N)");
+            System.out.println(green + bold + "INGIN MENGUBAH URUTAN INVENTORY? (Y/N)" + reset);
             char sortChoice = sc.next().charAt(0);
             if (sortChoice == 'Y') {
                 System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
@@ -167,7 +181,7 @@ public class GameEngine {
 
         sc.nextLine().trim();
         
-        System.out.println("Tambah tanaman ke deck: ");
+        System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
         String input = sc.nextLine().trim();
         index1 = input.isEmpty() ? -1 : Integer.parseInt(input);
 

@@ -15,7 +15,7 @@ import Map.*;
 
 public class Jalapeno extends Plant {
     public Jalapeno () {
-        super("Jalapeno", 125, 100, 5000, 0, -1, 25);
+        super("JALAPENO", 125, 100, 5000, 0, -1, 25);
     }
 
     @Override
