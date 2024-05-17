@@ -59,7 +59,7 @@ public class GameEngine {
             System.out.println(yellow + bold +" 5. EXIT" + reset);
             System.out.println(yellow + bold + "\r\n" + //
                                 "███████████████████████████████████████████████████████████████████ \r\n" + reset);
-            System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: ");
+            System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
             int choice = sc.nextInt();
             sc.nextLine();
 
