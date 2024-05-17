@@ -5,9 +5,9 @@ public class NewspaperZombie extends Zombie {
         super("Newspaper Zombie", 175, 100, 1, 5, false);
     }
 
-    public increaseSpeed() {
+    public void increaseSpeed() {
         if (this.health <= 100) {
-            this.currentSpeed = 3;
+            this.current_speed = 3;
         }
     }
 
