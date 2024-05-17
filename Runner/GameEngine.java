@@ -9,6 +9,99 @@ import java.util.concurrent.Executors;
 
 public class GameEngine {
     public static void main(String[] args) {
+        String red = "\033[31m";   // Red color code
+        String green = "\033[32m"; // Green color code
+        String reset = "\033[0m";  // Reset to default color
+
+        // ASCII art string stored in an array, where each element represents one line
+        String[] asciiArt = new String[]{
+            green + "    ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset,
+            green + "    ████╗ ████║██║██╔════╝██║  ██║██╔══██╗██╔════╝██║         " + reset,
+            green + "    ██╔████╔██║██║██║     ███████║███████║█████╗  ██║         " + reset,
+            green + "    ██║╚██╔╝██║██║██║     ██╔══██║██╔══██║██╔══╝  ██║         " + reset,
+            green + "    ██║ ╚═╝ ██║██║╚██████╗██║  ██║██║  ██║███████╗███████╗    " + reset,
+            green + "    ╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    " + reset,
+            red + "                    ██╗   ██╗███████╗                         " + reset,
+            red + "                    ██║   ██║██╔════╝                         " + reset,
+            red + "                    ██║   ██║███████╗                         " + reset,
+            red + "                    ╚██╗ ██╔╝╚════██║                         " + reset,
+            red + "                     ╚████╔╝ ███████║                         " + reset,
+            red + "                      ╚═══╝  ╚══════╝                         " + reset,
+            green + "██╗      █████╗ ██╗      █████╗ ██████╗  █████╗ ███╗   ██╗    " + reset,
+            green + "██║     ██╔══██╗██║     ██╔══██╗██╔══██╗██╔══██╗████╗  ██║    " + reset,
+            green + "██║     ███████║██║     ███████║██████╔╝███████║██╔██╗ ██║    " + reset,
+            green + "██║     ██╔══██║██║     ██╔══██║██╔═══╝ ██╔══██║██║╚██╗██║    " + reset,
+            green + "███████╗██║  ██║███████╗██║  ██║██║     ██║  ██║██║ ╚████║    " + reset,
+            green + "╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝    " + reset
+        };
+
+        // Iterate through the array and print each line
+        for (String line : asciiArt) {
+            System.out.println(line);
+        }
+    
+        Scanner sc = new Scanner(System.in);
+        boolean exitGame = false;
+
+        while (!exitGame) {
+            System.out.println("\n================================");
+            System.out.println("       Menu Utama Permainan     ");
+            System.out.println("================================");
+            System.out.println("1. START");
+            System.out.println("2. HELP");
+            System.out.println("3. PLANTS LIST");
+            System.out.println("4. ZOMBIES LIST");
+            System.out.println("5. EXIT");
+            System.out.println("================================");
+            System.out.println("Masukkan nomor menu yang dipilih: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    startGame();
+                    break;
+                case 2:
+                    displayHelp();
+                    break;
+                case 3:
+                    displayPlantsList();
+                    break;
+                case 4:
+                    displayZombiesList();
+                    break;
+                case 5:
+                    System.out.println("\n================================");
+                    System.out.println("   Terima Kasih Telah Bermain!   ");
+                    System.out.println("================================");
+                    exitGame = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+        sc.close();
+    }
+
+    private static void displayHelp() {
+        System.out.println("Selamat datang di Michael vs. Lalapan!");
+    }
+
+    private static void displayPlantsList() {
+        // Assume Plant classes have a method to describe themselves
+        System.out.println("Plants available:");
+        // Example: System.out.println(new Peashooter().getDescription());
+        // Repeat for each plant type
+    }
+
+    private static void displayZombiesList() {
+        // Assume Zombie classes have a method to describe themselves
+        System.out.println("Zombies that may appear:");
+        // Example: System.out.println(new NormalZombie().getDescription());
+        // Repeat for each zombie type
+    }
+
+    public static void startGame() {
         Scanner sc = new Scanner(System.in);
         int index1;
         Map map = new Map();
