@@ -68,6 +68,10 @@ public class Plant implements Position {
         return health;
     }
 
+    public void setHealth(int health){
+        this.health = health;
+    }
+
     public int getAttackDamage(){
         return attack_damage;
     }
