@@ -257,7 +257,7 @@ public class GameEngine {
                         map.viewMap();
                     }
                     try {
-                        map.attackPlants();
+                        Map.attackPlants();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
