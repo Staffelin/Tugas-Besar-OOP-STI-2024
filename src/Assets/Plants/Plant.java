@@ -100,7 +100,7 @@ public class Plant implements Position {
 
 
     public boolean canAttack() {
-        return Duration.between(lastAttackTime, LocalDateTime.now()).getSeconds() >= attack_speed*1000;
+        return Duration.between(lastAttackTime, LocalDateTime.now()).getSeconds() >= attack_speed;
     }
 
     public void setLastAttackTime() {
@@ -117,20 +117,19 @@ public class Plant implements Position {
             return;
         }
         boolean attacked = false;
-        while(!attacked){
             for(int i = column; i < 10; i++){
-                Petak tile = Map.getFromMatriksPetak(row, i);
-                if(tile.getListZombies().size() > 0){
-                    for(Zombie z : tile.getListZombies()){
-                        z.takeDamage(attack_damage);
-                        System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + tile.getRow() + ", " + tile.getColumn() + ")");
+                if(attacked == false){
+                    Petak tile = Map.getFromMatriksPetak(row, i);
+                    if(tile.getListZombies().size() > 0){
+                        for(Zombie z : tile.getListZombies()){
+                            z.takeDamage(attack_damage);
+                        }
+                        attacked = true;
+                        break;
                     }
-                    attacked = true;
-                    break;
                 }
-
             }
-        }
+        setLastAttackTime();
     }
 
     public void takeDamage(int damage) {
@@ -145,7 +144,5 @@ public class Plant implements Position {
         setPlantDie();
         Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());
         tile.getListTanaman().remove(this); 
-
-
     }
 }

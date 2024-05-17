@@ -1,5 +1,7 @@
 package Plants;
 
+import Map.*;
+import Zombies.Zombie;
 
 import Map.*;
 import Zombies.Zombie;

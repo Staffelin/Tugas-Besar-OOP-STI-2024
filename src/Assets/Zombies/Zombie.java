@@ -20,6 +20,7 @@ public class Zombie implements Position {
     private long spawnTime;
     LocalDateTime lastAttackTime;
     private boolean isDie = false;
+    private int effectTime = 0;
     
 
     public Zombie(String name, int health, int attack_damage, int attack_speed, int current_speed, boolean isAquatic) {
@@ -95,6 +96,14 @@ public class Zombie implements Position {
         return this.spawnTime;
     }
 
+    public int getEffectTime() {
+        return effectTime;
+    }
+
+    public void setEffectTime(int effectTime) {
+        this.effectTime = effectTime;
+    }
+
 
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
         this.lastAttackTime = lastAttackTime;
@@ -107,28 +116,36 @@ public class Zombie implements Position {
     }
 
     public void attack() {
-
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn()-1);
         if (currentTile != null && currentTile.getJumlahTanaman() > 0 && !currentTile.getListTanaman().isEmpty()) {
             Plant p = currentTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
             System.out.println("ZOMBIEE IS ATTACK CURRENT TILE");
-            setMovementSpeed(getCurrentSpeed() + 1);
+            // setMovementSpeed(getCurrentSpeed() + 1);
         }
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
             Plant p = nextTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
+
             System.out.println("ZOMBIEE IS ATTACK NEXT TILE");
-            setMovementSpeed(getCurrentSpeed() + 1);
+            // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
 
     public void takeDamage(int damage) {
-        System.out.println("Zombie taking "+damage+" damage"); // Add this line
+        // System.out.println("Zombie taking "+damage+" damage"); // Add this line
         this.health -= damage;
         if (this.health <= 0) {
             die();
+        }
+    }
+    public void checkEffect(){
+        if (effectTime > 0){
+            effectTime--;
+        }
+        else{
+            setMovementSpeed(current_speed);
         }
     }
 
