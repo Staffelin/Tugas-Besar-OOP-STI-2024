@@ -8,51 +8,57 @@ import Player.*;
 
 public class GameEngine {
     public static void main(String[] args) {
-        String red = "\033[31m";   // Red color code
-        String green = "\033[32m"; // Green color code
-        String reset = "\033[0m";  // Reset to default color
+        String red = "\033[31m";   // Kode warna merah
+        String green = "\033[32m"; // Kode warna hijau
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
 
-        // ASCII art string stored in an array, where each element represents one line
-        String[] asciiArt = new String[]{
-            green + "    ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset,
-            green + "    ████╗ ████║██║██╔════╝██║  ██║██╔══██╗██╔════╝██║         " + reset,
-            green + "    ██╔████╔██║██║██║     ███████║███████║█████╗  ██║         " + reset,
-            green + "    ██║╚██╔╝██║██║██║     ██╔══██║██╔══██║██╔══╝  ██║         " + reset,
-            green + "    ██║ ╚═╝ ██║██║╚██████╗██║  ██║██║  ██║███████╗███████╗    " + reset,
-            green + "    ╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    " + reset,
-            red + "                    ██╗   ██╗███████╗                         " + reset,
-            red + "                    ██║   ██║██╔════╝                         " + reset,
-            red + "                    ██║   ██║███████╗                         " + reset,
-            red + "                    ╚██╗ ██╔╝╚════██║                         " + reset,
-            red + "                     ╚████╔╝ ███████║                         " + reset,
-            red + "                      ╚═══╝  ╚══════╝                         " + reset,
-            green + "██╗      █████╗ ██╗      █████╗ ██████╗  █████╗ ███╗   ██╗    " + reset,
-            green + "██║     ██╔══██╗██║     ██╔══██╗██╔══██╗██╔══██╗████╗  ██║    " + reset,
-            green + "██║     ███████║██║     ███████║██████╔╝███████║██╔██╗ ██║    " + reset,
-            green + "██║     ██╔══██║██║     ██╔══██║██╔═══╝ ██╔══██║██║╚██╗██║    " + reset,
-            green + "███████╗██║  ██║███████╗██║  ██║██║     ██║  ██║██║ ╚████║    " + reset,
-            green + "╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝    " + reset
-        };
-
-        // Iterate through the array and print each line
-        for (String line : asciiArt) {
-            System.out.println(line);
-        }
+        // Print Michael vs Lalapan
+        System.out.println(green + "            ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset);
+        System.out.println(green + "            ████╗ ████║██║██╔════╝██║  ██║██╔══██╗██╔════╝██║         " + reset);
+        System.out.println(green + "            ██╔████╔██║██║██║     ███████║███████║█████╗  ██║         " + reset);
+        System.out.println(green + "            ██║╚██╔╝██║██║██║     ██╔══██║██╔══██║██╔══╝  ██║         " + reset);
+        System.out.println(green + "            ██║ ╚═╝ ██║██║╚██████╗██║  ██║██║  ██║███████╗███████╗    " + reset);
+        System.out.println(green + "            ╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    " + reset);
+        System.out.println(red + "                              ██╗   ██╗███████╗                         " + reset);
+        System.out.println(red + "                              ██║   ██║██╔════╝                         " + reset);
+        System.out.println(red + "                              ██║   ██║███████╗                         " + reset);
+        System.out.println(red + "                              ╚██╗ ██╔╝╚════██║                         " + reset);
+        System.out.println(red + "                               ╚████╔╝ ███████║                         " + reset);
+        System.out.println(red + "                                ╚═══╝  ╚══════╝                         " + reset);
+        System.out.println(green + "          ██╗      █████╗ ██╗      █████╗ ██████╗  █████╗ ███╗   ██╗    " + reset);
+        System.out.println(green + "          ██║     ██╔══██╗██║     ██╔══██╗██╔══██╗██╔══██╗████╗  ██║    " + reset);
+        System.out.println(green + "          ██║     ███████║██║     ███████║██████╔╝███████║██╔██╗ ██║    " + reset);
+        System.out.println(green + "          ██║     ██╔══██║██║     ██╔══██║██╔═══╝ ██╔══██║██║╚██╗██║    " + reset);
+        System.out.println(green + "          ███████╗██║  ██║███████╗██║  ██║██║     ██║  ██║██║ ╚████║    " + reset);
+        System.out.println(green + "          ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝    " + reset);
     
+ 
+        System.out.println("                                                                     ");
+        System.out.println(" ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄  ▄");
+        System.out.println("▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌▐░▌");
+        System.out.println(" ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀ ");
+        System.out.println("                                                                     ");
+        
         Scanner sc = new Scanner(System.in);
         boolean exitGame = false;
 
         while (!exitGame) {
-            System.out.println("\n================================");
-            System.out.println("       Menu Utama Permainan     ");
-            System.out.println("================================");
-            System.out.println("1. START");
-            System.out.println("2. HELP");
-            System.out.println("3. PLANTS LIST");
-            System.out.println("4. ZOMBIES LIST");
-            System.out.println("5. EXIT");
-            System.out.println("================================");
-            System.out.println("Masukkan nomor menu yang dipilih: ");
+            System.out.println(yellow + "███╗   ███╗███████╗███╗   ██╗██╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗" + reset);
+            System.out.println(yellow + "████╗ ████║██╔════╝████╗  ██║██║   ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝" + reset);
+            System.out.println(yellow + "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║    ██║  ███╗███████║██╔████╔██║█████╗  " + reset);
+            System.out.println(yellow + "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " + reset);
+            System.out.println(yellow + "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" + reset);
+            System.out.println(yellow + "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝" + reset);
+            System.out.println(yellow + bold + " 1. START" + reset);
+            System.out.println(yellow + bold +" 2. HELP" + reset);
+            System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
+            System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
+            System.out.println(yellow + bold +" 5. EXIT" + reset);
+            System.out.println(yellow + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
             int choice = sc.nextInt();
             sc.nextLine();
 
@@ -101,7 +107,12 @@ public class GameEngine {
     }
 
     public static void startGame() {
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String green = "\033[32m"; // Kode warna hijau
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
         Scanner sc = new Scanner(System.in);
+        boolean continueLoop = true;
         int index1;
         Map map = new Map();
         Plant peashooter = new Peashooter();
@@ -128,29 +139,49 @@ public class GameEngine {
         inventory.getInventory().add(lilypad);
         inventory.getInventory().add(wallnut);
 
-
-        System.out.println("Inventory:");
+        System.out.println(yellow + bold + "\r\n" + //
+                                "█████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(yellow + "██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗" + reset);
+        System.out.println(yellow + "██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝" + reset);
+        System.out.println(yellow + "██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝ " + reset);
+        System.out.println(yellow + "██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  " + reset);
+        System.out.println(yellow + "██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║   " + reset);
+        System.out.println(yellow + bold + "╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ");
+        System.out.println(yellow + bold + "\r\n" + //
+                                "█████████████████████████████████████████████████████████████████████████████  \r\n");
         inventory.showInventory();
-        System.out.println("Ingin mengubah urutan inventory? (Y/N)");
-        char sortChoice = sc.next().charAt(0);
-        if (sortChoice == 'Y') {
-            System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
-            int index6 = sc.nextInt();
-            System.out.println("Mau dipindah ke posisi mana?");
-            int index7 = sc.nextInt();
-            if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
-                inventory.switchInventoryTanaman(index6-1, index7-1);
-                System.out.println(inventory.getInventory().get(index6-1).getName() + " berhasil dipindah ke " + index7);
-                System.out.println("Inventory:");
-                inventory.showInventory();
-            } else {
-                System.out.println("Indeks tidak valid!");
+        System.out.println(yellow + bold + "\r\n" + //
+        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(" " + reset);
+        while (continueLoop) {
+            System.out.println(green + bold + "INGIN MENGUBAH URUTAN INVENTORY? (Y/N)" + reset);
+            char sortChoice = sc.next().charAt(0);
+            if (sortChoice == 'Y') {
+                System.out.println("Masukkan indeks tanaman yang ingin dipindah : ");
+                int index6 = sc.nextInt();
+                System.out.println("Mau dipindah ke posisi mana?");
+                int index7 = sc.nextInt();
+                if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
+                    inventory.switchInventoryTanaman(index6-1, index7-1);
+                    System.out.println(inventory.getInventory().get(index7-1).getName() + " berhasil dipindah ke " + index7);
+                    System.out.println("Inventory:");
+                    inventory.showInventory();
+                } else {
+                    System.out.println("Indeks tidak valid!");
+                }
+            }
+            else if(sortChoice == 'N') {
+                break;
+            }
+            else {
+                System.out.println("Masukkan tidak valid!");
             }
         }
+    
 
         sc.nextLine().trim();
         
-        System.out.println("Tambah tanaman ke deck: ");
+        System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
         String input = sc.nextLine().trim();
         index1 = input.isEmpty() ? -1 : Integer.parseInt(input);
 

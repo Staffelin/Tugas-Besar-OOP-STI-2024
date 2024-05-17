@@ -7,7 +7,7 @@ public class Sunflower extends Plant {
     private static Thread sunThread;
 
     public Sunflower () {
-        super("Sunflower", 50, 100, 0, 0, 0, 10);
+        super("SUNFLOWER", 50, 100, 0, 0, 0, 10);
     }
 
     public void SunflowerGenerateSun() {

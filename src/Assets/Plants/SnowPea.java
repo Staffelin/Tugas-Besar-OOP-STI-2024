@@ -4,7 +4,7 @@ import Zombies.*;
 
 public class SnowPea extends Plant {
     public SnowPea () {
-        super("Snow Pea", 175, 100, 25, 4, -1, 10);
+        super("SNOW PEA", 175, 100, 25, 4, -1, 10);
     }
 
     public void attack(){
