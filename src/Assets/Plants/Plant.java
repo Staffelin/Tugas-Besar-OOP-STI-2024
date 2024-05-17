@@ -123,6 +123,7 @@ public class Plant implements Position {
                     if(tile.getListZombies().size() > 0){
                         for(Zombie z : tile.getListZombies()){
                             z.takeDamage(attack_damage);
+                            System.out.println("Plant " + name + " attacks zombie at (" + row + ", " + i + ")");           
                         }
                         attacked = true;
                         break;

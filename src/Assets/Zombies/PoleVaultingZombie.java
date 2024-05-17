@@ -10,26 +10,32 @@ public class PoleVaultingZombie extends Zombie {
     
     @Override
     public void attack() {
-        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn() - 1);
-        if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasVaulted) {
+        System.out.println("Attack from Pole Vaulting Zombie");
+        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
+        System.out.println("Petak didepan terdapat " + nextTile.getJumlahTanaman() + " tanaman");   
+        if (nextTile.getJumlahTanaman() > 0 && !hasVaulted) {
+            System.out.println("berhasil vault dong!");
             vault(nextTile);
         }
         // After vaulting, perform basic attack
-        basicAttack();
+        else{
+            basicAttack();
+        }
+        
     }
     
     public void vault(Petak nextTile) {
         Plant p = nextTile.getListTanaman().get(0);
-        p.die();
         System.out.println("Zombie " + getName() + " vaults over " + p.getName() + " at " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
         // Move the zombie to the left
-        this.setColumn(getColumn() - 1);
+        this.setColumn(getColumn());
         Petak newTile = Map.getFromMatriksPetak(getRow(), getColumn());
         newTile.addZombie(this);
         System.out.println("Zombie " + getName() + " is now at " + "(" + getRow() + ", " + getColumn() + ")");
         hasVaulted = true;
+        p.die();
     }
     
     public void basicAttack() {
