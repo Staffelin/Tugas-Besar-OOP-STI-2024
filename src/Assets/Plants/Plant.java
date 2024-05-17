@@ -127,6 +127,7 @@ public class Plant implements Position {
                     if(tile.getListZombies().size() > 0){
                         for(Zombie z : tile.getListZombies()){
                             z.takeDamage(attack_damage);
+                            System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + tile.getRow() + ", " + tile.getColumn() + ")");
                         }
                         attacked = true;
                         break;
