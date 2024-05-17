@@ -1,31 +1,26 @@
 package Map;
 
 import java.util.ArrayList;
-import Exception.*;
+import java.util.List;
 import java.time.LocalDateTime;
+import Exception.*;
 import Plants.*;
 import Player.Sun;
 import Zombies.*;
-//import Map.*;
 
-
-public abstract class Petak {
+public abstract class Petak<T extends Plant, U extends Zombie> {
     private int row;
     private int column;
     private boolean isAquatic;
-    private ArrayList<Plant> listTanaman;
-    private ArrayList<Zombie> listZombies;
+    private List<T> listTanaman;
+    private List<U> listZombies;
 
     public Petak(int row, int column, boolean isAquatic) {
         this.row = row;
         this.column = column;
         this.isAquatic = isAquatic;
         this.listZombies = new ArrayList<>(10);
-        if (isAquatic) {
-            this.listTanaman = new ArrayList<>(2);
-        } else {
-            this.listTanaman = new ArrayList<>(1);
-        }
+        this.listTanaman = new ArrayList<>(isAquatic ? 2 : 1);
     }
 
     public int getRow() {
@@ -40,23 +35,23 @@ public abstract class Petak {
         return isAquatic;
     }
 
-    public ArrayList<Zombie> getListZombies() {
+    public List<U> getListZombies() {
         return listZombies;
     }
 
-    public int getJumlahZombie(){
+    public int getJumlahZombie() {
         return listZombies.size();
     }
 
-    public ArrayList<Plant> getListTanaman() {
+    public List<T> getListTanaman() {
         return listTanaman;
     }
 
-    public int getJumlahTanaman(){
+    public int getJumlahTanaman() {
         return listTanaman.size();
     }
 
-    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
+    public void tanamTanaman(T p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
         if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
                 if (hasLilyPad() || p instanceof Lilypad) {
@@ -101,17 +96,17 @@ public abstract class Petak {
             }
         }
     }
+
     public void removeTanaman() throws NoPlantException {
-        if(listTanaman.isEmpty()){
+        if (listTanaman.isEmpty()) {
             throw new NoPlantException();
-        }
-        else{
+        } else {
             listTanaman.remove(listTanaman.size() - 1);
         }
     }
 
     public boolean hasLilyPad() {
-        for (Plant plant : listTanaman) {
+        for (T plant : listTanaman) {
             if (plant instanceof Lilypad) {
                 return true;
             }
@@ -119,38 +114,17 @@ public abstract class Petak {
         return false;
     }
 
-    public void addZombie(Zombie Z){
-        getListZombies().add(Z);
+    public void addZombie(U zombie) {
+        listZombies.add(zombie);
     }
 
-    // public void attackTile(Petak enemyTile){
-    //     if(this.getListTanaman().size() > 0 && enemyTile.getListZombies().size() > 0){
-    //         if(this instanceof PetakDarat){
-    //             Plant attackingPLant = this.getListTanaman().get(0);
-    //             if((enemyTile.getColumn() - this.getColumn() <= attackingPLant.getRange() ||  attackingPLant.getRange() == -1) && enemyTile.getColumn() - this.getColumn() >= 0){
-    //                 attackingPLant.attack(enemyTile.getListZombies());
-    //             }
-    //             this.getListTanaman().get(0).attack(enemyTile.getListZombies());
-    //         }
-    //         else if(this instanceof PetakKolam){
-    //             if(this.getListTanaman().size() == 2){
-    //                 this.getListTanaman().get(1).attack(enemyTile.getListZombies());
-    //             }
-    //         }
-    //     }
-    // }
-
-    public void removeZombie(Zombie zombie) {
+    public void removeZombie(U zombie) {
         if (listZombies.isEmpty()) {
             System.out.println("No zombies to remove");
         } else if (!listZombies.contains(zombie)) {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
-            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
-            
         }
     }
-    
-    
 }
