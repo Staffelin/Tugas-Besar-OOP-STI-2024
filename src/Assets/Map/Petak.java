@@ -63,6 +63,7 @@ public abstract class Petak {
                     if (listTanaman.size() < 2) {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
+                        Lilypad lilyPad = (Lilypad) listTanaman.get(0);
                         p.setLastPlantedTime(LocalDateTime.now());
                         p.attack();
                     } else {
