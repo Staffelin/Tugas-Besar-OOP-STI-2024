@@ -178,7 +178,12 @@ public class Map {
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile instanceof PetakDarat && currTile.getListZombies().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
-                    currPlant.attack();
+                    if(currPlant instanceof Jalapeno){
+                        currPlant.attack();
+                    }
+                    else{
+                        currPlant.attack();
+                    }
                 }
                 else if(currTile instanceof PetakKolam && currTile.getListZombies().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(1);
