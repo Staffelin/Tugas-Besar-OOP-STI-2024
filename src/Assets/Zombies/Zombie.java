@@ -121,14 +121,14 @@ public class Zombie implements Position {
         if (currentTile != null && currentTile.getJumlahTanaman() > 0 && !currentTile.getListTanaman().isEmpty()) {
             Plant p = currentTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-            System.out.println("ZOMBIEE IS ATTACK CURRENT TILE WITH PLANT " + p.getName() + " AT (" + getRow() + ", " + getColumn() + ")");
+            System.out.println("ZOMBIEE IS ATTACK CURRENT TILE");
             // setMovementSpeed(getCurrentSpeed() + 1);
         }
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
             Plant p = nextTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
 
-            System.out.println("ZOMBIEE IS ATTACK NEXT TILE WITH PLANT " + p.getName() + "AT (" + getRow() + ", " + getColumn() + ")");
+            System.out.println("ZOMBIEE IS ATTACK NEXT TILE");
             // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
