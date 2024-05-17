@@ -172,18 +172,26 @@ public class Map {
     }
 
 
-    public static void attackPlants() {
+    public void attackPlants() {
         for (int i = 0; i < 6; i++) {
             for(int j = 1; j < 10; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile instanceof PetakDarat && currTile.getListZombies().size() > 0){
-                    Plant currPlant = currTile.getListTanaman().get(0);
-                    currPlant.attack();
+                    if(currTile.getListTanaman().size() > 0){
+                        Plant currPlant = currTile.getListTanaman().get(0);
+                        currPlant.attack();
+                        if(currPlant != null){
+                            currPlant.attack();
+                        }
+                    }
                 }
                 else if(currTile instanceof PetakKolam && currTile.getListZombies().size() > 0){
-                    Plant currPlant = currTile.getListTanaman().get(1);
-                    if(currPlant != null){
+                    if(currTile.getListTanaman().size() > 0){
+                        Plant currPlant = currTile.getListTanaman().get(0);
                         currPlant.attack();
+                        if(currPlant != null){
+                            currPlant.attack();
+                        }
                     }
                 }
             }
