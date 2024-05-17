@@ -164,7 +164,7 @@ public class GameEngine {
                         map.viewMap();
                     }
                     try {
-                        map.attackZombies();
+                        map.attackPlants();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -311,7 +311,7 @@ public class GameEngine {
         //         while (true) {
         //             // System.out.println("Attack all zombies");
         //             try {
-        //                 Map.attackZombies();
+        //                 Map.attackPlants();
         //             } catch (NoPlantException e) {
         //                 System.out.println(e.getClass().getName());
         //                 e.printStackTrace();

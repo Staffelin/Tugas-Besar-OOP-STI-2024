@@ -136,17 +136,23 @@ public class Map {
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
-                        if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
-                            petak.removeZombie(zombie); // Pass the zombie to be removed
-                            nextPetak.addZombie(zombie);
-                            // System.out.println("Moving zombies...");
-                            // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
-                            zombie.setRow(i);
-                            zombie.setColumn(j - 1);
-                            // Update the spawn time
-
-                            zombie.setSpawnTime(System.currentTimeMillis());
+                        if(petak.getListTanaman().size() == 0){
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                                petak.removeZombie(zombie); // Pass the zombie to be removed
+                                nextPetak.addZombie(zombie);
+                                // System.out.println("Moving zombies...");
+                                // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
+                                zombie.setRow(i);
+                                zombie.setColumn(j - 1);
+                                // Update the spawn time
+    
+                                zombie.setSpawnTime(System.currentTimeMillis());
+                            }
                         }
+                        else{
+                            zombie.attack();
+                        }
+                        
                     }
                     else {
                         petak.removeZombie(zombie);
@@ -160,7 +166,7 @@ public class Map {
     }
 
 
-    public static void attackZombies() {
+    public static void attackPlants() {
         for (int i = 0; i < 6; i++) {
             for(int j = 1; j < 10; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
