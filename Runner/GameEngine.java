@@ -182,13 +182,16 @@ public class GameEngine {
         sc.nextLine().trim();
         
         System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
-        index1 = sc.nextInt();
+        String input = sc.nextLine().trim();
+        index1 = input.isEmpty() ? -1 : Integer.parseInt(input);
 
         while (deck.getDeckOfPlants().size() < 6) {
             try {
                 if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
                     inventory.addPlant(deck, index1-1);
                     System.out.println(inventory.getInventory().get(index1-1).getName() + " ditambah ke deck!");
+                } else if (input.isEmpty()) {
+                    break;
                 } else {
                     System.out.println("Indeks tidak valid!");
                 }
@@ -200,7 +203,8 @@ public class GameEngine {
                 System.out.println(e.getClass().getName() + "! " + "Indeks di luar batas!");
             }
             if (deck.getDeckOfPlants().size() != 6) {
-                index1 = sc.nextInt();
+                input = sc.nextLine().trim();
+                index1 = input.isEmpty() ? -1 : Integer.parseInt(input);
             }
         }
 
