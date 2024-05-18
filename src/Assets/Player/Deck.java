@@ -1,19 +1,18 @@
 package Player;
 
 import java.util.ArrayList;
-
-import Exception.CannotDeletePlantException;
-import Exception.CannotSwapDeckException;
+import Exception.*;
 import Plants.*;
 
-public class Deck{
-    private ArrayList <Plant> deckOfPlants;
+public class Deck {
+    private ArrayList<Slot<Plant>> deckOfPlants;
+    private int deckSize = 0;
 
     public Deck() {
         deckOfPlants = new ArrayList<>();
     }
 
-    public ArrayList<Plant> getDeckOfPlants() {
+    public ArrayList<Slot<Plant>> getDeckOfPlants() {
         return deckOfPlants;
     }
 
@@ -21,26 +20,30 @@ public class Deck{
         return deckOfPlants.isEmpty();
     }
 
-    public boolean isSlotEmpty (int indeks) {
-        return deckOfPlants.get(indeks) == null;
+    public int getDeckSize() {
+        return deckSize;
     }
 
-    public void swapDeck (int indeks1, int indeks2) throws CannotSwapDeckException  {
-        Plant temp = deckOfPlants.get(indeks1);
-        deckOfPlants.set(indeks1, deckOfPlants.get(indeks2));
-        deckOfPlants.set(indeks2, temp);
+    public boolean isSlotEmpty(int index) {
+        return deckOfPlants.get(index).getItem() == null;
+    }
+
+    public void swapDeck(int index1, int index2) throws CannotSwapDeckException {
+        Slot<Plant> temp = deckOfPlants.get(index1);
+        deckOfPlants.set(index1, deckOfPlants.get(index2));
+        deckOfPlants.set(index2, temp);
         
-        if (deckOfPlants.get(indeks1) == null || deckOfPlants.get(indeks2) == null || deckOfPlants.get(indeks1) == deckOfPlants.get(indeks2) ) {
+        if (deckOfPlants.get(index1).getItem() == null || deckOfPlants.get(index2).getItem() == null ||
+            deckOfPlants.get(index1).getItem() == deckOfPlants.get(index2).getItem()) {
             throw new CannotSwapDeckException();
         }
     }
 
-    public void deletePlant (int indeks) throws CannotDeletePlantException {
-       
-        if (getDeckOfPlants().get(indeks) == null) {
+    public void deletePlant(int index) throws CannotDeletePlantException {
+        if (deckOfPlants.get(index).getItem() == null) {
             throw new CannotDeletePlantException();
         } else {
-            getDeckOfPlants().remove(indeks);
+            deckOfPlants.remove(index);
         }
     }
 
@@ -48,22 +51,34 @@ public class Deck{
         if (deckOfPlants.isEmpty()) {
             System.out.println("Deck is empty");
             return;
-        }
-        else {
+        } else {
             for (int i = 0; i < deckOfPlants.size(); i++) {
-                if (deckOfPlants.get(i) == null) {
-                    System.out.println((i+1) + ". Empty");
+                Slot<Plant> slot = deckOfPlants.get(i);
+                if (slot.getItem() == null) {
+                    System.out.println((i + 1) + ". Empty");
                 } else {
-                    System.out.println((i+1) + ". " + deckOfPlants.get(i).getName());
+                    System.out.println((i + 1) + ". " + slot.getItem().getName());
                 }
             }
         }
     }
 
-    public Plant getPlant(int indeks) {
-        return deckOfPlants.get(indeks);
+    public Plant getPlant(int index) {
+        return deckOfPlants.get(index).getItem();
     }
 
+    public void addPlant(Plant plant) throws PlantAlreadyPickedException {
+        for (Slot<Plant> slot : deckOfPlants) {
+            if (slot.getItem().equals(plant)) {
+                throw new PlantAlreadyPickedException();
+            }
+        }
+        deckOfPlants.add(new Slot<>(plant));
+        deckSize++;
+    }
 
-
+    public void removePlant(int index) {
+        deckOfPlants.remove(index);
+        deckSize--;
+    }
 }
