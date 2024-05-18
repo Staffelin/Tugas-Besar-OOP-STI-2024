@@ -46,7 +46,6 @@ public class Map {
     }
 
 
-    // Get a specific Petak from the matriksPetak array
     public static Petak getFromMatriksPetak(int row, int column) {
         if (row >= 0 && row < MatriksPetak.length && column >= 0 && column < MatriksPetak[0].length) {
             return MatriksPetak[row][column];
@@ -182,7 +181,7 @@ public class Map {
                         currPlant.attack();
                     
                 }
-                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 0){
+                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
                     Plant currPlant = currTile.getListTanaman().get(1);
                     if(currPlant != null){
                         currPlant.attack();
