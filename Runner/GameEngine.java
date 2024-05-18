@@ -128,16 +128,16 @@ public class GameEngine {
 
         Inventory inventory = new Inventory();
         Deck deck = new Deck();
-        inventory.getInventory().add(peashooter);
-        inventory.getInventory().add(potato);
-        inventory.getInventory().add(sunflower);
-        inventory.getInventory().add(repeater);
-        inventory.getInventory().add(squash);
-        inventory.getInventory().add(snowpea);
-        inventory.getInventory().add(tallnut);
-        inventory.getInventory().add(jalapeno);
-        inventory.getInventory().add(lilypad);
-        inventory.getInventory().add(wallnut);
+        inventory.addPlantToInventory(peashooter);
+        inventory.addPlantToInventory(potato);
+        inventory.addPlantToInventory(sunflower);
+        inventory.addPlantToInventory(repeater);
+        inventory.addPlantToInventory(squash);
+        inventory.addPlantToInventory(snowpea);
+        inventory.addPlantToInventory(tallnut);
+        inventory.addPlantToInventory(jalapeno);
+        inventory.addPlantToInventory(lilypad);
+        inventory.addPlantToInventory(wallnut);
 
         System.out.println(yellow + bold + "\r\n" + //
                                 "█████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
@@ -163,7 +163,7 @@ public class GameEngine {
                 int index7 = sc.nextInt();
                 if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
                     inventory.switchInventoryTanaman(index6-1, index7-1);
-                    System.out.println(inventory.getInventory().get(index7-1).getName() + " berhasil dipindah ke " + index7);
+                    System.out.println(inventory.getInventory().get(index7-1).getItem().getName() + " berhasil dipindah ke " + index7);
                     System.out.println("Inventory:");
                     inventory.showInventory();
                 } else {
@@ -184,11 +184,12 @@ public class GameEngine {
         System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
         index1 = sc.nextInt();
 
-        while (deck.getDeckOfPlants().size() < 6) {
+        while (deck.getDeckSize() < 6) {
             try {
                 if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
-                    inventory.addPlant(deck, index1-1);
-                    System.out.println(inventory.getInventory().get(index1-1).getName() + " ditambah ke deck!");
+                    deck.addPlant(inventory.getPlant(index1-1));
+                    System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
+                    System.out.println("Deck size is: "+ deck.getDeckSize());
                 } else {
                     System.out.println("Indeks tidak valid!");
                 }
@@ -220,7 +221,7 @@ public class GameEngine {
 
                 if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
                     deck.swapDeck(index2-1, index3-1);
-                    System.out.println(deck.getDeckOfPlants().get(index2-1).getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getName());
+                    System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
                     System.out.println("Deck:");
                     deck.displayDeck();
                 } else {
@@ -240,7 +241,7 @@ public class GameEngine {
             System.out.println("Masukkan indeks tanaman yang ingin dihapus : ");
             int index4 = sc.nextInt();
             if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                System.out.println(deck.getDeckOfPlants().get(index4-1).getName() + " sudah dihapus");
+                System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
                 deck.deletePlant(index4-1);
                 System.out.println("Deck:");
                 deck.displayDeck();
@@ -344,73 +345,6 @@ public class GameEngine {
             }
         });
 
-        
-        // Thread 1: Generates sun every second during the day time.
-        // executor.submit(() -> {
-        //     int lastSun = 0;
-        //     long startTime = System.currentTimeMillis();
-        //     boolean isDay = false;
-        //     while (!Thread.currentThread().isInterrupted()) {
-        //         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-        //         long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-        //         if (cycleTime < 100) { // Day time
-        //             if (!isDay) {
-        //                 System.out.println("It's now day time.");
-        //                 isDay = true;
-        //                 Sun.generateSun();
-        //             }
-        //         } else { // Night time
-        //             if (isDay) {
-        //                 System.out.println("It's now night time.");
-        //                 isDay = false;
-        //                 Sun.stopGenerateSun();
-        //             }
-        //         }
-        //         if (Sun.sun > lastSun) {
-        //             System.out.println("Current sun: " + Sun.sun);
-        //             lastSun = Sun.sun;
-        //             map.viewMap();
-        //         }
-        //         try {
-        //             Thread.sleep(1000);
-        //         } catch (InterruptedException e) {
-        //             System.out.println("Thread was interrupted, stopping...");
-        //             Thread.currentThread().interrupt(); // Preserve the interrupted status
-        //         }
-        //     }
-        // });
-
-        
-        // Thread 2: Spawns zombies every second with a 0.3 probability.
-        // Zombies start spawning from second 20 to second 160 of each cycle.
-        // executor.submit(() -> {
-        //     long startTime = System.currentTimeMillis();
-        //     boolean isSpawning = false;
-        //     while (!Thread.currentThread().isInterrupted()) {
-        //         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-        //         long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-        //         if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
-        //             if (!isSpawning) {
-        //                 System.out.println("Zombies have started spawning.");
-        //                 isSpawning = true;
-        //             }
-        //             map.spawnZombieMap();
-        //             map.viewMap();
-        //         } else {
-        //             if (isSpawning) {
-        //                 System.out.println("Zombies have stopped spawning.");
-        //                 isSpawning = false;
-        //                 map.viewMap();
-        //             }
-        //         }
-        //         try {
-        //             Thread.sleep(1000);
-        //         } catch (InterruptedException e) {
-        //             System.out.println("Thread was interrupted, stopping...");
-        //             Thread.currentThread().interrupt(); // Preserve the interrupted status
-        //         }
-        //     }
-        // });
 
         // Thread 3: Moves a zombie every 5 seconds.
         // executor.submit(() -> {
@@ -466,7 +400,7 @@ public class GameEngine {
                     int row = sc.nextInt();
                     int column = sc.nextInt();
                     if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
-                        map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1));
+                        map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
                         map.viewMap();
                         System.out.println("Current sun: " + Sun.sun);
                     } else {
