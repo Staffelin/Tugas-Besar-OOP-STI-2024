@@ -10,7 +10,7 @@ public class PoleVaultingZombie extends Zombie {
     
     @Override
     public void attack() {
-        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn() - 1);
+        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasVaulted) {
             if (nextTile.getListTanaman().get(0) instanceof Tallnut) {
                 System.out.println("Harus basic attack nch!");
@@ -32,7 +32,7 @@ public class PoleVaultingZombie extends Zombie {
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
         // Move the zombie to the left
-        this.setColumn(getColumn() - 1);
+        this.setColumn(getColumn());
         Petak newTile = Map.getFromMatriksPetak(getRow(), getColumn());
         newTile.addZombie(this);
         System.out.println("Zombie " + getName() + " is now at " + "(" + getRow() + ", " + getColumn() + ")");
@@ -44,11 +44,9 @@ public class PoleVaultingZombie extends Zombie {
         if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
             Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-<<<<<<< HEAD
             System.out.println("POLEVAULT ZOMBIE NOW ATTACK AT NORMAL SPEED. NOW ATTACKING " + p.getName() + " AT " + "(" + petak.getRow() + ", " + petak.getColumn() + ")");
-=======
-            System.out.println("ZOMBIEE IS COMINGG RAWR");
->>>>>>> parent of cdc85cb (TINGGAL DIKIT LAGI #AMAN)
+
+
             // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
