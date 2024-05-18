@@ -133,42 +133,33 @@ public class Map {
         
     }
 
-    public void moveZombies() {    
+    public void moveZombies() {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = MatriksPetak[i].length - 1; j > 0; j--) {
                 Petak petak = MatriksPetak[i][j];
                 Petak nextPetak = MatriksPetak[i][j - 1];
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
-                    if (zombie.getDie() == false) {
-                        if(petak.getListTanaman().size() == 0){
+                    if (!zombie.getDie()) {
+                        if (petak.getListTanaman().isEmpty()) {
                             if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
                                 petak.removeZombie(zombie); // Pass the zombie to be removed
                                 nextPetak.addZombie(zombie);
-                                // System.out.println("Moving zombies...");
-                                // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
                                 zombie.setRow(i);
                                 zombie.setColumn(j - 1);
-                                // Update the spawn time
-    
                                 zombie.setSpawnTime(System.currentTimeMillis());
                             }
-                        }
-                        else {
+                        } else {
                             zombie.attack();
                         }
-                        
-                    }
-                    else {
+                    } else {
                         petak.removeZombie(zombie);
                     }
                 }
             }
-            if(MatriksPetak[i][0].getListZombies().size() > 0){
-                stillPlaying = false;
-            }
         }
     }
+    
 
 
     public void attackPlants() {
@@ -195,6 +186,9 @@ public class Map {
         String blue = "\033[34m"; // Kode warna biru
         String reset = "\033[0m";  // Reset warna
         for (int i = 0; i < MatriksPetak.length; i++) {
+            if (MatriksPetak[i][0].getListZombies().size() > 0) {
+                stillPlaying = false;
+            }
             for (int j = 0; j < MatriksPetak[i].length; j++) {
                 Petak currentTile = MatriksPetak[i][j];
                 String tileRepresentation = currentTile instanceof PetakKolam ? 
