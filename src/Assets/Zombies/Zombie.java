@@ -118,18 +118,16 @@ public class Zombie implements Position {
     public void attack() {
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn()-1);
+    
         if (currentTile != null && currentTile.getJumlahTanaman() > 0 && !currentTile.getListTanaman().isEmpty()) {
             Plant p = currentTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
             System.out.println(getName() + " IS ATTACKING <CURRENT TILE> " + p.getName() + " at (" + currentTile.getRow() + ", " + currentTile.getColumn() + ")");
-            // setMovementSpeed(getCurrentSpeed() + 1);
-        }
-        if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
+        } 
+        else if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
             Plant p = nextTile.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-
             System.out.println(getName() + " IS ATTACKING <NEXT TILE> " + p.getName() + " at (" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
-            // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
 
