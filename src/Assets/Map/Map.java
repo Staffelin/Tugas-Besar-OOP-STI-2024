@@ -172,12 +172,12 @@ public class Map {
 
 
     public void attackPlants() {
-        for (int i = 0; i < 6; i++) {
-            for(int j = 1; j < 10; j++){
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
-                        currPlant.attack();
+                    currPlant.attack();
                     
                 }
                 else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
