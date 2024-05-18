@@ -227,7 +227,7 @@ public class GameEngine {
 
                     if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
                         deck.swapDeck(index2-1, index3-1);
-                        System.out.println(deck.getDeckOfPlants().get(index2-1).getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getName());
+                        System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
                         System.out.println(green + bold + "DECK: " + reset);
                         deck.displayDeck();
                     } else {
@@ -255,7 +255,7 @@ public class GameEngine {
                     System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
                 int index4 = sc.nextInt();
                 if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                    System.out.println(deck.getDeckOfPlants().get(index4-1).getName() + " sudah dihapus");
+                    System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
                     deck.deletePlant(index4-1);
                     System.out.println("Deck:");
                     deck.displayDeck();
