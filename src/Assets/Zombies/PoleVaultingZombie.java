@@ -12,7 +12,14 @@ public class PoleVaultingZombie extends Zombie {
     public void attack() {
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasVaulted) {
-            vault(nextTile);
+            if (nextTile.getListTanaman().get(0) instanceof Tallnut) {
+                System.out.println("Harus basic attack nch!");
+                basicAttack();
+                hasVaulted = true;
+            }
+            else {
+                vault(nextTile);
+            }
         }
         // After vaulting, perform basic attack
         basicAttack();
@@ -33,11 +40,11 @@ public class PoleVaultingZombie extends Zombie {
     }
     
     public void basicAttack() {
-        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn() - 1);
+        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn());
         if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
             Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-            System.out.println("POLEVAULT ZOMBIE NOW ATTACK AT NORMAL SPEED");
+            System.out.println("POLEVAULT ZOMBIE NOW ATTACK AT NORMAL SPEED. NOW ATTACKING " + p.getName() + " AT " + "(" + petak.getRow() + ", " + petak.getColumn() + ")");
             // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }

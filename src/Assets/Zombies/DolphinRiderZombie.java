@@ -2,6 +2,7 @@ package Zombies;
 
 import Map.*;
 import Plants.Plant;
+import Plants.Tallnut;
 
 public class DolphinRiderZombie extends Zombie {
     public DolphinRiderZombie () {
@@ -13,16 +14,25 @@ public class DolphinRiderZombie extends Zombie {
     public void attack() {
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasDived) {
-            vault(nextTile);
+            if (nextTile.getListTanaman().get(1) instanceof Tallnut) {
+                System.out.println("Harus basic attack nch!");
+                basicAttack();
+                hasDived = true;
+            }
+            else {
+                vault(nextTile);
+            }
         }
         // After vaulting, perform basic attack
         basicAttack();
     }
     
     public void vault(Petak nextTile) {
-        Plant p = nextTile.getListTanaman().get(0);
-        p.die();
-        System.out.println("Zombie " + getName() + " vaults over " + p.getName() + " at " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
+        for (int i = 0; i < nextTile.getListTanaman().size(); i++) {
+            Plant p = nextTile.getListTanaman().get(i);
+            p.die();
+            System.out.println("Zombie " + getName() + " vaults over " + p.getName() + " at " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
+        }
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
         // Move the zombie to the left
@@ -34,11 +44,11 @@ public class DolphinRiderZombie extends Zombie {
     }
     
     public void basicAttack() {
-        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn() - 1);
+        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn());
         if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
             Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-            System.out.println("ZOMBIEE IS COMINGG RAWR");
+            System.out.println("DOLPHIN RIDER ZOMBIE NOW ATTACK AT NORMAL SPEED. NOW ATTACKING " + p.getName() + " AT " + "(" + petak.getRow() + ", " + petak.getColumn() + ")");
             // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
