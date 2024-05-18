@@ -6,8 +6,19 @@ public class NewspaperZombie extends Zombie {
     }
 
     public void increaseSpeed() {
-        if (this.health <= 100) {
-            this.current_speed = 3;
+        setMovementSpeed(3);
+        System.out.println("Newspaper Zombie now moves faster!");
+        }
+    
+
+    @Override
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health <= 100) {
+            increaseSpeed();
+        }
+        if (health <= 0) {
+            die();
         }
     }
 

@@ -11,8 +11,9 @@ import Exception.*;
 public class Map {
     private static Petak[][] MatriksPetak;
     int wave = 0;
-    String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
+    // String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
+    String[] listSpawnableZombieDarat = {"NewspaperZombie"};
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
     private boolean stillPlaying = true;
@@ -176,12 +177,12 @@ public class Map {
         for (int i = 0; i < 6; i++) {
             for(int j = 1; j < 10; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
-                if(currTile instanceof PetakDarat && currTile.getListZombies().size() > 0){
+                if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
                         currPlant.attack();
                     
                 }
-                else if(currTile instanceof PetakKolam && currTile.getListZombies().size() > 0){
+                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(1);
                     if(currPlant != null){
                         currPlant.attack();
