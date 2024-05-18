@@ -11,9 +11,8 @@ import Exception.*;
 public class Map {
     private static Petak[][] MatriksPetak;
     int wave = 0;
-    // String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
+    String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
-    String[] listSpawnableZombieDarat = {"NewspaperZombie"};
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
     private boolean stillPlaying = true;
@@ -156,7 +155,7 @@ public class Map {
                                 zombie.setSpawnTime(System.currentTimeMillis());
                             }
                         }
-                        else{
+                        else {
                             zombie.attack();
                         }
                         
