@@ -127,6 +127,7 @@ public class Plant implements Position {
                     if(tile.getListZombies().size() > 0){
                         for(Zombie z : tile.getListZombies()){
                             z.takeDamage(attack_damage);
+                            if(!(this instanceof Sunflower || this instanceof Lilypad))
                             System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + tile.getRow() + ", " + tile.getColumn() + ")");
                         }
                         attacked = true;
