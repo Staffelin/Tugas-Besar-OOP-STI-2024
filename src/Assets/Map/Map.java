@@ -359,6 +359,9 @@ public class Map {
         catch (SunNotEnoughException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         }
+        catch (LilypadAlreadyExists e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        }
     }
 
     public void removePlantFromTile(int row, int column) {
