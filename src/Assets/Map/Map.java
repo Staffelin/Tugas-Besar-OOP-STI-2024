@@ -182,7 +182,7 @@ public class Map {
                         currPlant.attack();
                     
                 }
-                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 0){
+                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
                     Plant currPlant = currTile.getListTanaman().get(1);
                     if(currPlant != null){
                         currPlant.attack();
