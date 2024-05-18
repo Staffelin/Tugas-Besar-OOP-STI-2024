@@ -21,6 +21,5 @@ public class NewspaperZombie extends Zombie {
             die();
         }
     }
-
 }
 
