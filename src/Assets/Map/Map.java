@@ -142,7 +142,7 @@ public class Map {
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
                         if(petak.getListTanaman().size() == 0){
-                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 10000) {
                                 petak.removeZombie(zombie); // Pass the zombie to be removed
                                 nextPetak.addZombie(zombie);
                                 // System.out.println("Moving zombies...");
@@ -172,12 +172,12 @@ public class Map {
 
 
     public void attackPlants() {
-        for (int i = 0; i < 6; i++) {
-            for(int j = 1; j < 10; j++){
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
-                        currPlant.attack();
+                    currPlant.attack();
                     
                 }
                 else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
@@ -330,7 +330,7 @@ public class Map {
             System.out.println();
         }
         
-        for(int x = 0; x < 22; x++){
+        for(int x = 0; x < 44; x++){
             System.out.print("==");
         }
         System.out.println();
@@ -338,29 +338,25 @@ public class Map {
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row-1][column];
         try {
-            tile.tanamTanaman(plant);
-            System.out.println(plant.getName() + " berhasil ditanam di (" + (row) + ", " + column + ")"); 
+            Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
+            tile.tanamTanaman(newPlant);
+            System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
         } catch (CannotAddPlantException e) {
-    
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        } 
-        catch (PlantLilypadFirstException e) {
+        } catch (PlantLilypadFirstException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (LilypadOnLandException e) {
+        } catch (LilypadOnLandException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (OnlyOnePlantException e) {
+        } catch (OnlyOnePlantException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (TwoPlantOnWaterException e) {
+        } catch (TwoPlantOnWaterException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (SunNotEnoughException e) {
+        } catch (SunNotEnoughException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (LilypadAlreadyExists e) {
+        } catch (LilypadAlreadyExists e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
+        } catch (ReflectiveOperationException e) {
+            System.out.println("Failed to create a new instance of the plant: " + e.getMessage());
         }
     }
 

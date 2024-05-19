@@ -1,7 +1,7 @@
 package Player;
 
 public class Sun{
-    public static int sun = 0;
+    public static int sun = 50;
     private static boolean running = false;
     private static Thread sunThread;
 

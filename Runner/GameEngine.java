@@ -285,7 +285,7 @@ public class GameEngine {
                 int lastSun = 0;
                 long startTime = System.currentTimeMillis();
                 boolean isDay = false;
-                while (!Thread.currentThread().isInterrupted() || map.getPlayingStatus()) {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
                     if (cycleTime < 100) { // Day time
@@ -307,7 +307,7 @@ public class GameEngine {
                         map.viewMap();
                     }
                     try {
-                        map.attackPlants(); // Access the static method in a static way
+                        map.attackPlants(); 
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -322,7 +322,7 @@ public class GameEngine {
             public void run(){
                 long startTime = System.currentTimeMillis();
                 boolean isSpawning = false;
-                while (!Thread.currentThread().isInterrupted() || map.getPlayingStatus()) {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
                     if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
@@ -353,16 +353,15 @@ public class GameEngine {
         Thread zombieMover = new Thread(new Runnable() {
             @Override
             public void run(){
-                while (!Thread.currentThread().isInterrupted() || map.getPlayingStatus()) {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
                         Thread.currentThread().interrupt(); // Preserve the interrupted status
                     }
                 }
-                System.out.println("Thread stopped");
                 
             }
         });
