@@ -2,8 +2,6 @@ package Plants;
 import java.time.Duration;
 import java.time.LocalDateTime;
 // import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import Map.*;
 import Zombies.*;
@@ -118,31 +116,27 @@ public class Plant implements Position {
     }
 
     public void attack() {
-        if (canAttack()) {
-            ArrayList<Zombie> zombiesInRow = new ArrayList<>();
+        if (getCooldown() > 0) {
+            setCooldown(getCooldown() - 1);
+            return;
+        }
+        boolean attacked = false;
             for(int i = column; i < 10; i++){
-                Petak tile = Map.getFromMatriksPetak(row, i);
-                if(tile.getListZombies().size() > 0){
-                    zombiesInRow.addAll(tile.getListZombies());
-                    break;
-                }
-            }
-            Iterator<Zombie> iterator = zombiesInRow.iterator();
-            while (iterator.hasNext()) {
-                Zombie z = iterator.next();
-                if (this.getRow() == z.getRow()) {
-                    z.takeDamage(attack_damage);
-                    System.out.println(this.getName()+" menyerang zombie di petak " + z.getRow());
-                    if (z.getHealth() <= 0) {
-                        iterator.remove();
-                        System.out.println("Zombie di petak " + z.getRow() + " mati");
+                if(attacked == false){
+                    Petak tile = Map.getFromMatriksPetak(row, i);
+                    if(tile.getListZombies().size() > 0){
+                        for(Zombie z : tile.getListZombies()){
+                            z.takeDamage(attack_damage);
+                            if(!(this instanceof Sunflower || this instanceof Lilypad))
+                            System.out.println("Tanaman " + getName() +" di " + "(" + (this.getRow() + 1) + ", " + this.getColumn() + ")" +" Menyerang " + z.getName() + " di " + "(" + (z.getRow()+1) + ", " + z.getColumn() + ")");
+                        }
+                        attacked = true;
+                        break;
                     }
                 }
             }
-            setLastAttackTime();
-        }
+        setLastAttackTime();
     }
-    
 
     public void takeDamage(int damage) {
         this.health -= damage;

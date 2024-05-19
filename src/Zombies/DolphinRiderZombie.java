@@ -44,18 +44,12 @@ public class DolphinRiderZombie extends Zombie {
     }
     
     public void basicAttack() {
-        Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
-        Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn()-1);
-    
-        if (currentTile != null && currentTile.getJumlahTanaman() > 0 && !currentTile.getListTanaman().isEmpty()) {
-            Plant p = currentTile.getListTanaman().get(0);
+        Petak petak = Map.getFromMatriksPetak(getRow(), getColumn());
+        if (petak != null && petak.getJumlahTanaman() > 0 && !petak.getListTanaman().isEmpty()) {
+            Plant p = petak.getListTanaman().get(0);
             p.takeDamage(attack_damage);
-            System.out.println(getName() + " IS ATTACKING <CURRENT TILE> " + p.getName() + " at (" + currentTile.getRow() + ", " + currentTile.getColumn() + ")");
-        } 
-        else if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty()) {
-            Plant p = nextTile.getListTanaman().get(0);
-            p.takeDamage(attack_damage);
-            System.out.println(getName() + " IS ATTACKING <NEXT TILE> " + p.getName() + " at (" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
+            System.out.println("DOLPHIN RIDER ZOMBIE NOW ATTACK AT NORMAL SPEED. NOW ATTACKING " + p.getName() + " AT " + "(" + petak.getRow() + ", " + petak.getColumn() + ")");
+            // setMovementSpeed(getCurrentSpeed() + 1);
         }
     }
 }

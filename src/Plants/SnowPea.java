@@ -7,7 +7,6 @@ public class SnowPea extends Plant {
         super("SNOW PEA", 175, 100, 25, 4, -1, 10);
     }
 
-    @Override
     public void attack(){
         if (getCooldown() > 0) {
             setCooldown(getCooldown() - 1);
