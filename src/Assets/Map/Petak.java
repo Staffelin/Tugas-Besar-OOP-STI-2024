@@ -164,7 +164,7 @@ public abstract class Petak {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
-            System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
             
             // Check if there is a Lilypad and another plant in PetakKolam
             if (this instanceof PetakKolam) {
