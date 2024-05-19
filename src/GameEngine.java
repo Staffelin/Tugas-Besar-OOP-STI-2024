@@ -45,22 +45,21 @@ public class GameEngine {
         boolean exitGame = false;
 
         while (!exitGame) {
+            System.out.println(yellow + "███╗   ███╗███████╗███╗   ██╗██╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗" + reset);
+            System.out.println(yellow + "████╗ ████║██╔════╝████╗  ██║██║   ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝" + reset);
+            System.out.println(yellow + "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║    ██║  ███╗███████║██╔████╔██║█████╗  " + reset);
+            System.out.println(yellow + "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " + reset);
+            System.out.println(yellow + "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" + reset);
+            System.out.println(yellow + "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝" + reset);
+            System.out.println(yellow + bold + " 1. START" + reset);
+            System.out.println(yellow + bold +" 2. HELP" + reset);
+            System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
+            System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
+            System.out.println(yellow + bold +" 5. EXIT" + reset);
+            System.out.println(yellow + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
             try {
-                System.out.println(yellow + "███╗   ███╗███████╗███╗   ██╗██╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗" + reset);
-                System.out.println(yellow + "████╗ ████║██╔════╝████╗  ██║██║   ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝" + reset);
-                System.out.println(yellow + "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║    ██║  ███╗███████║██╔████╔██║█████╗  " + reset);
-                System.out.println(yellow + "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " + reset);
-                System.out.println(yellow + "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" + reset);
-                System.out.println(yellow + "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝" + reset);
-                System.out.println(yellow + bold + " 1. START" + reset);
-                System.out.println(yellow + bold +" 2. HELP" + reset);
-                System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
-                System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
-                System.out.println(yellow + bold +" 5. EXIT" + reset);
-                System.out.println(yellow + bold + "\r\n" + //
-                "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
-                System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
-                
                 int choice = sc.nextInt();
                 sc.nextLine();
 
@@ -282,11 +281,11 @@ public class GameEngine {
 
         Thread sunGeneration = new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run(){
                 int lastSun = 0;
                 long startTime = System.currentTimeMillis();
                 boolean isDay = false;
-                while (map.getPlayingStatus()) {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
                     if (cycleTime < 100) { // Day time
@@ -308,7 +307,7 @@ public class GameEngine {
                         map.viewMap();
                     }
                     try {
-                        map.attackPlants(); // Access the static method in a static way
+                        map.attackPlants(); 
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -317,13 +316,13 @@ public class GameEngine {
                 }
             }
         });
-        
+
         Thread zombieSpawner = new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run(){
                 long startTime = System.currentTimeMillis();
                 boolean isSpawning = false;
-                while (map.getPlayingStatus()) {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
                     if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
@@ -348,24 +347,24 @@ public class GameEngine {
                     }
                 }
             }
+
         });
-        
+
         Thread zombieMover = new Thread(new Runnable() {
             @Override
-            public void run() {
-                while (map.getPlayingStatus()) {
+            public void run(){
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
                         Thread.currentThread().interrupt(); // Preserve the interrupted status
                     }
                 }
-                System.out.println("Game Over: press 1 to play again");
+                
             }
         });
-        
 
 
         // Thread 3: Moves a zombie every 5 seconds.
@@ -404,6 +403,7 @@ public class GameEngine {
         sunGeneration.start();
         zombieSpawner.start();
         zombieMover.start();
+        // attackAll.start();
 
         while(map.getPlayingStatus()) {
             System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
@@ -453,6 +453,8 @@ public class GameEngine {
 
         System.out.println(green + bold + "GAME OVER!" + reset);
         sc.close();
+        
+        
 
     }
 }

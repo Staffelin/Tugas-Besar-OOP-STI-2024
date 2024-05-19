@@ -56,10 +56,13 @@ public abstract class Petak {
         return listTanaman.size();
     }
 
-    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
+    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException, LilypadAlreadyExists {
         if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
                 if (hasLilyPad() || p instanceof Lilypad) {
+                    if (p instanceof Lilypad && hasLilyPad()) {
+                        throw new LilypadAlreadyExists();
+                    }
                     if (listTanaman.size() < 2) {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
