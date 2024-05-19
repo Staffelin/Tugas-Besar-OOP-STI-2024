@@ -1,5 +1,8 @@
 package Plants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // import java.util.ArrayList;
 // import java.util.Iterator;
 
@@ -12,33 +15,46 @@ public class Squash extends Plant{
     }
 
 
-    @Override
+    
+   @Override
     public void attack() {
-        System.out.println("Squash attack method called");
-    
         boolean attacked = false;
-    
+
         // Get the tiles next to the squash
         Petak leftTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() - 1);
         Petak rightTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn() + 1);
-    
+        Petak currentTile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());
+
         // If the next tiles exist and have zombies, attack
-        if (leftTile != null) {
-            for (Zombie z : leftTile.getListZombies()) {
-                z.takeDamage(z.getHealth()); // Squash kills the zombies
-                System.out.println("Squash menyerang zombie di petak " + z.getRow());
+
+        if (currentTile != null) {
+            List<Zombie> currentZombies = new ArrayList<>(currentTile.getListZombies());
+            for (Zombie z : currentZombies) {
+                z.takeDamage(this.attack_damage); // Squash kills the zombies
+                System.out.println("Squash menyerang zombie di petak asal, di " + z.getRow());
                 attacked = true;
             }
         }
-    
+
         if (rightTile != null) {
-            for (Zombie z : rightTile.getListZombies()) {
-                z.takeDamage(z.getHealth()); // Squash kills the zombies
-                System.out.println("Squash menyerang zombie di petak " + z.getRow());
-                attacked = true;
+                List<Zombie> rightZombies = new ArrayList<>(rightTile.getListZombies());
+                for (Zombie z : rightZombies) {
+                    z.takeDamage(this.attack_damage); // Squash kills the zombies
+                    System.out.println("Squash menyerang zombie di petak kanannya, di " + z.getRow());
+                    attacked = true;
+                }
             }
-        }
-    
+
+        if (leftTile != null) {
+                List<Zombie> leftZombies = new ArrayList<>(leftTile.getListZombies());
+                for (Zombie z : leftZombies) {
+                    z.takeDamage(this.attack_damage); // Squash kills the zombies
+                    System.out.println("Squash menyerang zombie di petak kirinya, di " + z.getRow());
+                    attacked = true;
+                }
+            }
+        
+
         if (attacked) {
             this.die();
         }
