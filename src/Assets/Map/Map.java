@@ -161,7 +161,7 @@ public class Map {
                     }
                     else {
                         petak.removeZombie(zombie);
-                    }
+                    } 
                 }
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){

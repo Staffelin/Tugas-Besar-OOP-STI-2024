@@ -722,6 +722,7 @@ public class GameEngine {
                     }
                     try {
                         map.attackPlants(); 
+                        map.viewMap();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -739,18 +740,16 @@ public class GameEngine {
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-                    if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
+                    if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
                         if (!isSpawning) {
                             System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
                             isSpawning = true;
                         }
                         map.spawnZombieMap();
-                        map.viewMap();
                     } else {
                         if (isSpawning) {
                             System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                             isSpawning = false;
-                            map.viewMap();
                         }
                     }
                     try {
@@ -780,6 +779,28 @@ public class GameEngine {
             }
         });
 
+        Thread GameChecker = new Thread(new Runnable(){
+            @Override
+            public void run(){
+                while(!Thread.currentThread().isInterrupted() && map.getPlayingStatus()){
+                    if(!map.getPlayingStatus()){
+                        System.out.println(green + bold + "GAME OVER!" + reset);
+                        sunGeneration.interrupt();
+                        zombieSpawner.interrupt();
+                        zombieMover.interrupt();
+                        Thread.currentThread().interrupt();
+                    }
+                    try {
+                        Thread.sleep(1000);
+                        map.moveZombies();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread was interrupted, stopping...");
+                        Thread.currentThread().interrupt(); // Preserve the interrupted status
+                    }                   
+                }
+            }
+        });
+
 
         // Thread 3: Moves a zombie every 5 seconds.
         // executor.submit(() -> {
@@ -793,10 +814,10 @@ public class GameEngine {
         //         }
         //     }
         // });
-        long startTime = System.currentTimeMillis();
         sunGeneration.start();
         zombieSpawner.start();
         zombieMover.start();
+        GameChecker.start();
 
         
         while(map.getPlayingStatus()) {
@@ -843,16 +864,9 @@ public class GameEngine {
                     }
                 }
             }
-            long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-            if (elapsedTime >= 160 && map.spawnedZombies.isEmpty()){
-                System.out.println("Congratulations! You've won the game.");
-                map.setPlayingStatus(false);
-                break;
-            }
+
         }
-        sunGeneration.interrupt();
-        zombieSpawner.interrupt();
-        zombieMover.interrupt();
+
 
         System.out.println(green + bold + "GAME OVER!" + reset);
         sc.close();
