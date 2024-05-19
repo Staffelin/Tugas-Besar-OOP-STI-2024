@@ -175,13 +175,20 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
-                if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
-                    Plant currPlant = currTile.getListTanaman().get(0);
-                    currPlant.attack();
-                    
-                }
-                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
-                    for(Plant p : currTile.getListTanaman()){
+                for(Plant p : currTile.getListTanaman()){
+                    if(p instanceof Peashooter){
+                        p.attack();
+                    }
+                    else if(p instanceof Repeater){
+                        p.attack();
+                    }
+                    else if(p instanceof SnowPea){
+                        p.attack();
+                    }
+                    else if(p instanceof Squash){
+                        p.attack();
+                    }
+                    else if(p instanceof Jalapeno){
                         p.attack();
                     }
                 }
@@ -339,14 +346,6 @@ public class Map {
         Petak tile = MatriksPetak[row-1][column];
         try {
             Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
-            if (tile instanceof PetakKolam) {
-                for (Plant existingPlant : tile.getListTanaman()) {
-                    if (existingPlant instanceof Lilypad) {
-                        ((Lilypad) existingPlant).healthUpdate(newPlant.getHealth());
-                        break; // Assuming there can only be one Lilypad in the tile
-                    }
-                }
-            }
             tile.tanamTanaman(newPlant);
             System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
         } catch (CannotAddPlantException e) {

@@ -69,6 +69,8 @@ public abstract class Petak {
                         Lilypad lilyPad = (Lilypad) listTanaman.get(0);
                         lilyPad.setHealth(lilyPad.getHealth() + p.getHealth());
                         p.setLastPlantedTime(LocalDateTime.now());
+                        p.setColumn(column);
+                        p.setRow(row);
                         p.attack();
                     } else {
                         throw new TwoPlantOnWaterException();

@@ -120,7 +120,7 @@ public class Plant implements Position {
     public void attack() {
         if (canAttack()) {
             ArrayList<Zombie> zombiesInRow = new ArrayList<>();
-            for(int i = column; i < 10; i++){
+            for(int i = column; i < 10; i++){   
                 Petak tile = Map.getFromMatriksPetak(row, i);
                 if(tile.getListZombies().size() > 0){
                     zombiesInRow.addAll(tile.getListZombies());
