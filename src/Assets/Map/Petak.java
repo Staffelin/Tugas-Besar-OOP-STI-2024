@@ -56,10 +56,13 @@ public abstract class Petak {
         return listTanaman.size();
     }
 
-    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException {
+    public void tanamTanaman(Plant p) throws CannotAddPlantException, PlantLilypadFirstException, LilypadOnLandException, OnlyOnePlantException, TwoPlantOnWaterException, SunNotEnoughException, LilypadAlreadyExists {
         if (p.isPlantable() && Sun.getSun() >= p.getCost()) {
             if (isAquatic) {
                 if (hasLilyPad() || p instanceof Lilypad) {
+                    if (p instanceof Lilypad && hasLilyPad()) {
+                        throw new LilypadAlreadyExists();
+                    }
                     if (listTanaman.size() < 2) {
                         listTanaman.add(p);
                         Sun.reduceSun(p.getCost());
@@ -119,6 +122,16 @@ public abstract class Petak {
         return false;
     }
 
+    public Lilypad getLilypad() {
+        for (Plant plant : listTanaman) {
+            if (plant instanceof Lilypad) {
+                return (Lilypad) plant;
+            }
+        }
+        return null;
+    }
+    
+
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
     }
@@ -147,10 +160,23 @@ public abstract class Petak {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
-            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+            System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
             
+            // Check if there is a Lilypad and another plant in PetakKolam
+            if (this instanceof PetakKolam) {
+                Lilypad lilypad = getLilypad();
+                if (lilypad != null && listTanaman.size() > 1) {
+                    Plant otherPlant = listTanaman.get(1);
+                    if (lilypad.getHealth() <= 0) {
+                        otherPlant.die();
+                        lilypad.die();
+                    }
+                }
+            }
         }
     }
+    
+    
     
     
 }

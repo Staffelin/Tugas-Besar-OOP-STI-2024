@@ -133,48 +133,56 @@ public class Map {
         
     }
 
-    public void moveZombies() {
+    public void moveZombies() {    
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = MatriksPetak[i].length - 1; j > 0; j--) {
                 Petak petak = MatriksPetak[i][j];
                 Petak nextPetak = MatriksPetak[i][j - 1];
                 ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
                 for (Zombie zombie : zombies) {
-                    if (!zombie.getDie()) {
-                        if (petak.getListTanaman().isEmpty()) {
-                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 5000) {
+                    if (zombie.getDie() == false) {
+                        if(petak.getListTanaman().size() == 0){
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 10000) {
                                 petak.removeZombie(zombie); // Pass the zombie to be removed
                                 nextPetak.addZombie(zombie);
+                                // System.out.println("Moving zombies...");
+                                // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
                                 zombie.setRow(i);
                                 zombie.setColumn(j - 1);
+                                // Update the spawn time
+    
                                 zombie.setSpawnTime(System.currentTimeMillis());
                             }
-                        } else {
+                        }
+                        else {
                             zombie.attack();
                         }
-                    } else {
+                        
+                    }
+                    else {
                         petak.removeZombie(zombie);
                     }
                 }
             }
+            if(MatriksPetak[i][0].getListZombies().size() > 0){
+                stillPlaying = false;
+            }
         }
     }
-    
 
 
     public void attackPlants() {
-        for (int i = 0; i < 6; i++) {
-            for(int j = 1; j < 10; j++){
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
                 if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
                     Plant currPlant = currTile.getListTanaman().get(0);
-                        currPlant.attack();
+                    currPlant.attack();
                     
                 }
                 else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
-                    Plant currPlant = currTile.getListTanaman().get(1);
-                    if(currPlant != null){
-                        currPlant.attack();
+                    for(Plant p : currTile.getListTanaman()){
+                        p.attack();
                     }
                 }
             }
@@ -186,9 +194,6 @@ public class Map {
         String blue = "\033[34m"; // Kode warna biru
         String reset = "\033[0m";  // Reset warna
         for (int i = 0; i < MatriksPetak.length; i++) {
-            if (MatriksPetak[i][0].getListZombies().size() > 0) {
-                stillPlaying = false;
-            }
             for (int j = 0; j < MatriksPetak[i].length; j++) {
                 Petak currentTile = MatriksPetak[i][j];
                 String tileRepresentation = currentTile instanceof PetakKolam ? 
@@ -324,36 +329,45 @@ public class Map {
             System.out.println();
         }
         
-        for(int x = 0; x < 22; x++){
+        for(int x = 0; x < 44; x++){
             System.out.print("==");
         }
         System.out.println();
     }
+
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row-1][column];
         try {
-            tile.tanamTanaman(plant);
-            System.out.println(plant.getName() + " berhasil ditanam di (" + (row) + ", " + column + ")"); 
+            Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
+            if (tile instanceof PetakKolam) {
+                for (Plant existingPlant : tile.getListTanaman()) {
+                    if (existingPlant instanceof Lilypad) {
+                        ((Lilypad) existingPlant).healthUpdate(newPlant.getHealth());
+                        break; // Assuming there can only be one Lilypad in the tile
+                    }
+                }
+            }
+            tile.tanamTanaman(newPlant);
+            System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
         } catch (CannotAddPlantException e) {
-    
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        } 
-        catch (PlantLilypadFirstException e) {
+        } catch (PlantLilypadFirstException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (LilypadOnLandException e) {
+        } catch (LilypadOnLandException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (OnlyOnePlantException e) {
+        } catch (OnlyOnePlantException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (TwoPlantOnWaterException e) {
+        } catch (TwoPlantOnWaterException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
-        }
-        catch (SunNotEnoughException e) {
+        } catch (SunNotEnoughException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
+        } catch (LilypadAlreadyExists e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
+        } catch (ReflectiveOperationException e) {
+            System.out.println("Failed to create a new instance of the plant: " + e.getMessage());
         }
     }
+
 
     public void removePlantFromTile(int row, int column) {
         Petak tile = MatriksPetak[row][column];
