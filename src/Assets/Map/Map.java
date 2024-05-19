@@ -12,8 +12,7 @@ import Exception.*;
 public class Map {
     private static Petak[][] MatriksPetak;
     int wave = 0;
-    // String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
-    String[] listSpawnableZombieDarat = {"PoleVaultingZombie"};
+    String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
