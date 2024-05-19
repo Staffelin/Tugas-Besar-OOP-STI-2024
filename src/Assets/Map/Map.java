@@ -17,6 +17,7 @@ public class Map {
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
     private boolean stillPlaying = true;
+    private boolean isSpawningZombie = false;
 
     public Map() {
         MatriksPetak = new Petak[6][11];
@@ -362,6 +363,24 @@ public void attackPlants() {
         } catch (NoPlantException e) {
             System.out.println("Cannot remove plant from tile: " + e.getMessage());
         }
+    }
+
+    public boolean isSpawningZombie() {
+        return isSpawningZombie;
+
+    }
+
+    public void setSpawningZombie(boolean isSpawningZombie) {
+        this.isSpawningZombie = isSpawningZombie;
+    }
+
+    public boolean isZombieOnLastTile () {
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            if (MatriksPetak[i][0].getListZombies().size() > 0) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
