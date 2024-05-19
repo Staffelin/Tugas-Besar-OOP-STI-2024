@@ -138,7 +138,6 @@ public class Zombie implements Position {
             die();
         }
     }
-    
     public void checkEffect(){
         if (effectTime > 0){
             effectTime--;
@@ -152,6 +151,8 @@ public class Zombie implements Position {
         System.out.println(name + " has died at " + (getRow()+1) + ", " + getColumn());  
         setDie();
         Map.spawnedZombies.remove(this);
+        // Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());  
+        // tile.removeZombie(this);
          
     }
 
@@ -165,3 +166,4 @@ public class Zombie implements Position {
 
 
 }
+

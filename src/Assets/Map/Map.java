@@ -175,22 +175,8 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
-                for(Plant p : currTile.getListTanaman()){
-                    if(p instanceof Peashooter){
-                        p.attack();
-                    }
-                    else if(p instanceof Repeater){
-                        p.attack();
-                    }
-                    else if(p instanceof SnowPea){
-                        p.attack();
-                    }
-                    else if(p instanceof Squash){
-                        p.attack();
-                    }
-                    else if(p instanceof Jalapeno){
-                        p.attack();
-                    }
+                for (Plant p : currTile.getListTanaman()) {
+                    p.attack();
                 }
             }
         }
@@ -341,7 +327,6 @@ public class Map {
         }
         System.out.println();
     }
-
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row-1][column];
         try {
@@ -366,7 +351,6 @@ public class Map {
             System.out.println("Failed to create a new instance of the plant: " + e.getMessage());
         }
     }
-
 
     public void removePlantFromTile(int row, int column) {
         Petak tile = MatriksPetak[row][column];

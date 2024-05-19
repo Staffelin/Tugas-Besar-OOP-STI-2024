@@ -132,7 +132,9 @@ public class Plant implements Position {
                 Zombie z = iterator.next();
                 if (this.getRow() == z.getRow()) {
                     z.takeDamage(attack_damage);
-                    System.out.println(this.getName()+" menyerang zombie di petak " + z.getRow());
+                    if(!(this instanceof Sunflower || this instanceof Lilypad || this instanceof Wallnut || this instanceof Tallnut)) {
+                        System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + z.getRow() + ", " + z.getColumn() + ")");
+                    }
                     if (z.getHealth() <= 0) {
                         iterator.remove();
                         System.out.println("Zombie di petak " + z.getRow() + " mati");
