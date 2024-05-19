@@ -45,71 +45,485 @@ public class GameEngine {
         boolean exitGame = false;
 
         while (!exitGame) {
-            System.out.println(yellow + "███╗   ███╗███████╗███╗   ██╗██╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗" + reset);
-            System.out.println(yellow + "████╗ ████║██╔════╝████╗  ██║██║   ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝" + reset);
-            System.out.println(yellow + "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║    ██║  ███╗███████║██╔████╔██║█████╗  " + reset);
-            System.out.println(yellow + "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " + reset);
-            System.out.println(yellow + "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" + reset);
-            System.out.println(yellow + "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝" + reset);
+            System.out.println(red + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(red + "███    ███ ███████ ███    ██ ██    ██      ██████   █████  ███    ███ ███████ " + reset);
+            System.out.println(red + "████  ████ ██      ████   ██ ██    ██     ██       ██   ██ ████  ████ ██      " + reset);
+            System.out.println(red + "██ ████ ██ █████   ██ ██  ██ ██    ██     ██   ███ ███████ ██ ████ ██ █████   " + reset);
+            System.out.println(red + "██  ██  ██ ██      ██  ██ ██ ██    ██     ██    ██ ██   ██ ██  ██  ██ ██      " + reset);
+            System.out.println(red + "██      ██ ███████ ██   ████  ██████       ██████  ██   ██ ██      ██ ███████ " + reset);
+            System.out.println(" ");
             System.out.println(yellow + bold + " 1. START" + reset);
             System.out.println(yellow + bold +" 2. HELP" + reset);
             System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
             System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
             System.out.println(yellow + bold +" 5. EXIT" + reset);
-            System.out.println(yellow + bold + "\r\n" + //
-            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(red + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████ " + reset);
             System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
-            try {
-                int choice = sc.nextInt();
-                sc.nextLine();
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    int choice = sc.nextInt();
+                    sc.nextLine();
 
-                switch (choice) {
-                    case 1:
-                        startGame();
-                        break;
-                    case 2:
-                        displayHelp();
-                        break;
-                    case 3:
-                        displayPlantsList();
-                        break;
-                    case 4:
-                        displayZombiesList();
-                        break;
-                    case 5:
-                        System.out.println("\n================================");
-                        System.out.println("   Terima Kasih Telah Bermain!   ");
-                        System.out.println("================================");
-                        exitGame = true;
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please select a valid option.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Input tak valid. Masukkan integer!");
-                sc.nextLine();
+                    switch (choice) {
+                        case 1:
+                            startGame();
+                            validInput = true;
+                            break;
+                        case 2:
+                            displayHelp();
+                            validInput = true;
+                            break;
+                        case 3:
+                            displayPlantsList();
+                            validInput = true;
+                            break;
+                        case 4:
+                            displayZombiesList();
+                            validInput = true;
+                            break;
+                        case 5:
+                            System.out.println("\n================================");
+                            System.out.println("   Terima Kasih Telah Bermain!   ");
+                            System.out.println("================================");
+                            exitGame = true;
+                            validInput = true;
+                            break;
+                        default:
+                            System.out.println(red + bold + "PILIHAN TIDAK VALID. MASUKKAN PILIHAN YANG VALID." + reset);
+                            break;
+                    }
+                }   catch (InputMismatchException e) {
+                        System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
+                        sc.nextLine();
             }
         }
+    }
         sc.close();
     }
 
     private static void displayHelp() {
-        System.out.println("Selamat datang di Michael vs. Lalapan!");
+        String green = "\033[32m"; // Kode warna hijau
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String red = "\033[31m";   // Kode warna merah
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
+        System.out.println(red + bold + "\r\n" + //
+        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(red + bold +
+                "██   ██ ███████ ██      ██████  \n" +
+                "██   ██ ██      ██      ██   ██ \n" +
+                "███████ █████   ██      ██████  \n" +
+                "██   ██ ██      ██      ██      \n" +
+                "██   ██ ███████ ███████ ██      " + reset);
+        System.out.println(" ");
+        System.out.println(yellow + bold + 
+        "╔═════════════════════════════════════════════════════════════════════════════╗\n" +
+        "║                             DESKRIPSI PERMAINAN                             ║\n" +
+        "╠═════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║ Roro Jonggrang diserang oleh pasukan jin yang menjadi zombie.               ║\n" +
+        "║ Bandung Bondowoso ingin menyelamatkan istri tercintanya.                    ║\n" +
+        "║ Ia memiliki beberapa benih tanaman yang memiliki kemampuan khusus.          ║\n" +
+        "║ Bantu Bandung Bondowoso untuk menyelamatkan Roro Jonggrang dari zombie      ║\n" +
+        "║ dengan menggunakan tanaman!                                                 ║\n" +
+        "╚═════════════════════════════════════════════════════════════════════════════╝" + reset);
+        System.out.println(yellow + bold + 
+        "╔═════════════════════════════════════════════════════════════════════════════╗\n" +
+        "║                                CARA BERMAIN                                 ║\n" +
+        "╠═════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║ 1. Pemain dapat memilih menu apa yang diinginkan pada bagian MENU GAME      ║\n" +
+        "║ 2. Jika ingin memulai permainan, pemain dapat memilih START                 ║\n" +
+        "║ 3. Jika ingin melihat tanaman yang ada, pemain dapat memilih PLANTS LIST    ║\n" +
+        "║ 4. Jika ingin melihat zombie yang ada, pemain dapat memilih ZOMBIES LIST    ║\n" +
+        "║ 5. Jika ingin keluar dari permainan, pemain dapat memilih EXIT              ║\n" +
+        "╠═════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║ Saat memilih START, pemain akan dapat melihat tanaman yang terdapat di      ║\n" +
+        "║ INVENTORY. Kemudian, pemain dapat memilih enam tanaman untuk dimasukkan ke  ║\n" +
+        "║ dalam DECK. Setelahnya, pemain dapat mengubah atau menghapus isi dari DECK. ║\n" +
+        "║ Permainan akan dimulai setelah DECK terisi. Pemain dapat melakukan tanam    ║\n" +
+        "║ tanaman yang ada untuk melawan zombie. Permainan akan selesai dengan        ║\n" +
+        "║ kemenangan tanaman jika seluruh zombie mati atau dengan kemenangan zombie   ║\n" +
+        "║ jika terdapat satu zombie yang sampai pada area yang dilindungi.            ║\n" +
+        "╚═════════════════════════════════════════════════════════════════════════════╝" + reset);
+        System.out.println(yellow + bold + 
+        "╔═════════════════════════════════════════════════════════════════════════════╗\n" +
+        "║                               LIST COMMAND                                  ║\n" +
+        "╠═════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║ 1. T = Saat pemain melakukan input ini, terdapat pilihan indeks tanaman     ║\n" +
+        "║    yang ingin ditanam dan koordinat di mana tanaman ingin ditanam.          ║\n" +
+        "║ 2. G = Saat pemain melakukan input ini, pemain diminta untuk melakukan      ║\n" +
+        "║    input koordinat tanaman yang ingin digali.                               ║\n" +
+        "║                                                                             ║\n" +
+        "║ Selebihnya, GO WITH THE FLOW!                                               ║\n" +
+        "╚═════════════════════════════════════════════════════════════════════════════╝" + reset);
+        Scanner sc = new Scanner(System.in);
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println(green + bold + "APAKAH SUDAH SELESAI MEMBACA? (Y/N)" + reset);
+            String choice = sc.nextLine().trim().toUpperCase();
+            if (choice.equals("Y")) {
+                // Return to game menu
+                System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
+                validInput = true;
+                // Call menu game method here if exists
+                // menuGame();
+            } else if (choice.equals("N")) {
+                // Tell the user to read again
+                System.out.println(red + bold + "SILAKAN BACA KEMBALI!" + reset);
+                // Call displayHelp again to show the instructions
+                displayHelp();
+                validInput = true;
+            } else {
+                // Invalid input
+                System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
+            }
+        }
     }
 
     private static void displayPlantsList() {
-        // Assume Plant classes have a method to describe themselves
-        System.out.println("Plants available:");
-        // Example: System.out.println(new Peashooter().getDescription());
-        // Repeat for each plant type
-    }
+        String green = "\033[32m"; // Kode warna hijau
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String red = "\033[31m";   // Kode warna merah
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
+        Scanner sc = new Scanner(System.in);
+        boolean continueLoop = true;
+        while(continueLoop) {
+            // Print Nama Tanaman
+            System.out.println(red + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(red + "██      ██ ███████ ████████     ████████  █████  ███    ██  █████  ███    ███  █████  ███    ██" + reset);
+            System.out.println(red + "██      ██ ██         ██           ██    ██   ██ ████   ██ ██   ██ ████  ████ ██   ██ ████   ██" + reset);
+            System.out.println(red + "██      ██ ███████    ██           ██    ███████ ██ ██  ██ ███████ ██ ████ ██ ███████ ██ ██  ██" + reset);
+            System.out.println(red + "██      ██      ██    ██           ██    ██   ██ ██  ██ ██ ██   ██ ██  ██  ██ ██   ██ ██  ██ ██" + reset);
+            System.out.println(red + "███████ ██ ███████    ██           ██    ██   ██ ██   ████ ██   ██ ██      ██ ██   ██ ██   ████" + reset);
+            System.out.println(" ");
+            System.out.println(yellow + bold + "1. PEASHOOTER");
+            System.out.println("2. POTATO MINE");
+            System.out.println("3. SUNFLOWER");
+            System.out.println("4. REPEATER");
+            System.out.println("5. SQUASH");
+            System.out.println("6. SNOW PEA");
+            System.out.println("7. TALL-NUT");
+            System.out.println("8. JALAPENO");
+            System.out.println("9. LILYPAD");
+            System.out.println("10. WALL-NUT" + reset);
+            System.out.println(red + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(green + bold + "MASUKKAN NOMOR TANAMAN: " + reset);
+            // Print deskripsi tiap tanaman 
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    int choice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (choice) {
+                        case 1:
+                            System.out.println(
+                                yellow + bold + "Name: PEASHOOTER\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 25\n" +
+                                "Attack Speed: 4\n" + 
+                                "Range: -1\n" + 
+                                "Cooldown: 10" + reset);
+                            validInput = true;
+                            break;
+                        case 2:
+                            System.out.println(
+                                yellow + bold + "Name: POTATO MINE\n" +
+                                "Cost: 25\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 5000\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 1\n" + 
+                                "Cooldown: 20" + reset);
+                            validInput = true;
+                            break;
+                        case 3:
+                            System.out.println(
+                                yellow + bold + "Name: SUNFLOWER\n" +
+                                "Cost: 50\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 0\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 0\n" + 
+                                "Cooldown: 10" + reset);
+                            validInput = true;
+                            break;
+                        case 4:
+                            System.out.println(
+                                yellow + bold + "Name: SUNFLOWER\n" +
+                                "Cost: 50\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 0\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 0\n" + 
+                                "Cooldown: 10" + reset);
+                            validInput = true;
+                            break;
+                        case 5:
+                            System.out.println(
+                                yellow + bold + "Name: SQUASH\n" +
+                                "Cost: 50\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 5000\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 1\n" + 
+                                "Cooldown: 20" + reset);
+                            validInput = true;
+                            break;
+                        case 6:
+                            System.out.println(
+                                yellow + bold + "Name: SNOW PEA\n" +
+                                "Cost: 175\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 25\n" +
+                                "Attack Speed: 4\n" + 
+                                "Range: -1\n" + 
+                                "Cooldown: 10" + reset);
+                            validInput = true;
+                            break;
+                        case 7:
+                            System.out.println(
+                                yellow + bold + "Name: TALL NUT\n" +
+                                "Cost: 125\n" +
+                                "Health: 2000\n" +
+                                "Attack Damage: 0\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 0\n" + 
+                                "Cooldown: 25" + reset);
+                            validInput = true;
+                            break;
+                        case 8:
+                            System.out.println(
+                                yellow + bold + "Name: JALAPENO\n" +
+                                "Cost: 125\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 5000\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: -1\n" + 
+                                "Cooldown: 25" + reset);
+                            validInput = true;
+                            break;
+                        case 9:
+                            System.out.println(
+                                yellow + bold + "Name: LILYPAD\n" +
+                                "Cost: 25\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 0\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 0\n" + 
+                                "Cooldown: 10" + reset);
+                            validInput = true;
+                            break;
+                        case 10:
+                            System.out.println(
+                                yellow + bold + "Name: WALL-NUT\n" +
+                                "Cost: 50\n" +
+                                "Health: 1000\n" +
+                                "Attack Damage: 0\n" +
+                                "Attack Speed: 0\n" + 
+                                "Range: 0\n" + 
+                                "Cooldown: 20" + reset);
+                            validInput = true;
+                            break;
+                        default:
+                            System.out.println(red + bold + "PILIHAN TIDAK VALID. MASUKKAN PILIHAN YANG VALID." + reset);
+                            validInput = false;
+                            break;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
+                    sc.nextLine();
+                }
+            }
+            System.out.println(green + bold + "APAKAH ANDA INGIN MELIHAT TANAMAN LAIN? (Y/N)" + reset);
+            boolean validSortChoice = false;
+            while (!validSortChoice) {
+                char sortChoice = sc.next().charAt(0);
+                if (sortChoice == 'Y') {
+                sc.nextLine();
+                continueLoop = true;
+                break;
+                }
+                else if (sortChoice == 'N') {
+                sc.nextLine();
+                continueLoop = false;
+                break;
+            }
+            else {
+                System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
+            }
+            sc.nextLine();
+        }    
+    } 
+}
 
     private static void displayZombiesList() {
-        // Assume Zombie classes have a method to describe themselves
-        System.out.println("Zombies that may appear:");
-        // Example: System.out.println(new NormalZombie().getDescription());
-        // Repeat for each zombie type
-    }
+        String green = "\033[32m"; // Kode warna hijau
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String red = "\033[31m";   // Kode warna merah
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
+        Scanner sc = new Scanner(System.in);
+        boolean continueLoop = true;
+        while(continueLoop) {
+            // Print Nama Tanaman
+            System.out.println(red + bold + "\r\n" +
+                "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(red + bold + "██      ██ ███████ ████████     ███████  ██████  ███    ███ ██████  ██ ███████ ███████" + reset);
+            System.out.println(red + bold + "██      ██ ██         ██           ███  ██    ██ ████  ████ ██   ██ ██ ██      ██" + reset);
+            System.out.println(red + bold + "██      ██ ███████    ██          ███   ██    ██ ██ ████ ██ ██████  ██ █████   ███████" + reset);
+            System.out.println(red + bold + "██      ██      ██    ██         ███    ██    ██ ██  ██  ██ ██   ██ ██ ██           ██" + reset);
+            System.out.println(red + bold + "███████ ██ ███████    ██        ███████  ██████  ██      ██ ██████  ██ ███████ ███████" + reset);
+            System.out.println(" ");
+            System.out.println(yellow + bold + "1. NORMAL ZOMBIE");
+            System.out.println("2. CONEHEAD ZOMBIE");
+            System.out.println("3. POLE VAULTING ZOMBIE");
+            System.out.println("4. BUCKETHEAD ZOMBIE");
+            System.out.println("5. DUCKY TUBE ZOMBIE");
+            System.out.println("6. DOLPHIN RIDER ZOMBIE");
+            System.out.println("7. FOOTBALL ZOMBIE");
+            System.out.println("8. GARGANTUAR");
+            System.out.println("9. NEWSPAPER ZOMBIE");
+            System.out.println("10. YETI ZOMBIE" + reset);
+            System.out.println(red + bold + "\r\n" + //
+            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+            System.out.println(green + bold + "MASUKKAN NOMOR ZOMBIE: " + reset);
+            // Print deskripsi tiap tanaman 
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    int choice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (choice) {
+                        case 1:
+                            System.out.println(
+                                yellow + bold + "Name: NORMAL ZOMBIE\n" +
+                                "Health: 125\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 2:
+                            System.out.println(
+                                yellow + bold + "Name: CONEHEAD ZOMBIE\n" +
+                                "Health: 250\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 3:
+                            System.out.println(
+                                yellow + bold + "Name: POLE VAULTING ZOMBIE\n" +
+                                "Health: 175\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 4:
+                            System.out.println(
+                                yellow + bold + "Name: BUCKETHEAD ZOMBIE\n" +
+                                "Health: 300\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 5:
+                            System.out.println(
+                                yellow + bold + "Name: DUCKY TUBE ZOMBIE\n" +
+                                "Health: 100\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Iya\n" + reset);
+                            validInput = true;
+                            break;
+                        case 6:
+                            System.out.println(
+                                yellow + bold + "Name: DOLPHIN RIDER ZOMBIE\n" +
+                                "Health: 175\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Iya\n" + reset);
+                            validInput = true;
+                            break;
+                        case 7:
+                            System.out.println(
+                                yellow + bold + "Name: FOOTBALL ZOMBIE\n" +
+                                "Health: 300\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 8:
+                            System.out.println(
+                                yellow + bold + "Name: GARGANTUAR\n" +
+                                "Health: 1000\n" +
+                                "Attack Damage: 250\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 9:
+                            System.out.println(
+                                yellow + bold + "Name: NEWSPAPER ZOMBIE\n" +
+                                "Health: 175\n" +
+                                "Attack Damage: 100\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        case 10:
+                            System.out.println(
+                                yellow + bold + "Name: YETI ZOMBIE\n" +
+                                "Health: 500\n" +
+                                "Attack Damage: 200\n" +
+                                "Attack Speed: 1\n" + 
+                                "Aquatic: Tidak\n" + reset);
+                            validInput = true;
+                            break;
+                        default:
+                            System.out.println(red + bold + "PILIHAN TIDAK VALID. MASUKKAN PILIHAN YANG VALID." + reset);
+                            validInput = false;
+                            break;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
+                    sc.nextLine();
+                }
+            }
+            System.out.println(green + bold + "APAKAH ANDA INGIN MELIHAT TANAMAN LAIN? (Y/N)" + reset);
+            boolean validSortChoice = false;
+            while (!validSortChoice) {
+                char sortChoice = sc.next().charAt(0);
+                if (sortChoice == 'Y') {
+                sc.nextLine();
+                continueLoop = true;
+                break;
+                }
+                else if (sortChoice == 'N') {
+                sc.nextLine();
+                continueLoop = false;
+                break;
+            }
+            else {
+                System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
+            }
+            sc.nextLine();
+        }    
+    } 
+}
+        
+
 
     public static void startGame() {
         String yellow = "\u001B[33m"; // Kode warna kuning
