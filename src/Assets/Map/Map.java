@@ -175,16 +175,8 @@ public class Map {
         for (int i = 0; i < MatriksPetak.length; i++) {
             for(int j = 1; j < MatriksPetak[i].length; j++){
                 Petak currTile = getFromMatriksPetak(i, j);
-                if(currTile instanceof PetakDarat && currTile.getListTanaman().size() > 0){
-                    Plant currPlant = currTile.getListTanaman().get(0);
-                    currPlant.attack();
-                    
-                }
-                else if(currTile instanceof PetakKolam && currTile.getListTanaman().size() > 2){
-                    Plant currPlant = currTile.getListTanaman().get(1);
-                    if(currPlant != null){
-                        currPlant.attack();
-                    }
+                for (Plant p : currTile.getListTanaman()) {
+                    p.attack();
                 }
             }
         }
