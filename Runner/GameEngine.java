@@ -355,7 +355,7 @@ public class GameEngine {
             public void run(){
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
