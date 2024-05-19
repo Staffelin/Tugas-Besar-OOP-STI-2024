@@ -12,7 +12,7 @@ import Zombies.*;
 
 public class PotatoMine extends Plant {
     public PotatoMine () {
-        super("POTATO MINE", 25, 100, 5000, 0, 3, 20);
+        super("POTATO MINE", 25, 100, 5000, 0, 1, 20);
     }
 
    @Override

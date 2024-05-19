@@ -13,6 +13,7 @@ public class GameEngine {
         String yellow = "\u001B[33m"; // Kode warna kuning
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
+        
 
         // Print Michael vs Lalapan
         System.out.println(green + "            ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset);
@@ -722,7 +723,6 @@ public class GameEngine {
                     }
                     try {
                         map.attackPlants(); 
-                        map.viewMap();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -740,16 +740,20 @@ public class GameEngine {
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-                    if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
+                    if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
                         if (!isSpawning) {
                             System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
                             isSpawning = true;
+                            map.setSpawningZombie(isSpawning);
                         }
                         map.spawnZombieMap();
+                        map.viewMap();
                     } else {
                         if (isSpawning) {
                             System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                             isSpawning = false;
+                            map.setSpawningZombie(isSpawning);
+                            map.viewMap();
                         }
                     }
                     try {
@@ -779,27 +783,41 @@ public class GameEngine {
             }
         });
 
-        Thread GameChecker = new Thread(new Runnable(){
+        Thread gameConditionChecker = new Thread(new Runnable() {
             @Override
-            public void run(){
-                while(!Thread.currentThread().isInterrupted() && map.getPlayingStatus()){
-                    if(!map.getPlayingStatus()){
-                        System.out.println(green + bold + "GAME OVER!" + reset);
-                        sunGeneration.interrupt();
-                        zombieSpawner.interrupt();
-                        zombieMover.interrupt();
-                        Thread.currentThread().interrupt();
-                    }
+            public void run() {
+                while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(1000);
-                        map.moveZombies();
+                        Thread.sleep(1000); // Check game condition every second
+                        if (Map.spawnedZombies != null) {
+                            if (Map.spawnedZombies.size() == 0 && map.isSpawningZombie() == false) {
+                                System.out.println("Congratulations, you win!");
+                                Thread.currentThread().interrupt();
+                                zombieMover.interrupt();
+                                zombieSpawner.interrupt();
+                                sunGeneration.interrupt();
+                                break;
+                            }
+                        }
+        
+                            if (map.isZombieOnLastTile()) {
+                                System.out.println("Game over, you lose!");
+                                Thread.currentThread().interrupt();
+                                zombieMover.interrupt();
+                                zombieSpawner.interrupt();
+                                sunGeneration.interrupt();
+                                break;
+                            }
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
                         Thread.currentThread().interrupt(); // Preserve the interrupted status
-                    }                   
+                    }
                 }
             }
         });
+        
+        gameConditionChecker.start();
+        
 
 
         // Thread 3: Moves a zombie every 5 seconds.
@@ -814,12 +832,32 @@ public class GameEngine {
         //         }
         //     }
         // });
+
+        // Thread attackAll = new Thread (new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         while (true) {
+        //             // System.out.println("Attack all zombies");
+        //             try {
+        //                 Map.attackPlants();
+        //             } catch (NoPlantException e) {
+        //                 System.out.println(e.getClass().getName());
+        //                 e.printStackTrace();
+        //             }
+        //             try {
+        //                 Thread.sleep(1000);
+        //             } catch (InterruptedException e) {
+        //                 System.out.println("Print thread interrupted");
+        //                 return;
+        //             }
+        //         }
+        //     }
+        // });
         sunGeneration.start();
         zombieSpawner.start();
         zombieMover.start();
-        GameChecker.start();
+        // attackAll.start();
 
-        
         while(map.getPlayingStatus()) {
             System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
             char choice = sc.next().charAt(0);
@@ -864,9 +902,7 @@ public class GameEngine {
                     }
                 }
             }
-
         }
-
 
         System.out.println(green + bold + "GAME OVER!" + reset);
         sc.close();

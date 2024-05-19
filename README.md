@@ -1,6 +1,8 @@
 # Tugas-Besar-OOP-STI-2024
 ## Michael VS Lalapan
 
+> Michael VS Lalapan merupakan sebuah game dalam bahasa Java yang menggunakan CLI (Command Line Interface) yang terinspirasi berdasarkan game Plants VS Zombies.
+
 ## Deskripsi
 
 > Repository ini ditujukan untuk memenuhi Tugas Besar IF2212 Pemrograman Berorientasi Objek STI tahun ajaran 2023/2024 Kelompok 5 Kelas K02.

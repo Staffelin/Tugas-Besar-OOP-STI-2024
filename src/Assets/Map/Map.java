@@ -1,7 +1,9 @@
 package Map;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
 
 import Zombies.*;
 import Plants.*;
@@ -15,6 +17,7 @@ public class Map {
     public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
     private boolean stillPlaying = true;
+    private boolean isSpawningZombie = false;
 
     public Map() {
         MatriksPetak = new Petak[6][11];
@@ -43,9 +46,6 @@ public class Map {
         return stillPlaying;
     }
 
-    public void setPlayingStatus(boolean status){
-        stillPlaying = status;
-    }
 
     public static Petak getFromMatriksPetak(int row, int column) {
         if (row >= 0 && row < MatriksPetak.length && column >= 0 && column < MatriksPetak[0].length) {
@@ -55,6 +55,8 @@ public class Map {
         }
     }
 
+
+
     public void resetMap(){
         for (int i = 0; i < MatriksPetak.length; i++) {
             for (int j = 0; j < MatriksPetak[i].length; j++) {
@@ -63,7 +65,6 @@ public class Map {
             }
         }
     }
-
     public void spawnZombieMap() {
         if (spawnedZombies == null) {
             spawnedZombies = new ArrayList<>();
@@ -131,6 +132,7 @@ public class Map {
                 }
             }
         }
+        
     }
 
     public void moveZombies() {    
@@ -161,40 +163,28 @@ public class Map {
                     }
                     else {
                         petak.removeZombie(zombie);
-                    } 
+                    }
                 }
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){
                 stillPlaying = false;
-                System.out.println("Game Over! Zombies have reached the protected area.");
-            }
-        }
-    }
-    
-
-    public void attackPlants() {
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for (int j = 1; j < MatriksPetak[i].length; j++) {
-                Petak currTile = getFromMatriksPetak(i, j);
-                for (Plant p : currTile.getListTanaman()) {
-                    p.attack();
-                }
             }
         }
     }
 
-    public boolean hasZombies() {
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for (int j = 0; j < MatriksPetak[i].length; j++) {
-                if (!MatriksPetak[i][j].getListZombies().isEmpty()) {
-                    return true;
-                }
+
+public void attackPlants() {
+    for (int i = 0; i < MatriksPetak.length; i++) {
+        for(int j = 1; j < MatriksPetak[i].length; j++){
+            Petak currTile = getFromMatriksPetak(i, j);
+            List<Plant> plants = new ArrayList<>(currTile.getListTanaman());
+            for (Plant p : plants) {
+                p.attack();
             }
         }
-        return false;
     }
-    
-    
+}
+        
     public void viewMap() {
         String green = "\033[32m"; // Kode warna hijau
         String blue = "\033[34m"; // Kode warna biru
@@ -340,7 +330,6 @@ public class Map {
         }
         System.out.println();
     }
-
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row-1][column];
         try {
@@ -375,4 +364,23 @@ public class Map {
             System.out.println("Cannot remove plant from tile: " + e.getMessage());
         }
     }
+
+    public boolean isSpawningZombie() {
+        return isSpawningZombie;
+
+    }
+
+    public void setSpawningZombie(boolean isSpawningZombie) {
+        this.isSpawningZombie = isSpawningZombie;
+    }
+
+    public boolean isZombieOnLastTile () {
+        for (int i = 0; i < MatriksPetak.length; i++) {
+            if (MatriksPetak[i][0].getListZombies().size() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
