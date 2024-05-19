@@ -1,6 +1,7 @@
 package Map;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -171,16 +172,17 @@ public class Map {
     }
 
 
-    public void attackPlants() {
-        for (int i = 0; i < MatriksPetak.length; i++) {
-            for(int j = 1; j < MatriksPetak[i].length; j++){
-                Petak currTile = getFromMatriksPetak(i, j);
-                for (Plant p : currTile.getListTanaman()) {
-                    p.attack();
-                }
+public void attackPlants() {
+    for (int i = 0; i < MatriksPetak.length; i++) {
+        for(int j = 1; j < MatriksPetak[i].length; j++){
+            Petak currTile = getFromMatriksPetak(i, j);
+            List<Plant> plants = new ArrayList<>(currTile.getListTanaman());
+            for (Plant p : plants) {
+                p.attack();
             }
         }
     }
+}
         
     public void viewMap() {
         String green = "\033[32m"; // Kode warna hijau
