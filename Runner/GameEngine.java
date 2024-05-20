@@ -789,8 +789,8 @@ public class GameEngine {
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
                         Thread.sleep(1000); // Check game condition every second
-                        if (Map.spawnedZombies != null) {
-                            if (Map.spawnedZombies.size() == 0 && map.isSpawningZombie() == false) {
+                        if (Map.getFactoryZombie().getSpawnedZombies() != null) {
+                            if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && map.isSpawningZombie() == false) {
                                 System.out.println("Congratulations, you win!");
                                 Thread.currentThread().interrupt();
                                 zombieMover.interrupt();
