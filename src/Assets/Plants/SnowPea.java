@@ -20,8 +20,8 @@ public class SnowPea extends Plant {
                     if(tile.getListZombies().size() > 0){
                         for(Zombie z : tile.getListZombies()){
                             z.takeDamage(attack_damage);
-                            z.setEffectTime(3);
-                            z.setMovementSpeed(z.getCurrentSpeed()/2);
+                            z.setEffectTime();
+                            System.out.println("Snow Pea attacking " + z.getName() + " at (" + row + ", " + i + ")");
                         }
                         attacked = true;
                         break;
