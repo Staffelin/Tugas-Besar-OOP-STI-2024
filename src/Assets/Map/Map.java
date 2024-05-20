@@ -14,16 +14,17 @@ public class Map {
     int wave = 0;
     String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
-    public static ArrayList<Zombie> spawnedZombies;
     Random random = new Random();
     private boolean stillPlaying = true;
     private boolean isSpawningZombie = false;
+    private static FactoryZombie Factory;
 
     public Map() {
         MatriksPetak = new Petak[6][11];
         for (int i = 0; i < 6; i++) {
             MatriksPetak[i][0] = new ProtectedArea(i, 0);
-            MatriksPetak[i][10] = new ZombieSpawn(i, 10);
+            MatriksPetak[i][10] = new ZombieSpawn(i, 10); 
+            Factory = new FactoryZombie();
         }
 
         for (int i = 0; i < 6; i++) {
@@ -55,6 +56,9 @@ public class Map {
         }
     }
 
+    public static FactoryZombie getFactoryZombie() {
+        return Factory;
+    }
 
 
     public void resetMap(){
@@ -66,73 +70,7 @@ public class Map {
         }
     }
     public void spawnZombieMap() {
-        if (spawnedZombies == null) {
-            spawnedZombies = new ArrayList<>();
-        }
-        if(spawnedZombies.size() < 10){
-            for(int i = 0; i < 6; i++){
-                if(random.nextDouble() < 0.3 && spawnedZombies.size() < 10){
-                    String zombieType;
-                    if(i == 2 || i == 3){
-                        zombieType = listSpawnableZombieKolam[random.nextInt(listSpawnableZombieKolam.length)];
-                    }
-                    else{
-                        zombieType = listSpawnableZombieDarat[random.nextInt(listSpawnableZombieDarat.length)];
-                    }
-                    Petak tile = MatriksPetak[i][9];
-                    Petak spawnSite = MatriksPetak[i][10];
-                    Zombie newZombie = null;
-        
-                    if(tile instanceof PetakDarat){
-                        switch (zombieType) {
-                            case "BucketheadZombie":
-                                newZombie = new BucketheadZombie();
-                                break;
-                            case "ConeheadZombie":
-                                newZombie = new ConeheadZombie();
-                                break;
-                            case "FootballZombie":
-                                newZombie = new FootballZombie();
-                                break;
-                            case "Gargantuar":
-                                newZombie = new Gargantuar();
-                                break;
-                            case "NewspaperZombie":
-                                newZombie = new NewspaperZombie();
-                                break;
-                            case "PoleVaultingZombie":
-                                newZombie = new PoleVaultingZombie();
-                                break;
-                            case "Yetizombie":
-                                newZombie = new YetiZombie();
-                                break;
-                            default:
-                                newZombie = new NormalZombie();
-                                break;
-                        }
-                    } else if(tile instanceof PetakKolam){
-                        switch (zombieType) {
-                            case "DolphinRiderZombie":
-                                newZombie = new DolphinRiderZombie();
-                                break;
-                            default:
-                                newZombie = new DuckyTubeZombie();
-                                break;
-                        }
-                    }
-        
-                    if (newZombie != null) {
-                        newZombie.setRow(i);
-                        newZombie.setColumn(10);
-                        spawnedZombies.add(newZombie); 
-                        spawnSite.addZombie(newZombie);
-                        newZombie.setSpawnTime(System.currentTimeMillis());
-                        System.out.println(zombieType + " spawned at (" + (i+1) + ", 10)");
-                    }
-                }
-            }
-        }
-        
+        Factory.spawnZombie(this);
     }
 
     public void moveZombies() {    

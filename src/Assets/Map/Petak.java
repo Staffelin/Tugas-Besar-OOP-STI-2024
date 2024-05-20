@@ -71,6 +71,8 @@ public abstract class Petak {
                         Lilypad lilyPad = (Lilypad) listTanaman.get(0);
                         lilyPad.setHealth(lilyPad.getHealth() + p.getHealth());
                         p.setLastPlantedTime(LocalDateTime.now());
+                        p.setColumn(column);
+                        p.setRow(row);
                         p.attack();
                     } else {
                         throw new TwoPlantOnWaterException();
@@ -124,6 +126,16 @@ public abstract class Petak {
         return false;
     }
 
+    public Lilypad getLilypad() {
+        for (Plant plant : listTanaman) {
+            if (plant instanceof Lilypad) {
+                return (Lilypad) plant;
+            }
+        }
+        return null;
+    }
+    
+
     public void addZombie(Zombie Z){
         getListZombies().add(Z);
     }
@@ -154,8 +166,21 @@ public abstract class Petak {
             listZombies.remove(zombie);
             // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
             
+            // Check if there is a Lilypad and another plant in PetakKolam
+            if (this instanceof PetakKolam) {
+                Lilypad lilypad = getLilypad();
+                if (lilypad != null && listTanaman.size() > 1) {
+                    Plant otherPlant = listTanaman.get(1);
+                    if (lilypad.getHealth() <= 0) {
+                        otherPlant.die();
+                        lilypad.die();
+                    }
+                }
+            }
         }
     }
+    
+    
     
     
 }
