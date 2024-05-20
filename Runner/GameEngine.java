@@ -773,7 +773,7 @@ public class GameEngine {
             public void run(){
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -832,6 +832,7 @@ public class GameEngine {
                                 zombieSpawner.interrupt();
                                 sunGeneration.interrupt();
                                 checkGameOver();
+                                break;
                             }
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -954,18 +955,27 @@ public class GameEngine {
         String reset = "\033[0m";  // Reset warna
         //Scanner sc = new Scanner(System.in); 
         boolean validInput = false;
+        Scanner sc = new Scanner(System.in);
         while (!validInput) {
             System.out.println(green + bold + "INGIN BERMAIN KEMBALI? (Y/N)" + reset);
-            String input = sc.nextLine().trim().toUpperCase(); // Read full line and trim whitespace
-
-            if (input.equals("Y")) {
-                validInput = true;
-                startGame(); // Start game directly
-            } else if (input.equals("N")) {
-                System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
-                validInput = true; // Break the loop, ending method execution
-            } else {
-                System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
+            try {
+                int input = sc.nextInt(); // Read full line and trim whitespace // Consume newline character
+                sc.nextLine();
+                if (input == 1) {
+                    System.out.println("Masuk kesini");
+                    validInput = true;
+                    startGame(); // Start game directly
+                    break;
+                } else if (input == 2) {
+                    System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
+                    validInput = true; // Break the loop, ending method execution
+                    break;
+                } else {
+                    System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(red + bold + "An error occurred while reading your input. Please try again." + reset);
+                break;
             }
         }
     }
