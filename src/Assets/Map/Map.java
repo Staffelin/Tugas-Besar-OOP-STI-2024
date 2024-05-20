@@ -234,13 +234,13 @@ public void attackPlants() {
                     if (!currentTile.isAquatic() || j == 10) {
                         System.out.print(green + "[ " + reset + "Z("+zombieCount+")" + green + " ]" + reset  + " ");
                         for(Zombie z : currentTile.getListZombies()){
-                            z.checkEffect();
+                            z.checkSlowEffect();
                         }
                     }
                     else if (currentTile.isAquatic()) {
                         System.out.print(blue + "{ " + reset + "Z("+zombieCount+")" + blue + " }" + reset  + " ");
                         for(Zombie z : currentTile.getListZombies()){
-                            z.checkEffect();
+                            z.checkSlowEffect();
                     }
                     }
                 } else if (currentTile.getListTanaman().size() == 1) {
