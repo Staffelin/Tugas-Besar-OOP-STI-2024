@@ -2,6 +2,7 @@ package Zombies;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+
 // import java.util.ArrayList;
 
 import Map.*;
@@ -19,8 +20,10 @@ public class Zombie implements Position {
     boolean isAquatic;
     private long spawnTime;
     LocalDateTime lastAttackTime;
+    long timeSlowed;
     private boolean isDie = false;
-    private int effectTime = 0;
+    private boolean slowed = false;
+    private int slowDuration = 3000;
     
 
     public Zombie(String name, int health, int attack_damage, int attack_speed, int current_speed, boolean isAquatic) {
@@ -96,13 +99,25 @@ public class Zombie implements Position {
         return this.spawnTime;
     }
 
-    public int getEffectTime() {
-        return effectTime;
+    public void checkSlowEffect() {
+        if (slowed && (System.currentTimeMillis() - timeSlowed) >= slowDuration) {
+            setAttackSpeed(1);
+            setMovementSpeed(10);
+            slowed = false;
+            System.out.println("Udah normal");
+        }
     }
 
-    public void setEffectTime(int effectTime) {
-        this.effectTime = effectTime;
+    public void setEffectTime() {
+        while (!slowed) {
+            setAttackSpeed(2);
+            setMovementSpeed(20);
+            timeSlowed = System.currentTimeMillis();
+            slowed = true;
+            System.out.println("Zombie kena slow effect");
+        }
     }
+
 
 
     public void setLastAttackTime(LocalDateTime lastAttackTime) {
@@ -138,14 +153,7 @@ public class Zombie implements Position {
             die();
         }
     }
-    public void checkEffect(){
-        if (effectTime > 0){
-            effectTime--;
-        }
-        else{
-            setMovementSpeed(current_speed);
-        }
-    }
+
 
     protected void die() {
         System.out.println(name + " has died at " + (getRow()+1) + ", " + getColumn());  
@@ -163,6 +171,15 @@ public class Zombie implements Position {
         }
         return false;
     } 
+
+    public void setAttackSpeed(int attack_speed) {
+        this.attack_speed = attack_speed;
+    }
+
+    public void applySnowPeaEffect() {
+        setMovementSpeed((int) 0.5 * current_speed);
+        setAttackSpeed((int) (1.5 * attack_speed));
+    }
 
 
 }

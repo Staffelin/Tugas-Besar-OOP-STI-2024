@@ -32,9 +32,13 @@ public class PoleVaultingZombie extends Zombie {
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
         // Move the zombie to the left
-        this.setColumn(getColumn());
+        this.setColumn(getColumn()-1);
         Petak newTile = Map.getFromMatriksPetak(getRow(), getColumn());
         newTile.addZombie(this);
+        if (newTile != null && newTile.getJumlahTanaman() > 0 && !newTile.getListTanaman().isEmpty()) {
+            Plant p2 = newTile.getListTanaman().get(0);
+            p2.die();
+        }
         System.out.println("Zombie " + getName() + " is now at " + "(" + getRow() + ", " + getColumn() + ")");
         hasVaulted = true;
     }
