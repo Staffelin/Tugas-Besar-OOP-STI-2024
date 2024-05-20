@@ -754,7 +754,7 @@ public class GameEngine {
                         }
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
                         Thread.currentThread().interrupt(); // Preserve the interrupted status
