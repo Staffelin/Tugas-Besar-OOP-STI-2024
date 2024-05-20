@@ -99,8 +99,9 @@ public class GameEngine {
                             break;
                     }
                 }   catch (InputMismatchException e) {
-                        System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
+                        System.out.println(green + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!"+ reset);
                         sc.nextLine();
+                        
             }
         }
     }
@@ -606,7 +607,7 @@ public class GameEngine {
                 if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
                     deck.addPlant(inventory.getPlant(index1-1));
                     System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
-                    System.out.println("Deck size is: "+ deck.getDeckSize());
+                    System.out.println("Isi deck: "+ deck.getDeckSize());
                 } else {
                     System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
                 }
@@ -672,8 +673,11 @@ public class GameEngine {
                     System.out.println("Deck:");
                     deck.displayDeck();
                 } else {
-                    System.out.println(green + bold + "INGIN TAK VALID!" + reset);
+                    System.out.println(green + bold + "INPUT TAK VALID!" + reset);
                 }
+                } catch (InputMismatchException e) {
+                System.out.println(green + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
+                sc.nextLine();
                 }
                 catch (CannotDeletePlantException e) {
                 System.out.println(e.getClass().getName() + "! " + "Tanaman tidak dapat dihapus!");
