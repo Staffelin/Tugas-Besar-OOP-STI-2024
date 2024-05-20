@@ -9,6 +9,10 @@ import Player.*;
 public class GameEngine {
 
     private static Scanner sc = new Scanner(System.in); 
+    private static Thread sunGeneration;
+    private static Thread zombieSpawner;
+    private static Thread zombieMover;
+    private static Thread gameConditionChecker;
     public static void main(String[] args) {
         String red = "\033[31m";   // Kode warna merah
         String green = "\033[32m"; // Kode warna hijau
@@ -47,60 +51,60 @@ public class GameEngine {
         // Scanner sc = new Scanner(System.in); 
         boolean exitGame = false;
 
-        while (!exitGame) {
-            System.out.println(red + bold + "\r\n" + //
-            "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
-            System.out.println(red + "███    ███ ███████ ███    ██ ██    ██      ██████   █████  ███    ███ ███████ " + reset);
-            System.out.println(red + "████  ████ ██      ████   ██ ██    ██     ██       ██   ██ ████  ████ ██      " + reset);
-            System.out.println(red + "██ ████ ██ █████   ██ ██  ██ ██    ██     ██   ███ ███████ ██ ████ ██ █████   " + reset);
-            System.out.println(red + "██  ██  ██ ██      ██  ██ ██ ██    ██     ██    ██ ██   ██ ██  ██  ██ ██      " + reset);
-            System.out.println(red + "██      ██ ███████ ██   ████  ██████       ██████  ██   ██ ██      ██ ███████ " + reset);
-            System.out.println(" ");
-            System.out.println(yellow + bold + " 1. START" + reset);
-            System.out.println(yellow + bold +" 2. HELP" + reset);
-            System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
-            System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
-            System.out.println(yellow + bold +" 5. EXIT" + reset);
-            System.out.println(red + bold + "\r\n" + //
-            "██████████████████████████████████████████████████████████████████████████████ " + reset);
-            System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
-            boolean validInput = false;
-            while (!validInput) {
-                try {
-                    int choice = sc.nextInt();
-                    sc.nextLine();
+    while (!exitGame) {
+        System.out.println(red + bold + "\r\n" + //
+        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+        System.out.println(red + "███    ███ ███████ ███    ██ ██    ██      ██████   █████  ███    ███ ███████ " + reset);
+        System.out.println(red + "████  ████ ██      ████   ██ ██    ██     ██       ██   ██ ████  ████ ██      " + reset);
+        System.out.println(red + "██ ████ ██ █████   ██ ██  ██ ██    ██     ██   ███ ███████ ██ ████ ██ █████   " + reset);
+        System.out.println(red + "██  ██  ██ ██      ██  ██ ██ ██    ██     ██    ██ ██   ██ ██  ██  ██ ██      " + reset);
+        System.out.println(red + "██      ██ ███████ ██   ████  ██████       ██████  ██   ██ ██      ██ ███████ " + reset);
+        System.out.println(" ");
+        System.out.println(yellow + bold + " 1. START" + reset);
+        System.out.println(yellow + bold +" 2. HELP" + reset);
+        System.out.println(yellow + bold +" 3. PLANTS LIST" + reset);
+        System.out.println(yellow + bold +" 4. ZOMBIES LIST" + reset);
+        System.out.println(yellow + bold +" 5. EXIT" + reset);
+        System.out.println(red + bold + "\r\n" + //
+        "██████████████████████████████████████████████████████████████████████████████ " + reset);
+        System.out.println(green + bold + "MASUKKAN NOMOR MENU YANG DIPILIH: " + reset);
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                int choice = sc.nextInt();
+                sc.nextLine();
 
-                    switch (choice) {
-                        case 1:
-                            startGame();
-                            validInput = true;
-                            break;
-                        case 2:
-                            displayHelp();
-                            validInput = true;
-                            break;
-                        case 3:
-                            displayPlantsList();
-                            validInput = true;
-                            break;
-                        case 4:
-                            displayZombiesList();
-                            validInput = true;
-                            break;
-                        case 5:
-                            System.out.println("\n================================");
-                            System.out.println("   Terima Kasih Telah Bermain!   ");
-                            System.out.println("================================");
-                            exitGame = true;
-                            validInput = true;
-                            break;
-                        default:
-                            System.out.println(red + bold + "PILIHAN TIDAK VALID. MASUKKAN PILIHAN YANG VALID." + reset);
-                            break;
-                    }
-                }   catch (InputMismatchException e) {
-                        System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
-                        sc.nextLine();
+                switch (choice) {
+                    case 1:
+                        startGame();
+                        validInput = true;
+                        break;
+                    case 2:
+                        displayHelp();
+                        validInput = true;
+                        break;
+                    case 3:
+                        displayPlantsList();
+                        validInput = true;
+                        break;
+                    case 4:
+                        displayZombiesList();
+                        validInput = true;
+                        break;
+                    case 5:
+                        System.out.println("\n================================");
+                        System.out.println("   Terima Kasih Telah Bermain!   ");
+                        System.out.println("================================");
+                        exitGame = true;
+                        validInput = true;
+                        break;
+                    default:
+                        System.out.println(red + bold + "PILIHAN TIDAK VALID. MASUKKAN PILIHAN YANG VALID." + reset);
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
+                sc.nextLine();
             }
         }
     }
@@ -523,6 +527,7 @@ public class GameEngine {
 
 
     public static void startGame() {
+
         String yellow = "\u001B[33m"; // Kode warna kuning
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
@@ -691,7 +696,7 @@ public class GameEngine {
             }
         }
 
-        Thread sunGeneration = new Thread(new Runnable() {
+        sunGeneration = new Thread(new Runnable() {
             @Override
             public void run(){
                 int lastSun = 0;
@@ -716,10 +721,10 @@ public class GameEngine {
                     if (Sun.sun > lastSun) {
                         System.out.println("Current sun: " + Sun.sun);
                         lastSun = Sun.sun;
-                        map.viewMap();
                     }
                     try {
-                        map.attackPlants(); 
+                        map.attackPlants();
+                        map.viewMap();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -729,7 +734,7 @@ public class GameEngine {
             }
         });
 
-        Thread zombieSpawner = new Thread(new Runnable() {
+        zombieSpawner = new Thread(new Runnable() {
             @Override
             public void run(){
                 long startTime = System.currentTimeMillis();
@@ -744,13 +749,11 @@ public class GameEngine {
                             map.setSpawningZombie(isSpawning);
                         }
                         map.spawnZombieMap();
-                        map.viewMap();
                     } else {
                         if (isSpawning) {
                             System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                             isSpawning = false;
                             map.setSpawningZombie(isSpawning);
-                            map.viewMap();
                         }
                     }
                     try {
@@ -764,7 +767,7 @@ public class GameEngine {
 
         });
 
-        Thread zombieMover = new Thread(new Runnable() {
+        zombieMover = new Thread(new Runnable() {
             @Override
             public void run(){
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
@@ -780,14 +783,18 @@ public class GameEngine {
             }
         });
 
+        sunGeneration.start();
+        zombieSpawner.start();
+        zombieMover.start();
+
         Thread gameConditionChecker = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(1000); // Check game condition every secon
+                        Thread.sleep(1000); // Check game condition every second
                         if (Map.getFactoryZombie().getSpawnedZombies() != null) {
-                            if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && map.isSpawningZombie() == false) {
+                            if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
                                 System.out.println(yellow + bold);
                                 System.out.println("       .-=========-.");
                                 System.out.println("       \\'-=======-'/");
@@ -803,54 +810,38 @@ public class GameEngine {
                                 System.out.println(" ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║");
                                 System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
                                 System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
-                                System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset) ;
+                                System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
                                 checkGameOver();
                                 Thread.currentThread().interrupt();
                                 zombieMover.interrupt();
                                 zombieSpawner.interrupt();
                                 sunGeneration.interrupt();
-                                break;
-                                
-                               
+                                return; // Return from startGame method
                             }
                         }
-        
-                            if (map.isZombieOnLastTile()) {
-                                System.out.println(red + bold);
-                                System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
-                                System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
-                                System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
-                                System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
-                                System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
-                                System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
-                                Thread.currentThread().interrupt();
-                                zombieMover.interrupt();
-                                zombieSpawner.interrupt();
-                                sunGeneration.interrupt();
-                                checkGameOver();
-                            }
+                        if (map.isZombieOnLastTile()) {
+                            System.out.println(red + bold);
+                            System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
+                            System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
+                            System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
+                            System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
+                            System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
+                            System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
+                            Thread.currentThread().interrupt();
+                            zombieMover.interrupt();
+                            zombieSpawner.interrupt();
+                            sunGeneration.interrupt();
+                            checkGameOver();
+                            return; // Return from startGame method
+                        }
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
                         Thread.currentThread().interrupt(); // Preserve the interrupted status
                     }
-                        // boolean validInput = false;
-                        // while (!validInput) {
-                        //     System.out.println(green + bold + "INGIN BERMAIN KEMBALI? (Y/N)" + reset);
-                        //     String input = sc.nextLine().trim().toUpperCase(); // Read full line and trim whitespace
-
-                        //     if (input.equals("Y")) {
-                        //         validInput = true;
-                        //         startGame(); // Start game directly
-                        //     } else if (input.equals("N")) {
-                        //         System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
-                        //         validInput = true; // Break the loop, ending method execution
-                        //     } else {
-                        //         System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
-                        //     
                 }
-            }  
+            }
         });
-        
+    
         gameConditionChecker.start();
 
 
@@ -887,9 +878,7 @@ public class GameEngine {
         //         }
         //     }
         // });
-        sunGeneration.start();
-        zombieSpawner.start();
-        zombieMover.start();
+
         // attackAll.start();
 
 
@@ -939,6 +928,7 @@ public class GameEngine {
             }
             //Scanner sc = new Scanner(System.in); 
         } 
+        checkGameOver();
     }
 
         
@@ -948,22 +938,31 @@ public class GameEngine {
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        //Scanner sc = new Scanner(System.in); 
         boolean validInput = false;
+    
+        // Stop all threads
+        gameConditionChecker.interrupt();
+        zombieMover.interrupt();
+        zombieSpawner.interrupt();
+        sunGeneration.interrupt();
+    
         while (!validInput) {
             System.out.println(green + bold + "INGIN BERMAIN KEMBALI? (Y/N)" + reset);
             String input = sc.nextLine().trim().toUpperCase(); // Read full line and trim whitespace
-
+    
             if (input.equals("Y")) {
                 validInput = true;
-                startGame(); // Start game directly
+                return; // Return to main menu to start the game again
             } else if (input.equals("N")) {
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
-                validInput = true; // Break the loop, ending method execution
+                validInput = true; // Break the loop, ending method execution and returning to main menu
             } else {
                 System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
             }
         }
     }
+    
+    
+    
 }
 

@@ -104,7 +104,7 @@ public class Zombie implements Position {
             setAttackSpeed(1);
             setMovementSpeed(10);
             slowed = false;
-            System.out.println("Udah normal");
+            // System.out.println("Udah normal");
         }
     }
 
