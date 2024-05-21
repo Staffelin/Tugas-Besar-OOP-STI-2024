@@ -914,10 +914,10 @@ public class GameEngine {
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
         boolean validInput = false;
-
+        System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
         // Stop all threa        
         while (!validInput) {
-            System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
+            
             String input = sc.nextLine(); // Read full line and trim whitespace
     
             if (input.equals("Y")) {
