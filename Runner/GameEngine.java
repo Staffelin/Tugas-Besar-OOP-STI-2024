@@ -82,6 +82,7 @@ public class GameEngine {
                         inGame = true;
                         startGame();
                         validInput = true;
+                        sc.close();
                         break;
                     case 2:
                         displayHelp();
@@ -712,7 +713,7 @@ public class GameEngine {
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-                        if (cycleTime < 100) { // Day time
+                        if (elapsedTime < 100) { // Day time
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARII!!!" + reset);
                                 isDay = true;
@@ -728,6 +729,9 @@ public class GameEngine {
                         if (Sun.sun > lastSun) {
                             System.out.println("Current sun: " + Sun.sun);
                             lastSun = Sun.sun;
+                        }
+                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || map.getFactoryZombie().getSpawnedZombies().isEmpty())){
+                            Thread.currentThread().interrupt();
                         }
                         try {
                             map.attackPlants();
@@ -748,8 +752,8 @@ public class GameEngine {
                     boolean isSpawning = false;
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
-                        if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
+                        // long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
+                        if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
                                 isSpawning = true;
@@ -761,6 +765,7 @@ public class GameEngine {
                                 System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                                 isSpawning = false;
                                 map.setSpawningZombie(isSpawning);
+                                Thread.currentThread().interrupt();
                             }
                         }
                         try {
@@ -792,62 +797,7 @@ public class GameEngine {
 
             
 
-            // Thread gameConditionChecker = new Thread(new Runnable() {
-            //     @Override
-            //     public void run() {
-            //         while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
-            //             try {
-            //                 Thread.sleep(1000); // Check game condition every second
-            //                 if (Map.getFactoryZombie().getSpawnedZombies() != null) {
-            //                     if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
-            //                         System.out.println(yellow + bold);
-            //                         System.out.println("       .-=========-.");
-            //                         System.out.println("       \\'-=======-'/");
-            //                         System.out.println("       _|   .=.   |_");
-            //                         System.out.println("      ((|  {{ }}  |))");
-            //                         System.out.println("       \\|   /|\\   |/");
-            //                         System.out.println("        \\__ '`' __/");
-            //                         System.out.println("          _`) (`_");
-            //                         System.out.println("        _/_______\\_");
-            //                         System.out.println("       /___________\\");
-            //                         System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗");
-            //                         System.out.println("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║");
-            //                         System.out.println(" ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║");
-            //                         System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
-            //                         System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
-            //                         System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
-                                    
-            //                         Thread.currentThread().interrupt();
-            //                         zombieMover.interrupt();
-            //                         zombieSpawner.interrupt();
-            //                         sunGeneration.interrupt();
-            //                         checkGameOver(map);
-            //                         return; // Return from startGame method
-            //                     }
-            //                 }
-            //                 if (map.isZombieOnLastTile()) {
-            //                     System.out.println(red + bold);
-            //                     System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
-            //                     System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
-            //                     System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
-            //                     System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
-            //                     System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
-            //                     System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
-                                
-            //                     Thread.currentThread().interrupt();
-            //                     zombieMover.interrupt();
-            //                     zombieSpawner.interrupt();
-            //                     sunGeneration.interrupt();
-            //                     checkGameOver(map);
-            //                     return; // Return from startGame method
-            //                 }
-            //             } catch (InterruptedException e) {
-            //                 System.out.println("Thread was interrupted, stopping...");
-            //                 Thread.currentThread().interrupt(); // Preserve the interrupted status
-            //             }
-            //         }
-            //     }
-            // });
+            
             sunGeneration.start();
             zombieSpawner.start();
             zombieMover.start();
@@ -855,7 +805,7 @@ public class GameEngine {
 
 
             
-            while(map.getPlayingStatus()) {
+            while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
                 System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
                 char choice = sc.next().charAt(0);
                 if(choice == 'T'){
@@ -900,9 +850,14 @@ public class GameEngine {
                     }
                 }
                 //Scanner sc = new Scanner(System.in); 
-                EndGamePrint(map);
-            } 
+                
+        } 
+        sunGeneration.interrupt();
+        zombieMover.interrupt();
+        zombieSpawner.interrupt();
+        EndGamePrint(map);
         }
+        
         sc.close();
         System.exit(1);
         
@@ -932,7 +887,6 @@ public class GameEngine {
                 System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
                 System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
                 
-                Thread.currentThread().interrupt();
                 zombieMover.interrupt();
                 zombieSpawner.interrupt();
                 sunGeneration.interrupt();
@@ -947,7 +901,6 @@ public class GameEngine {
                 System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
                 System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
                 
-                Thread.currentThread().interrupt();
                 zombieMover.interrupt();
                 zombieSpawner.interrupt();
                 sunGeneration.interrupt();
