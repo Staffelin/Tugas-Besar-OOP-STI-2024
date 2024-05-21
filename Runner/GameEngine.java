@@ -23,7 +23,6 @@ public class GameEngine {
         String yellow = "\u001B[33m"; // Kode warna kuning
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        
 
         // Print Michael vs Lalapan
         System.out.println(green + "            ███╗   ███╗██╗ ██████╗██╗  ██╗ █████╗ ███████╗██╗         " + reset);
@@ -793,62 +792,62 @@ public class GameEngine {
 
             
 
-            Thread gameConditionChecker = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
-                        try {
-                            Thread.sleep(1000); // Check game condition every second
-                            if (Map.getFactoryZombie().getSpawnedZombies() != null) {
-                                if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
-                                    System.out.println(yellow + bold);
-                                    System.out.println("       .-=========-.");
-                                    System.out.println("       \\'-=======-'/");
-                                    System.out.println("       _|   .=.   |_");
-                                    System.out.println("      ((|  {{ }}  |))");
-                                    System.out.println("       \\|   /|\\   |/");
-                                    System.out.println("        \\__ '`' __/");
-                                    System.out.println("          _`) (`_");
-                                    System.out.println("        _/_______\\_");
-                                    System.out.println("       /___________\\");
-                                    System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗");
-                                    System.out.println("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║");
-                                    System.out.println(" ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║");
-                                    System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
-                                    System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
-                                    System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
+            // Thread gameConditionChecker = new Thread(new Runnable() {
+            //     @Override
+            //     public void run() {
+            //         while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
+            //             try {
+            //                 Thread.sleep(1000); // Check game condition every second
+            //                 if (Map.getFactoryZombie().getSpawnedZombies() != null) {
+            //                     if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
+            //                         System.out.println(yellow + bold);
+            //                         System.out.println("       .-=========-.");
+            //                         System.out.println("       \\'-=======-'/");
+            //                         System.out.println("       _|   .=.   |_");
+            //                         System.out.println("      ((|  {{ }}  |))");
+            //                         System.out.println("       \\|   /|\\   |/");
+            //                         System.out.println("        \\__ '`' __/");
+            //                         System.out.println("          _`) (`_");
+            //                         System.out.println("        _/_______\\_");
+            //                         System.out.println("       /___________\\");
+            //                         System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗");
+            //                         System.out.println("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║");
+            //                         System.out.println(" ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║");
+            //                         System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
+            //                         System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
+            //                         System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
                                     
-                                    Thread.currentThread().interrupt();
-                                    zombieMover.interrupt();
-                                    zombieSpawner.interrupt();
-                                    sunGeneration.interrupt();
-                                    checkGameOver(map);
-                                    return; // Return from startGame method
-                                }
-                            }
-                            if (map.isZombieOnLastTile()) {
-                                System.out.println(red + bold);
-                                System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
-                                System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
-                                System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
-                                System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
-                                System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
-                                System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
+            //                         Thread.currentThread().interrupt();
+            //                         zombieMover.interrupt();
+            //                         zombieSpawner.interrupt();
+            //                         sunGeneration.interrupt();
+            //                         checkGameOver(map);
+            //                         return; // Return from startGame method
+            //                     }
+            //                 }
+            //                 if (map.isZombieOnLastTile()) {
+            //                     System.out.println(red + bold);
+            //                     System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
+            //                     System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
+            //                     System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
+            //                     System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
+            //                     System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
+            //                     System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
                                 
-                                Thread.currentThread().interrupt();
-                                zombieMover.interrupt();
-                                zombieSpawner.interrupt();
-                                sunGeneration.interrupt();
-                                checkGameOver(map);
-                                return; // Return from startGame method
-                            }
-                        } catch (InterruptedException e) {
-                            System.out.println("Thread was interrupted, stopping...");
-                            Thread.currentThread().interrupt(); // Preserve the interrupted status
-                        }
-                    }
-                }
-            });
+            //                     Thread.currentThread().interrupt();
+            //                     zombieMover.interrupt();
+            //                     zombieSpawner.interrupt();
+            //                     sunGeneration.interrupt();
+            //                     checkGameOver(map);
+            //                     return; // Return from startGame method
+            //                 }
+            //             } catch (InterruptedException e) {
+            //                 System.out.println("Thread was interrupted, stopping...");
+            //                 Thread.currentThread().interrupt(); // Preserve the interrupted status
+            //             }
+            //         }
+            //     }
+            // });
             sunGeneration.start();
             zombieSpawner.start();
             zombieMover.start();
@@ -901,7 +900,7 @@ public class GameEngine {
                     }
                 }
                 //Scanner sc = new Scanner(System.in); 
-                checkGameOver(map);
+                EndGamePrint(map);
             } 
         }
         sc.close();
@@ -909,7 +908,54 @@ public class GameEngine {
         
     }
     
+    public static void EndGamePrint(Map map){
+        String yellow = "\u001B[33m"; // Kode warna kuning
+        String bold = "\033[1m"; // Kode bold
+        String reset = "\033[0m";  // Reset warna
+        String red = "\033[31m";
+        if (Map.getFactoryZombie().getSpawnedZombies() != null) {
+            if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
+                System.out.println(yellow + bold);
+                System.out.println("       .-=========-.");
+                System.out.println("       \\'-=======-'/");
+                System.out.println("       _|   .=.   |_");
+                System.out.println("      ((|  {{ }}  |))");
+                System.out.println("       \\|   /|\\   |/");
+                System.out.println("        \\__ '`' __/");
+                System.out.println("          _`) (`_");
+                System.out.println("        _/_______\\_");
+                System.out.println("       /___________\\");
+                System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗");
+                System.out.println("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║");
+                System.out.println(" ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║");
+                System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
+                System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
+                System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
+                
+                Thread.currentThread().interrupt();
+                zombieMover.interrupt();
+                zombieSpawner.interrupt();
+                sunGeneration.interrupt();
+            }
 
+            if (map.isZombieOnLastTile()) {
+                System.out.println(red + bold);
+                System.out.println(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ");
+                System.out.println("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗");
+                System.out.println("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝");
+                System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
+                System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
+                System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
+                
+                Thread.currentThread().interrupt();
+                zombieMover.interrupt();
+                zombieSpawner.interrupt();
+                sunGeneration.interrupt();
+            }
+        }
+        checkGameOver(map);
+
+    }
         
 
     private static void checkGameOver(Map map) {
@@ -918,6 +964,7 @@ public class GameEngine {
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
         boolean validInput = false;
+
         // Stop all threa        
         while (!validInput) {
             System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
