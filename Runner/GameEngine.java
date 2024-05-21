@@ -14,9 +14,7 @@ public class GameEngine {
     private static Thread zombieMover;
     private static boolean inGame = true;
     public static void main(String[] args) {
-        while(true){
-            displayMainMenu();
-        }
+        displayMainMenu();
     }
 
     private static void displayMainMenu(){
@@ -543,33 +541,33 @@ public class GameEngine {
         String reset = "\033[0m";  // Reset warna
         String red = "\033[31m";   // Kode warna merah
         //Scanner sc = new Scanner(System.in); 
-        boolean continueLoop = true;
-        int index1;
-        Map map = new Map();
-        Plant peashooter = new Peashooter();
-        Plant potato = new PotatoMine();
-        Plant sunflower = new Sunflower();
-        Plant repeater = new Repeater();
-        Plant squash = new Squash();
-        Plant snowpea = new SnowPea();
-        Plant tallnut = new Tallnut();
-        Plant jalapeno = new Jalapeno();
-        Plant lilypad = new Lilypad();
-        Plant wallnut = new Wallnut();      
-
-        Inventory inventory = new Inventory();
-        Deck deck = new Deck();
-        inventory.addPlantToInventory(peashooter);
-        inventory.addPlantToInventory(potato);
-        inventory.addPlantToInventory(sunflower);
-        inventory.addPlantToInventory(repeater);
-        inventory.addPlantToInventory(squash);
-        inventory.addPlantToInventory(snowpea);
-        inventory.addPlantToInventory(tallnut);
-        inventory.addPlantToInventory(jalapeno);
-        inventory.addPlantToInventory(lilypad);
-        inventory.addPlantToInventory(wallnut);
         while(inGame){
+            boolean continueLoop = true;
+            int index1;
+            Map map = new Map();
+            Plant peashooter = new Peashooter();
+            Plant potato = new PotatoMine();
+            Plant sunflower = new Sunflower();
+            Plant repeater = new Repeater();
+            Plant squash = new Squash();
+            Plant snowpea = new SnowPea();
+            Plant tallnut = new Tallnut();
+            Plant jalapeno = new Jalapeno();
+            Plant lilypad = new Lilypad();
+            Plant wallnut = new Wallnut();      
+
+            Inventory inventory = new Inventory();
+            Deck deck = new Deck();
+            inventory.addPlantToInventory(peashooter);
+            inventory.addPlantToInventory(potato);
+            inventory.addPlantToInventory(sunflower);
+            inventory.addPlantToInventory(repeater);
+            inventory.addPlantToInventory(squash);
+            inventory.addPlantToInventory(snowpea);
+            inventory.addPlantToInventory(tallnut);
+            inventory.addPlantToInventory(jalapeno);
+            inventory.addPlantToInventory(lilypad);
+            inventory.addPlantToInventory(wallnut);
             System.out.println(yellow + bold + "\r\n" + //
                                     "█████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
             System.out.println(yellow + "██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗" + reset);
@@ -819,11 +817,12 @@ public class GameEngine {
                                     System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
                                     System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
                                     System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
-                                    checkGameOver();
+                                    
                                     Thread.currentThread().interrupt();
                                     zombieMover.interrupt();
                                     zombieSpawner.interrupt();
                                     sunGeneration.interrupt();
+                                    checkGameOver(map);
                                     return; // Return from startGame method
                                 }
                             }
@@ -835,11 +834,12 @@ public class GameEngine {
                                 System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
                                 System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
                                 System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
-                                checkGameOver();
+                                
                                 Thread.currentThread().interrupt();
                                 zombieMover.interrupt();
                                 zombieSpawner.interrupt();
                                 sunGeneration.interrupt();
+                                checkGameOver(map);
                                 return; // Return from startGame method
                             }
                         } catch (InterruptedException e) {
@@ -852,10 +852,10 @@ public class GameEngine {
             sunGeneration.start();
             zombieSpawner.start();
             zombieMover.start();
-            gameConditionChecker.start();
+            
 
 
-            checkGameOver();
+            
             while(map.getPlayingStatus()) {
                 System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
                 char choice = sc.next().charAt(0);
@@ -901,6 +901,7 @@ public class GameEngine {
                     }
                 }
                 //Scanner sc = new Scanner(System.in); 
+                checkGameOver(map);
             } 
         }
         sc.close();
@@ -911,21 +912,16 @@ public class GameEngine {
 
         
 
-    private static void checkGameOver() {
+    private static void checkGameOver(Map map) {
         String red = "\033[31m";   // Kode warna merah
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
         boolean validInput = false;
-    
-        // Stop all threads
-        zombieMover.interrupt();
-        zombieSpawner.interrupt();
-        sunGeneration.interrupt();
-    
+        // Stop all threa        
         while (!validInput) {
             System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
-            String input = sc.nextLine().trim().toUpperCase(); // Read full line and trim whitespace
+            String input = sc.nextLine(); // Read full line and trim whitespace
     
             if (input.equals("Y")) {
                 validInput = true;
@@ -934,12 +930,13 @@ public class GameEngine {
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
                 validInput = true; // Break the loop, ending method execution and returning to main menu
                 inGame = false;
-                break;
+                displayMainMenu();
             } else {
                 System.out.println(red + bold + "INPUT TIDAK VALID! MASUKKAN Y/N!!" + reset);
             }
         }
     }
+        
     
     
     
