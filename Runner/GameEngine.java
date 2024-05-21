@@ -539,7 +539,6 @@ public class GameEngine {
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        String red = "\033[31m";   // Kode warna merah
         //Scanner sc = new Scanner(System.in); 
         while(inGame){
             boolean continueLoop = true;
@@ -685,7 +684,7 @@ public class GameEngine {
                         System.out.println("Deck:");
                         deck.displayDeck();
                     } else {
-                        System.out.println(green + bold + "INGIN TAK VALID!" + reset);
+                        System.out.println(green + bold + "INPUT TAK VALID!" + reset);
                     }
                     }
                     catch (CannotDeletePlantException e) {
@@ -712,7 +711,6 @@ public class GameEngine {
                     boolean isDay = false;
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
                         if (elapsedTime < 100) { // Day time
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARII!!!" + reset);
@@ -730,7 +728,7 @@ public class GameEngine {
                             System.out.println("Current sun: " + Sun.sun);
                             lastSun = Sun.sun;
                         }
-                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || map.getFactoryZombie().getSpawnedZombies().isEmpty())){
+                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
                             Thread.currentThread().interrupt();
                         }
                         try {
@@ -906,21 +904,20 @@ public class GameEngine {
                 sunGeneration.interrupt();
             }
         }
-        checkGameOver(map);
+        restartGame(map);
 
     }
         
 
-    private static void checkGameOver(Map map) {
-        String red = "\033[31m";   // Kode warna merah
+    private static void restartGame(Map map) {
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
         boolean validInput = false;
-
+        System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
         // Stop all threa        
         while (!validInput) {
-            System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
+            
             String input = sc.nextLine(); // Read full line and trim whitespace
     
             if (input.equals("Y")) {
@@ -931,9 +928,7 @@ public class GameEngine {
                 validInput = true; // Break the loop, ending method execution and returning to main menu
                 inGame = false;
                 displayMainMenu();
-            } else {
-                System.out.println(red + bold + "INPUT TIDAK VALID! MASUKKAN Y/N!!" + reset);
-            }
+            } 
         }
     }
         
