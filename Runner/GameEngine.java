@@ -773,7 +773,7 @@ public class GameEngine {
             public void run(){
                 while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(10000);
                         map.moveZombies();
                     } catch (InterruptedException e) {
                         System.out.println("Thread was interrupted, stopping...");
@@ -827,11 +827,12 @@ public class GameEngine {
                                 System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
                                 System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
                                 System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
+                                checkGameOver();
+                                Sun.sun = 50;
                                 Thread.currentThread().interrupt();
                                 zombieMover.interrupt();
                                 zombieSpawner.interrupt();
                                 sunGeneration.interrupt();
-                                checkGameOver();
                                 break;
                             }
                     } catch (InterruptedException e) {
@@ -955,9 +956,10 @@ public class GameEngine {
         String reset = "\033[0m";  // Reset warna
         //Scanner sc = new Scanner(System.in); 
         boolean validInput = false;
-        Scanner sc = new Scanner(System.in);
+        // Scanner sc = new Scanner(System.in);
         while (!validInput) {
-            System.out.println(green + bold + "INGIN BERMAIN KEMBALI? (Y/N)" + reset);
+            // Scanner sc = new Scanner(System.in);
+            System.out.println(green + bold + "INGIN BERMAIN KEMBALI?" + reset);
             try {
                 int input = sc.nextInt(); // Read full line and trim whitespace // Consume newline character
                 sc.nextLine();
@@ -974,7 +976,7 @@ public class GameEngine {
                     System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
                 }
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(red + bold + "An error occurred while reading your input. Please try again." + reset);
+                // System.out.println(red + bold + "TEKAN ENTER DULU YA!" + reset);
                 break;
             }
         }
