@@ -3,7 +3,7 @@ package Player;
 public class Sun{
     public static int sun = 50;
     private static boolean running = false;
-    private static Thread sunThread;
+    private Thread sunThread;
 
     public static int getSun(){
         return sun;
@@ -17,7 +17,7 @@ public class Sun{
         sun += cost;
     }
 
-    public static void generateSun() {
+    public void generateSun() {
         sun = 50;
         running = true;
         sunThread = new Thread(() -> {
@@ -34,7 +34,7 @@ public class Sun{
         sunThread.start();
     }
     
-    public static void stopGenerateSun() {
+    public void stopGenerateSun() {
         running = false;
         if (sunThread != null) {
             sunThread.interrupt();
