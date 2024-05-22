@@ -12,6 +12,7 @@ public class GameEngine {
     private static Thread sunGeneration;
     private static Thread zombieSpawner;
     private static Thread zombieMover;
+    private static Thread mapViewer;
     private static boolean inGame = true;
     public static void main(String[] args) {
         displayMainMenu();
@@ -82,7 +83,6 @@ public class GameEngine {
                         inGame = true;
                         startGame();
                         validInput = true;
-                        sc.close();
                         break;
                     case 2:
                         displayHelp();
@@ -544,6 +544,7 @@ public class GameEngine {
             boolean continueLoop = true;
             int index1;
             Map map = new Map();
+            Sun sun = new Sun();
             Plant peashooter = new Peashooter();
             Plant potato = new PotatoMine();
             Plant sunflower = new Sunflower();
@@ -588,14 +589,17 @@ public class GameEngine {
                     System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIPINDAH: " + reset);
                     int index6 = sc.nextInt();
                     System.out.println(green + bold + "MAU DIPINDAH KE POSISI MANA: " + reset);
+                    boolean invalidInput = true;
+                    while(invalidInput){
                     int index7 = sc.nextInt();
-                    if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
-                        inventory.switchInventoryTanaman(index6-1, index7-1);
-                        System.out.println(inventory.getInventory().get(index7-1).getItem().getName() + " berhasil dipindah ke " + index7);
-                        System.out.println("Inventory:");
-                        inventory.showInventory();
-                    } else {
-                        System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                        if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
+                            inventory.switchInventoryTanaman(index6-1, index7-1);
+                            System.out.println(inventory.getInventory().get(index7-1).getItem().getName() + " berhasil dipindah ke " + index7);
+                            System.out.println("Inventory:");
+                            inventory.showInventory();
+                        } else {
+                            System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                        }
                     }
                 }
                 else if(sortChoice == 'N') {
@@ -647,15 +651,17 @@ public class GameEngine {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITUKAR: " + reset);
                         int index2 = sc.nextInt();
                         System.out.println(green + bold + "MAU DITUKAR KE POSISI MANA: " + reset);
+                        boolean invalidInput = true;
+                        while(invalidInput){
                         int index3 = sc.nextInt();
-
-                        if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
-                            deck.swapDeck(index2-1, index3-1);
-                            System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
-                            System.out.println(green + bold + "DECK: " + reset);
-                            deck.displayDeck();
-                        } else {
-                            System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                            if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
+                                deck.swapDeck(index2-1, index3-1);
+                                System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
+                                System.out.println(green + bold + "DECK: " + reset);
+                                deck.displayDeck();
+                            } else {
+                                System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                            }
                         }
                     } catch (CannotSwapDeckException e) {
                         System.out.println(e.getClass().getName() + "! " + "Tidak bisa menukar tanaman!");
@@ -677,15 +683,18 @@ public class GameEngine {
                 if (deleteChoice == 'Y') {
                     try {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
-                    int index4 = sc.nextInt();
-                    if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                        System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
-                        deck.deletePlant(index4-1);
-                        System.out.println("Deck:");
-                        deck.displayDeck();
-                    } else {
-                        System.out.println(green + bold + "INPUT TAK VALID!" + reset);
-                    }
+                        boolean invalidInput = true;
+                        while(invalidInput){
+                        int index4 = sc.nextInt();
+                            if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
+                                System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
+                                deck.deletePlant(index4-1);
+                                System.out.println("Deck:");
+                                deck.displayDeck();
+                            } else {
+                                System.out.println(green + bold + "INPUT TAK VALID!" + reset);
+                            }
+                        }
                     }
                     catch (CannotDeletePlantException e) {
                     System.out.println(e.getClass().getName() + "! " + "Tanaman tidak dapat dihapus!");
@@ -703,7 +712,7 @@ public class GameEngine {
                 }
             }
 
-            sunGeneration = new Thread(new Runnable() {
+            Thread sunGeneration = new Thread(new Runnable() {
                 @Override
                 public void run(){
                     int lastSun = 0;
@@ -733,7 +742,6 @@ public class GameEngine {
                         }
                         try {
                             map.attackPlants();
-                            map.viewMap();
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             System.out.println("Thread was interrupted, stopping...");
@@ -793,20 +801,29 @@ public class GameEngine {
                 }
             });
 
-            
-
-            
+            Thread mapViewer = new Thread(new Runnable() {
+                @Override
+                public void run(){
+                    while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
+                        try {
+                            map.viewMap();
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            System.out.println("Thread was interrupted, stopping...");
+                            Thread.currentThread().interrupt(); // Preserve the interrupted status
+                        }
+                    }
+                }
+            });
             sunGeneration.start();
+            mapViewer.start();
             zombieSpawner.start();
             zombieMover.start();
-            
 
-
-            
             while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
                 System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
-                char choice = sc.next().charAt(0);
-                if(choice == 'T'){
+                String choice = sc.nextLine();
+                if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
                     char plantChoice = sc.next().charAt(0);
 
@@ -818,39 +835,49 @@ public class GameEngine {
                         System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DITANAM: " + reset);
                         int row = sc.nextInt();
                         int column = sc.nextInt();
-                        if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
-                            map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
-                            map.viewMap();
-                            System.out.println("Current sun: " + Sun.sun);
-                        } else {
-                            System.out.println(green + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
+                        boolean invalidInput = true;
+                        while(invalidInput){
+                            if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
+                                map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
+                                invalidInput = false;
+                                System.out.println("Current sun: " + Sun.sun);
+                            } else {
+                                System.out.println(green + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
+                            }
                         }
+                        
 
                         System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
                         plantChoice = sc.next().charAt(0);
 
                     }
                 }
-                else if(choice == 'G'){
+                else if(choice.equals("G")){
                     System.out.println(green + bold + "INGIN MENGGALI TANAMAN? (Y/N)" + reset);
                     char digChoice = sc.next().charAt(0);
                     if (digChoice == 'Y') {
                         System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DIGALI: " + reset);
                         int row2 = sc.nextInt();
                         int column2 = sc.nextInt();
-                        if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
-                            map.removePlantFromTile(row2-1, column2);
-                            map.viewMap();
-                            System.out.println("Current sun: " + Sun.sun);                
-                        } else {
-                            System.out.println(green + bold + "KOORDINAT TAK VALID!" + reset);
+                        boolean invalidInput = true;
+                        while(invalidInput){
+                            if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
+                                map.removePlantFromTile(row2-1, column2);
+                                // map.viewMap();
+                                invalidInput = false;
+                                System.out.println("Current sun: " + Sun.sun);                
+                            } else {
+                                System.out.println(green + bold + "KOORDINAT TAK VALID!" + reset);
+                            }
                         }
+                        
                     }
                 }
                 //Scanner sc = new Scanner(System.in); 
                 
         } 
         sunGeneration.interrupt();
+        mapViewer.interrupt();
         zombieMover.interrupt();
         zombieSpawner.interrupt();
         EndGamePrint(map);
@@ -888,6 +915,7 @@ public class GameEngine {
                 zombieMover.interrupt();
                 zombieSpawner.interrupt();
                 sunGeneration.interrupt();
+                mapViewer.interrupt();
             }
 
             if (map.isZombieOnLastTile()) {
@@ -902,6 +930,7 @@ public class GameEngine {
                 zombieMover.interrupt();
                 zombieSpawner.interrupt();
                 sunGeneration.interrupt();
+                mapViewer.interrupt();
             }
         }
         restartGame(map);
