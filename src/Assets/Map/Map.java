@@ -288,6 +288,8 @@ public void attackPlants() {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         } catch (LilypadAlreadyExists e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
+        } catch (PotatoMineOnWaterException e) {
+            System.out.println("Cannot add plant to tile: " + e.getMessage());
         } catch (ReflectiveOperationException e) {
             System.out.println("Failed to create a new instance of the plant: " + e.getMessage());
         }

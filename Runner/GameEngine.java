@@ -619,7 +619,8 @@ public class GameEngine {
                         deck.addPlant(inventory.getPlant(index1-1));
                         System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
                         System.out.println("Deck size is: "+ deck.getDeckSize());
-                    } else {
+                    } 
+                    else {
                         System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
                     }
                 }
@@ -628,6 +629,10 @@ public class GameEngine {
                 }
                 catch (IndexOutOfBoundsException e) {
                     System.out.println(e.getClass().getName() + "! " + "Indeks di luar batas!");
+                }
+                catch (InputMismatchException e) {
+                    System.out.println(green + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
+                    sc.nextLine();
                 }
                 if (deck.getDeckOfPlants().size() != 6) {
                     index1 = sc.nextInt();
