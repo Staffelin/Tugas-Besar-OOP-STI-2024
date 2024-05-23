@@ -109,12 +109,11 @@ public class GameEngine {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
+                System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
                 menuScanner.nextLine();
             }
             
         }
-        menuScanner.close();
     }
     }
 
@@ -176,7 +175,7 @@ public class GameEngine {
         boolean validInput = false;
         while (!validInput) {
             System.out.println(green + bold + "APAKAH SUDAH SELESAI MEMBACA? (Y/N)" + reset);
-            String choice = gameScanner .nextLine().trim().toUpperCase();
+            String choice = gameScanner.nextLine().trim().toUpperCase();
             if (choice.equals("Y")) {
                 // Return to game menu
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
@@ -583,139 +582,170 @@ public class GameEngine {
             System.out.println(" " + reset);
             while (continueLoop) {
                 System.out.println(green + bold + "INGIN MENGUBAH URUTAN INVENTORY? (Y/N)" + reset);
-                char sortChoice = gameScanner .next().charAt(0);
+                char sortChoice = gameScanner.next().charAt(0);
                 if (sortChoice == 'Y') {
                     System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIPINDAH: " + reset);
-                    int index6 = gameScanner .nextInt();
-                    System.out.println(green + bold + "MAU DIPINDAH KE POSISI MANA: " + reset);
-                    boolean invalidInput = true;
-                    while(invalidInput){
-                    int index7 = gameScanner.nextInt();
-                        if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
-                            inventory.switchInventoryTanaman(index6-1, index7-1);
-                            System.out.println(inventory.getInventory().get(index7-1).getItem().getName() + " berhasil dipindah ke " + index7);
-                            System.out.println("Inventory:");
-                            inventory.showInventory();
-                        } else {
-                            System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                    int index6 = 0;
+                    boolean validInput = false;
+                    while (!validInput) {
+                        try {
+                            index6 = gameScanner.nextInt();
+                            if (index6 >= 1 && index6 <= 10) { 
+                                validInput = true;
+                            } else {
+                                System.out.println(green + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10." + reset);
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println(green + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
+                            gameScanner.next();
                         }
                     }
-                }
-                else if(sortChoice == 'N') {
+                    System.out.println(green + bold + "MAU DIPINDAH KE POSISI MANA: " + reset);
+                    validInput = false;
+                    int index7 = 0;
+                    while (!validInput) {
+                        try {
+                            index7 = gameScanner.nextInt();
+                            if (index7 >= 1 && index7 <= 11) { // assuming the valid range is 1 to 11
+                                validInput = true;
+                            } else {
+                                System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan 11." + reset);
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                            gameScanner.next(); // clear the invalid input
+                        }
+                    }
+
+                    if (index6 == index7) {
+                        System.out.println(green + bold + "TIDAK BISA DITUKAR DENGAN POSISI SEBELUMNYA" + reset);
+                    }
+                    else if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
+                        inventory.switchInventoryTanaman(index6 - 1, index7 - 1);
+                        System.out.println(inventory.getInventory().get(index7 - 1).getItem().getName() + " berhasil dipindah ke " + index7);
+                        System.out.println("Inventory:");
+                        inventory.showInventory();
+                    } else {
+                        System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                    }
+                } else if (sortChoice == 'N') {
                     break;
-                }
-                else {
+                } else {
                     System.out.println(green + bold + "MASUKKAN TAK VALID!" + reset);
                 }
             }
-        
-            System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
-            while(continueLoop){
-                if (deck.getDeckSize() < 6) {
-                int index1 = gameScanner.nextInt();
+           
+        System.out.println(green + bold + "INVENTORY" + reset);
+        inventory.showInventory();
+    
+        System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
+        while (continueLoop) {
+            if (deck.getDeckSize() < 6) {
+                System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITAMBAHKAN KE DECK: " + reset);
                 boolean invalidInput = true;
-                while(invalidInput){
+                while (invalidInput) {
                     try {
+                        int index1 = gameScanner.nextInt();
                         if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
-                            deck.addPlant(inventory.getPlant(index1-1));
-                            System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
-                            System.out.println("Deck size is: "+ deck.getDeckSize());
+                            deck.addPlant(inventory.getPlant(index1 - 1));
+                            System.out.println(inventory.getInventory().get(index1 - 1).getItem().getName() + " ditambah ke deck!");
+                            System.out.println("Deck size is: " + deck.getDeckSize());
                             invalidInput = false;
                         } else {
-                            System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
-                            
+                            System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan " + inventory.getInventory().size() + "." + reset);
                         }
-                    }
-                    catch (PlantAlreadyPickedException e) {
-                        System.out.println(e.getClass().getName() + "! " + "Tanaman sudah dipilih sebelumnya!");
-                        break;
-                    }
-                    catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! " + "Indeks di luar batas!");
-                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        gameScanner.next(); // clear the invalid input
+                    } catch (PlantAlreadyPickedException e) {
+                        System.out.println(e.getClass().getName() + "! Tanaman sudah dipilih sebelumnya!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(e.getClass().getName() + "! Indeks di luar batas!");
                     }
                 }
-                    
-                }
-                else{
-                    break;
-                }
+            } else {
+                System.out.println(green + bold + "DECK:" + reset);
+                deck.displayDeck();
+                break;
             }
-            
+        }
 
-            
-            System.out.println(green + bold + "DECK:" + reset);
-            deck.displayDeck();
-
-
-            while (continueLoop) {
-                System.out.println(green + bold + "INGIN MENUKAR TANAMAN? (Y/N)" + reset);
-                char switchChoice = gameScanner .next().charAt(0);
-                if (switchChoice == 'Y') {
+        // Now start the swap and delete process only after deck is full
+        while (continueLoop) {
+            System.out.println(green + bold + "INGIN MENUKAR TANAMAN? (Y/N)" + reset);
+            char switchChoice = gameScanner.next().charAt(0);
+            if (switchChoice == 'Y') {
+                boolean invalidInput = true;
+                while (invalidInput) {
                     try {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITUKAR: " + reset);
-                        int index2 = gameScanner .nextInt();
+                        int index2 = gameScanner.nextInt();
                         System.out.println(green + bold + "MAU DITUKAR KE POSISI MANA: " + reset);
-                        boolean invalidInput = true;
-                        while(invalidInput){
-                        int index3 = gameScanner .nextInt();
-                            if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
-                                deck.swapDeck(index2-1, index3-1);
-                                System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
+                        int index3 = gameScanner.nextInt();
+                        if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
+                            if (index2 == index3) {
+                                System.out.println(green + bold + "TIDAK BISA DITUKAR DENGAN POSISI SAMA" + reset);
+                            } else {
+                                deck.swapDeck(index2 - 1, index3 - 1);
+                                System.out.println(deck.getDeckOfPlants().get(index2 - 1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3 - 1).getItem().getName());
                                 System.out.println(green + bold + "DECK: " + reset);
                                 deck.displayDeck();
-                            } else {
-                                System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
                             }
+                            invalidInput = false;
+                        } else {
+                            System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan " + deck.getDeckOfPlants().size() + "." + reset);
                         }
+                    } catch (InputMismatchException e) {
+                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        gameScanner.next(); // clear the invalid input
                     } catch (CannotSwapDeckException e) {
-                        System.out.println(e.getClass().getName() + "! " + "Tidak bisa menukar tanaman!");
+                        System.out.println(e.getClass().getName() + "! Tidak bisa menukar tanaman!");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! " + "Indeks tidak valid!");
+                        System.out.println(e.getClass().getName() + "! Indeks tidak valid!");
                     }
                 }
-                else if (switchChoice == 'N') {
-                    break;
-                }
-                else {
-                    System.out.println(green + bold + "MASUKKAN TAK VALID!" + reset);
-                }
+            } else if (switchChoice == 'N') {
+                break;
+            } else {
+                System.out.println(green + bold + "MASUKKAN TAK VALID!" + reset);
             }
+        }
 
-            while (continueLoop) {
-                System.out.println(green + bold + "INGIN MENGHAPUS TANAMAN? (Y/N)" + reset);
-                char deleteChoice = gameScanner .next().charAt(0);
-                if (deleteChoice == 'Y') {
+        while (continueLoop) {
+            System.out.println(green + bold + "INGIN MENGHAPUS TANAMAN? (Y/N)" + reset);
+            char deleteChoice = gameScanner.next().charAt(0);
+            if (deleteChoice == 'Y') {
+                boolean invalidInput = true;
+                while (invalidInput) {
                     try {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
-                        boolean invalidInput = true;
-                        while(invalidInput){
-                        int index4 = gameScanner .nextInt();
-                            if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                                System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
-                                deck.deletePlant(index4-1);
-                                System.out.println("Deck:");
-                                deck.displayDeck();
-                            } else {
-                                System.out.println(green + bold + "INPUT TAK VALID!" + reset);
-                            }
+                        int index4 = gameScanner.nextInt();
+                        if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
+                            System.out.println(deck.getDeckOfPlants().get(index4 - 1).getItem().getName() + " sudah dihapus");
+                            deck.deletePlant(index4 - 1);
+                            System.out.println("Deck:");
+                            deck.displayDeck();
+                            invalidInput = false;
+                        } else {
+                            System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka antara 1 dan " + deck.getDeckOfPlants().size() + "." + reset);
                         }
-                    }
-                    catch (CannotDeletePlantException e) {
-                    System.out.println(e.getClass().getName() + "! " + "Tanaman tidak dapat dihapus!");
-                    }
-                    catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! " + "Indeks tidak valid!");
+                    } catch (InputMismatchException e) {
+                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        gameScanner.next(); // clear the invalid input
+                    } catch (CannotDeletePlantException e) {
+                        System.out.println(e.getClass().getName() + "! Tanaman tidak dapat dihapus!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(e.getClass().getName() + "! Indeks tidak valid!");
                     }
                 }
-
-                else if (deleteChoice == 'N') {
-                    break;
-                }
-                else {
-                    System.out.println(green + bold + "INPUT TAK VALID!" + reset);
-                }
+            } else if (deleteChoice == 'N') {
+                break;
+            } else {
+                System.out.println(green + bold + "INPUT TAK VALID!" + reset);
             }
+        }
+    
+
 
             sunGeneration = new Thread(new Runnable() {
                 @Override
@@ -956,11 +986,11 @@ public class GameEngine {
         
         while (!validInput) {
             
-            String input = gameScanner .nextLine(); // Read full line and trim whitespace
+            String input = gameScanner.nextLine(); 
     
             if (input.equals("Y")) {
                 validInput = true;
-                return; // Return to main menu to start the game again
+                startGame(); 
             } else if (input.equals("N")) {
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
                 validInput = true; 
