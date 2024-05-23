@@ -1,7 +1,7 @@
 package Player;
 
 public class Sun{
-    public static int sun = 25;
+    public static int sun = 50;
     private static boolean running = false;
     private Thread sunThread;
 
@@ -18,7 +18,7 @@ public class Sun{
     }
 
     public void generateSun() {
-        sun = 50000;
+        sun = 50;
         running = true;
         sunThread = new Thread(() -> {
             while (running) {
