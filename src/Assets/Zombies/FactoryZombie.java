@@ -8,19 +8,28 @@ public class FactoryZombie {
     private String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie", "Gargantuar", "NewspaperZombie", "NormalZombie", "PoleVaultingZombie", "Yetizombie"};
     private String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
     private Random random = new Random();
-    public static ArrayList<Zombie> spawnedZombies;
+    private int normalSpawnSize = 10;
+    private int flagSpawnSize = 25;
+    public static ArrayList<Zombie> spawnedZombies = new ArrayList<>();
+    private boolean flag = false;
 
     public ArrayList<Zombie> getSpawnedZombies() {
         return spawnedZombies;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public void spawnZombie(Map map) {
         if (spawnedZombies == null) {
             spawnedZombies = new ArrayList<>();
         }
-        if (spawnedZombies.size() < 10) {
+        int spawnSize = flag ? flagSpawnSize : normalSpawnSize;
+        double spawnRate = flag ? 0.6 : 0.3;
+        if (spawnedZombies.size() < spawnSize) {
             for (int i = 0; i < 6; i++) {
-                if (random.nextDouble() < 0.3 && spawnedZombies.size() < 10) {
+                if (random.nextDouble() < spawnRate && spawnedZombies.size() < spawnSize) {
                     String zombieType;
                     if (i == 2 || i == 3) {
                         zombieType = listSpawnableZombieKolam[random.nextInt(listSpawnableZombieKolam.length)];

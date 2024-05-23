@@ -8,7 +8,8 @@ import Player.*;
 
 public class GameEngine {
 
-    private static Scanner sc = new Scanner(System.in); 
+    private static Scanner menuScanner = new Scanner(System.in);
+    private static Scanner gameScanner = new Scanner(System.in);
     private static Thread sunGeneration;
     private static Thread zombieSpawner;
     private static Thread zombieMover;
@@ -52,9 +53,8 @@ public class GameEngine {
         System.out.println(" ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀ ");
         System.out.println("                                                                     ");
 
-        // Scanner sc = new Scanner(System.in); 
+        // Scanner gameScanner  = new Scanner(System.in); 
         boolean exitGame = false;
-
     while (!exitGame) {
         System.out.println(red + bold + "\r\n" + //
         "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
@@ -75,8 +75,8 @@ public class GameEngine {
         boolean validInput = false;
         while (!validInput) {
             try {
-                int choice = sc.nextInt();
-                sc.nextLine();
+                int choice = menuScanner.nextInt();
+                menuScanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -110,11 +110,11 @@ public class GameEngine {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("INPUT TIDAK VALID. MASUKKAN INTEGER!");
-                sc.nextLine();
+                menuScanner.nextLine();
             }
             
         }
-        sc.close();
+        menuScanner.close();
     }
     }
 
@@ -124,7 +124,7 @@ public class GameEngine {
         String red = "\033[31m";   // Kode warna merah
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        // Scanner sc = new Scanner(System.in); 
+        // Scanner gameScanner  = new Scanner(System.in); 
         System.out.println(red + bold + "\r\n" + //
         "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
         System.out.println(red + bold +
@@ -176,7 +176,7 @@ public class GameEngine {
         boolean validInput = false;
         while (!validInput) {
             System.out.println(green + bold + "APAKAH SUDAH SELESAI MEMBACA? (Y/N)" + reset);
-            String choice = sc.nextLine().trim().toUpperCase();
+            String choice = gameScanner .nextLine().trim().toUpperCase();
             if (choice.equals("Y")) {
                 // Return to game menu
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
@@ -197,7 +197,7 @@ public class GameEngine {
         String red = "\033[31m";   // Kode warna merah
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        //Scanner sc = new Scanner(System.in); 
+        //Scanner gameScanner  = new Scanner(System.in); 
         boolean continueLoop = true;
         while(continueLoop) {
             // Print Nama Tanaman
@@ -226,8 +226,8 @@ public class GameEngine {
             boolean validInput = false;
             while (!validInput) {
                 try {
-                    int choice = sc.nextInt();
-                    sc.nextLine();
+                    int choice = gameScanner .nextInt();
+                    gameScanner .nextLine();
 
                     switch (choice) {
                         case 1:
@@ -346,27 +346,27 @@ public class GameEngine {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
-                    sc.nextLine();
+                    gameScanner .nextLine();
                 }
             }
             System.out.println(green + bold + "APAKAH ANDA INGIN MELIHAT TANAMAN LAIN? (Y/N)" + reset);
             boolean validSortChoice = false;
             while (!validSortChoice) {
-                char sortChoice = sc.next().charAt(0);
+                char sortChoice = gameScanner .next().charAt(0);
                 if (sortChoice == 'Y') {
-                sc.nextLine();
+                gameScanner .nextLine();
                 continueLoop = true;
                 break;
                 }
                 else if (sortChoice == 'N') {
-                sc.nextLine();
+                gameScanner .nextLine();
                 continueLoop = false;
                 break;
             }
             else {
                 System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
             }
-            sc.nextLine();
+            gameScanner .nextLine();
         }    
     } 
 }
@@ -377,7 +377,7 @@ public class GameEngine {
         String red = "\033[31m";   // Kode warna merah
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        //Scanner sc = new Scanner(System.in); 
+        //Scanner gameScanner  = new Scanner(System.in); 
         boolean continueLoop = true;
         while(continueLoop) {
             // Print Nama Tanaman
@@ -406,8 +406,8 @@ public class GameEngine {
             boolean validInput = false;
             while (!validInput) {
                 try {
-                    int choice = sc.nextInt();
-                    sc.nextLine();
+                    int choice = gameScanner .nextInt();
+                    gameScanner .nextLine();
 
                     switch (choice) {
                         case 1:
@@ -507,27 +507,27 @@ public class GameEngine {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
-                    sc.nextLine();
+                    gameScanner .nextLine();
                 }
             }
             System.out.println(green + bold + "APAKAH ANDA INGIN MELIHAT TANAMAN LAIN? (Y/N)" + reset);
             boolean validSortChoice = false;
             while (!validSortChoice) {
-                char sortChoice = sc.next().charAt(0);
+                char sortChoice = gameScanner .next().charAt(0);
                 if (sortChoice == 'Y') {
-                sc.nextLine();
+                gameScanner .nextLine();
                 continueLoop = true;
                 break;
                 }
                 else if (sortChoice == 'N') {
-                sc.nextLine();
+                gameScanner .nextLine();
                 continueLoop = false;
                 break;
             }
             else {
                 System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
             }
-            sc.nextLine();
+            gameScanner .nextLine();
         }    
     } 
 }
@@ -539,10 +539,9 @@ public class GameEngine {
         String green = "\033[32m"; // Kode warna hijau
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
-        //Scanner sc = new Scanner(System.in); 
+        //Scanner gameScanner  = new Scanner(System.in); 
         while(inGame){
             boolean continueLoop = true;
-            int index1;
             Map map = new Map();
             Sun sun = new Sun();
             Plant peashooter = new Peashooter();
@@ -584,14 +583,14 @@ public class GameEngine {
             System.out.println(" " + reset);
             while (continueLoop) {
                 System.out.println(green + bold + "INGIN MENGUBAH URUTAN INVENTORY? (Y/N)" + reset);
-                char sortChoice = sc.next().charAt(0);
+                char sortChoice = gameScanner .next().charAt(0);
                 if (sortChoice == 'Y') {
                     System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIPINDAH: " + reset);
-                    int index6 = sc.nextInt();
+                    int index6 = gameScanner .nextInt();
                     System.out.println(green + bold + "MAU DIPINDAH KE POSISI MANA: " + reset);
                     boolean invalidInput = true;
                     while(invalidInput){
-                    int index7 = sc.nextInt();
+                    int index7 = gameScanner.nextInt();
                         if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
                             inventory.switchInventoryTanaman(index6-1, index7-1);
                             System.out.println(inventory.getInventory().get(index7-1).getItem().getName() + " berhasil dipindah ke " + index7);
@@ -610,38 +609,39 @@ public class GameEngine {
                 }
             }
         
-
-            sc.nextLine().trim();
-            deck.getDeckOfPlants().clear();
-            
             System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
-            index1 = sc.nextInt();
-
-            while (deck.getDeckSize() < 6) {
-                try {
-                    if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
-                        deck.addPlant(inventory.getPlant(index1-1));
-                        System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
-                        System.out.println("Deck size is: "+ deck.getDeckSize());
-                    } 
-                    else {
-                        System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+            while(continueLoop){
+                if (deck.getDeckSize() < 6) {
+                int index1 = gameScanner.nextInt();
+                boolean invalidInput = true;
+                while(invalidInput){
+                    try {
+                        if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
+                            deck.addPlant(inventory.getPlant(index1-1));
+                            System.out.println(inventory.getInventory().get(index1-1).getItem().getName() + " ditambah ke deck!");
+                            System.out.println("Deck size is: "+ deck.getDeckSize());
+                            invalidInput = false;
+                        } else {
+                            System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                            
+                        }
+                    }
+                    catch (PlantAlreadyPickedException e) {
+                        System.out.println(e.getClass().getName() + "! " + "Tanaman sudah dipilih sebelumnya!");
+                        break;
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                        System.out.println(e.getClass().getName() + "! " + "Indeks di luar batas!");
+                        break;
                     }
                 }
-                catch (PlantAlreadyPickedException e) {
-                    System.out.println(e.getClass().getName() + "! " + "Tanaman sudah dipilih sebelumnya!");
+                    
                 }
-                catch (IndexOutOfBoundsException e) {
-                    System.out.println(e.getClass().getName() + "! " + "Indeks di luar batas!");
-                }
-                catch (InputMismatchException e) {
-                    System.out.println(green + bold + "INPUT TIDAK VALID. MASUKKAN INTEGER!" + reset);
-                    sc.nextLine();
-                }
-                if (deck.getDeckOfPlants().size() != 6) {
-                    index1 = sc.nextInt();
+                else{
+                    break;
                 }
             }
+            
 
             
             System.out.println(green + bold + "DECK:" + reset);
@@ -650,15 +650,15 @@ public class GameEngine {
 
             while (continueLoop) {
                 System.out.println(green + bold + "INGIN MENUKAR TANAMAN? (Y/N)" + reset);
-                char switchChoice = sc.next().charAt(0);
+                char switchChoice = gameScanner .next().charAt(0);
                 if (switchChoice == 'Y') {
                     try {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITUKAR: " + reset);
-                        int index2 = sc.nextInt();
+                        int index2 = gameScanner .nextInt();
                         System.out.println(green + bold + "MAU DITUKAR KE POSISI MANA: " + reset);
                         boolean invalidInput = true;
                         while(invalidInput){
-                        int index3 = sc.nextInt();
+                        int index3 = gameScanner .nextInt();
                             if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
                                 deck.swapDeck(index2-1, index3-1);
                                 System.out.println(deck.getDeckOfPlants().get(index2-1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3-1).getItem().getName());
@@ -684,13 +684,13 @@ public class GameEngine {
 
             while (continueLoop) {
                 System.out.println(green + bold + "INGIN MENGHAPUS TANAMAN? (Y/N)" + reset);
-                char deleteChoice = sc.next().charAt(0);
+                char deleteChoice = gameScanner .next().charAt(0);
                 if (deleteChoice == 'Y') {
                     try {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
                         boolean invalidInput = true;
                         while(invalidInput){
-                        int index4 = sc.nextInt();
+                        int index4 = gameScanner .nextInt();
                             if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
                                 System.out.println(deck.getDeckOfPlants().get(index4-1).getItem().getName() + " sudah dihapus");
                                 deck.deletePlant(index4-1);
@@ -717,7 +717,7 @@ public class GameEngine {
                 }
             }
 
-            Thread sunGeneration = new Thread(new Runnable() {
+            sunGeneration = new Thread(new Runnable() {
                 @Override
                 public void run(){
                     int lastSun = 0;
@@ -729,13 +729,13 @@ public class GameEngine {
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARII!!!" + reset);
                                 isDay = true;
-                                Sun.generateSun();
+                                sun.generateSun();
                             }
                         } else { // Night time
                             if (isDay) {
                                 System.out.println(green + bold + "UDAH MALEM NIH!" + reset);
                                 isDay = false;
-                                Sun.stopGenerateSun();
+                                sun.stopGenerateSun();
                             }
                         }
                         if (Sun.sun > lastSun) {
@@ -749,7 +749,7 @@ public class GameEngine {
                             map.attackPlants();
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
-                            System.out.println("Thread was interrupted, stopping...");
+                            System.out.println("sunGeneration was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
                         }
                     }
@@ -758,12 +758,14 @@ public class GameEngine {
 
             zombieSpawner = new Thread(new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     long startTime = System.currentTimeMillis();
                     boolean isSpawning = false;
+                    boolean flagEventTriggered = false;
+            
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        // long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
+            
                         if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
@@ -771,6 +773,13 @@ public class GameEngine {
                                 map.setSpawningZombie(isSpawning);
                             }
                             map.spawnZombieMap();
+            
+                            if (elapsedTime >= 100 && !flagEventTriggered) { // Trigger flag event
+                                Map.setFlag(true);
+                                System.out.println(green + bold + "Flag Triggered" + reset);
+                                flagEventTriggered = true;
+                            }
+            
                         } else {
                             if (isSpawning) {
                                 System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
@@ -779,26 +788,27 @@ public class GameEngine {
                                 Thread.currentThread().interrupt();
                             }
                         }
+            
                         try {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
-                            System.out.println("Thread was interrupted, stopping...");
+                            System.out.println("zombieSpawner was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
                         }
                     }
                 }
-
             });
+            
 
             zombieMover = new Thread(new Runnable() {
                 @Override
                 public void run(){
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         try {
-                            Thread.sleep(10000);
+                            Thread.sleep(1000);
                             map.moveZombies();
                         } catch (InterruptedException e) {
-                            System.out.println("Thread was interrupted, stopping...");
+                            System.out.println("zombieMover was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
                         }
                     }
@@ -809,12 +819,15 @@ public class GameEngine {
             Thread mapViewer = new Thread(new Runnable() {
                 @Override
                 public void run(){
+                    long startTime = System.currentTimeMillis();
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
+                        long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         try {
+                            System.out.println("Current time: " + elapsedTime);
                             map.viewMap();
                             Thread.sleep(5000);
                         } catch (InterruptedException e) {
-                            System.out.println("Thread was interrupted, stopping...");
+                            System.out.println("mapViewer was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
                         }
                     }
@@ -827,19 +840,18 @@ public class GameEngine {
 
             while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
                 System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
-                String choice = sc.nextLine();
+                String choice = gameScanner.nextLine();
                 if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
-                    char plantChoice = sc.next().charAt(0);
-
+                    char plantChoice = gameScanner .next().charAt(0);
                     while (plantChoice == 'Y') {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITANAM: " + reset);
                         System.out.println(green + bold + "DECK" + reset);
                         deck.displayDeck();
-                        int index5 = sc.nextInt();
+                        int index5 = gameScanner .nextInt();
                         System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DITANAM: " + reset);
-                        int row = sc.nextInt();
-                        int column = sc.nextInt();
+                        int row = gameScanner .nextInt();
+                        int column = gameScanner .nextInt();
                         boolean invalidInput = true;
                         while(invalidInput){
                             if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
@@ -853,17 +865,17 @@ public class GameEngine {
                         
 
                         System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
-                        plantChoice = sc.next().charAt(0);
+                        plantChoice = gameScanner .next().charAt(0);
 
                     }
                 }
                 else if(choice.equals("G")){
                     System.out.println(green + bold + "INGIN MENGGALI TANAMAN? (Y/N)" + reset);
-                    char digChoice = sc.next().charAt(0);
+                    char digChoice = gameScanner .next().charAt(0);
                     if (digChoice == 'Y') {
                         System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DIGALI: " + reset);
-                        int row2 = sc.nextInt();
-                        int column2 = sc.nextInt();
+                        int row2 = gameScanner .nextInt();
+                        int column2 = gameScanner .nextInt();
                         boolean invalidInput = true;
                         while(invalidInput){
                             if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
@@ -878,17 +890,15 @@ public class GameEngine {
                         
                     }
                 }
-                //Scanner sc = new Scanner(System.in); 
+                //Scanner gameScanner  = new Scanner(System.in); 
                 
         } 
-        sunGeneration.interrupt();
         mapViewer.interrupt();
-        zombieMover.interrupt();
-        zombieSpawner.interrupt();
+        // zombieMover.interrupt();
+        // zombieSpawner.interrupt();
         EndGamePrint(map);
         }
         
-        sc.close();
         System.exit(1);
         
     }
@@ -896,8 +906,12 @@ public class GameEngine {
     public static void EndGamePrint(Map map){
         String yellow = "\u001B[33m"; // Kode warna kuning
         String bold = "\033[1m"; // Kode bold
-        String reset = "\033[0m";  // Reset warna
+        String reset = "\033[0m";  
         String red = "\033[31m";
+        zombieMover.interrupt();
+        if(mapViewer != null){
+            mapViewer.interrupt();
+        }
         if (Map.getFactoryZombie().getSpawnedZombies() != null) {
             if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
                 System.out.println(yellow + bold);
@@ -916,11 +930,6 @@ public class GameEngine {
                 System.out.println("  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║");
                 System.out.println("   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║");
                 System.out.println("   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + reset);
-                
-                zombieMover.interrupt();
-                zombieSpawner.interrupt();
-                sunGeneration.interrupt();
-                mapViewer.interrupt();
             }
 
             if (map.isZombieOnLastTile()) {
@@ -931,11 +940,6 @@ public class GameEngine {
                 System.out.println("██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
                 System.out.println("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║");
                 System.out.println(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" + reset);
-                
-                zombieMover.interrupt();
-                zombieSpawner.interrupt();
-                sunGeneration.interrupt();
-                mapViewer.interrupt();
             }
         }
         restartGame(map);
@@ -944,22 +948,22 @@ public class GameEngine {
         
 
     private static void restartGame(Map map) {
-        String green = "\033[32m"; // Kode warna hijau
-        String bold = "\033[1m"; // Kode bold
-        String reset = "\033[0m";  // Reset warna
+        String green = "\033[32m"; 
+        String bold = "\033[1m"; 
+        String reset = "\033[0m";  
         boolean validInput = false;
         System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
-        // Stop all threa        
+        
         while (!validInput) {
             
-            String input = sc.nextLine(); // Read full line and trim whitespace
+            String input = gameScanner .nextLine(); // Read full line and trim whitespace
     
             if (input.equals("Y")) {
                 validInput = true;
                 return; // Return to main menu to start the game again
             } else if (input.equals("N")) {
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
-                validInput = true; // Break the loop, ending method execution and returning to main menu
+                validInput = true; 
                 inGame = false;
                 displayMainMenu();
             } 

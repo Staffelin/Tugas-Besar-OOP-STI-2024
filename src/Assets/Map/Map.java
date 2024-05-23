@@ -11,7 +11,7 @@ import Exception.*;
 
 public class Map {
     private static Petak[][] MatriksPetak;
-    int wave = 0;
+    private static boolean flag = false;
     String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie","Gargantuar","NewspaperZombie","NormalZombie","PoleVaultingZombie","Yetizombie"};
     String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
     Random random = new Random();
@@ -105,6 +105,7 @@ public class Map {
                 }
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){
+                System.out.println("Zombie berhasil mencapai rumah");
                 stillPlaying = false;
             }
         }
@@ -321,6 +322,11 @@ public void attackPlants() {
             }
         }
         return false;
+    }
+
+    public static void setFlag(boolean flag) {
+        Map.flag = flag;
+        Factory.setFlag(flag);
     }
     
 }
