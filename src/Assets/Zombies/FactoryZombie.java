@@ -45,7 +45,7 @@ public class FactoryZombie {
                         spawnedZombies.add(newZombie);
                         spawnSite.addZombie(newZombie);
                         newZombie.setSpawnTime(System.currentTimeMillis());
-                        System.out.println(zombieType + " spawned at (" + (i + 1) + ", 10)");
+                        System.out.println(zombieType + " SPAWNED AT (" + (i + 1) + ", 10)");
                     }
                 }
             }

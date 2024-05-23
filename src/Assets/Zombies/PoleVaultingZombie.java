@@ -5,7 +5,7 @@ import Plants.*;
 public class PoleVaultingZombie extends Zombie {
     private boolean hasVaulted = false;
     public PoleVaultingZombie () {
-        super("Pole Vaulting Zombie", 175, 100, 1, 5, false);
+        super("OLE VAULTING ZOMBIE", 175, 100, 1, 5, false);
     }
     
     @Override
@@ -28,7 +28,7 @@ public class PoleVaultingZombie extends Zombie {
     public void vault(Petak nextTile) {
         Plant p = nextTile.getListTanaman().get(0);
         p.die();
-        System.out.println("Zombie " + getName() + " vaults over " + p.getName() + " at " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
+        System.out.println("ZOMBIE " + getName() + " VAULTS OVER " + p.getName() + " AT " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
         // Move the zombie to the left
@@ -39,7 +39,7 @@ public class PoleVaultingZombie extends Zombie {
             Plant p2 = newTile.getListTanaman().get(0);
             p2.die();
         }
-        System.out.println("Zombie " + getName() + " is now at " + "(" + getRow() + ", " + getColumn() + ")");
+        System.out.println("ZOMBIE " + getName() + " IS NOW AT " + "(" + getRow() + ", " + getColumn() + ")");
         hasVaulted = true;
     }
     

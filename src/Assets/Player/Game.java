@@ -55,7 +55,7 @@ public class Game {
             printMap();
             Thread.sleep(5000);
             if (isZombieAtEnd()) {
-                System.out.println("Game Over: A zombie reached the end.");
+                System.out.println("GAME OVER: A ZOMBIE REACHED THE END.");
                 break;
             }
         }

@@ -53,8 +53,7 @@ public class GameEngine {
         System.out.println(" ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀  ▀ ");
         System.out.println("                                                                     ");
 
-        // Scanner gameScanner  = new Scanner(System.in); 
-        boolean exitGame = false;
+    boolean exitGame = false;
     while (!exitGame) {
         System.out.println(red + bold + "\r\n" + //
         "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
@@ -97,9 +96,27 @@ public class GameEngine {
                         validInput = true;
                         break;
                     case 5:
-                        System.out.println("\n================================");
-                        System.out.println("   Terima Kasih Telah Bermain!   ");
-                        System.out.println("================================");
+                        System.out.println(red + bold + "\r\n" + //
+                        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
+                        System.out.println(green + "████████ ███████ ██████  ██ ███    ███  █████      ██   ██  █████  ███████ ██ ██   ██" + reset);
+                        System.out.println(green + "   ██    ██      ██   ██ ██ ████  ████ ██   ██     ██  ██  ██   ██ ██      ██ ██   ██" + reset);
+                        System.out.println(green + "   ██    █████   ██████  ██ ██ ████ ██ ███████     █████   ███████ ███████ ██ ███████" + reset);
+                        System.out.println(green + "   ██    ██      ██   ██ ██ ██  ██  ██ ██   ██     ██  ██  ██   ██      ██ ██ ██   ██" + reset);
+                        System.out.println(green + "   ██    ███████ ██   ██ ██ ██      ██ ██   ██     ██   ██ ██   ██ ███████ ██ ██   ██" + reset);
+                        System.out.println(" ");
+                        System.out.println(green + "████████ ███████ ██       █████  ██   ██" + reset);
+                        System.out.println(green + "   ██    ██      ██      ██   ██ ██   ██" + reset);
+                        System.out.println(green + "   ██    █████   ██      ███████ ███████" + reset);
+                        System.out.println(green + "   ██    ██      ██      ██   ██ ██   ██" + reset);
+                        System.out.println(green + "   ██    ███████ ███████ ██   ██ ██   ██" + reset);
+                        System.out.println(" ");
+                        System.out.println(green + "██████  ███████ ██████  ███    ███  █████  ██ ███    ██" + reset);
+                        System.out.println(green + "██   ██ ██      ██   ██ ████  ████ ██   ██ ██ ████   ██" + reset);
+                        System.out.println(green + "██████  █████   ██████  ██ ████ ██ ███████ ██ ██ ██  ██" + reset);
+                        System.out.println(green + "██   ██ ██      ██   ██ ██  ██  ██ ██   ██ ██ ██  ██ ██" + reset);
+                        System.out.println(green + "██████  ███████ ██   ██ ██      ██ ██   ██ ██ ██   ████" + reset);
+                        System.out.println(red + bold + "\r\n" + //
+                        "██████████████████████████████████████████████████████████████████████████████  \r\n" + reset);
                         exitGame = true;
                         validInput = true;
                         inGame = false;
@@ -181,7 +198,7 @@ public class GameEngine {
                 System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
                 validInput = true;
             } else if (choice.equals("N")) {
-                System.out.println(red + bold + "SILAKAN BACA KEMBALI!" + reset);
+                System.out.println(green + bold + "SILAKAN BACA KEMBALI!" + reset);
                 displayHelp();
                 validInput = true;
             } else {
@@ -536,6 +553,7 @@ public class GameEngine {
     public static void startGame() {
         String yellow = "\u001B[33m"; // Kode warna kuning
         String green = "\033[32m"; // Kode warna hijau
+        String red = "\033[31m";   // Kode warna merah
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  // Reset warna
         //Scanner gameScanner  = new Scanner(System.in); 
@@ -593,10 +611,10 @@ public class GameEngine {
                             if (index6 >= 1 && index6 <= 10) { 
                                 validInput = true;
                             } else {
-                                System.out.println(green + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10." + reset);
+                                System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10." + reset);
                             }
                         } catch (InputMismatchException e) {
-                            System.out.println(green + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
                             gameScanner.next();
                         }
                     }
@@ -609,35 +627,35 @@ public class GameEngine {
                             if (index7 >= 1 && index7 <= 11) { // assuming the valid range is 1 to 11
                                 validInput = true;
                             } else {
-                                System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan 11." + reset);
+                                System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10." + reset);
                             }
                         } catch (InputMismatchException e) {
-                            System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
                             gameScanner.next(); // clear the invalid input
                         }
                     }
 
                     if (index6 == index7) {
-                        System.out.println(green + bold + "TIDAK BISA DITUKAR DENGAN POSISI SEBELUMNYA" + reset);
+                        System.out.println(red + bold + "TIDAK BISA DITUKAR DENGAN POSISI SEBELUMNYA" + reset);
                     }
                     else if (index6 >= 1 && index6 <= inventory.getInventory().size() && index7 >= 1 && index7 <= inventory.getInventory().size()) {
                         inventory.switchInventoryTanaman(index6 - 1, index7 - 1);
-                        System.out.println(inventory.getInventory().get(index7 - 1).getItem().getName() + " berhasil dipindah ke " + index7);
-                        System.out.println("Inventory:");
+                        System.out.println(green + bold + inventory.getInventory().get(index7 - 1).getItem().getName() + " BERHASIL DIPINDAH KE" + index7 + reset);
+                        System.out.println(green + bold + "INVENTORY:" + reset);
                         inventory.showInventory();
                     } else {
-                        System.out.println(green + bold + "INDEKS TAK VALID!" + reset);
+                        System.out.println(red + bold + "INDEKS TAK VALID!" + reset);
                     }
                 } else if (sortChoice == 'N') {
                     break;
                 } else {
-                    System.out.println(green + bold + "MASUKKAN TAK VALID!" + reset);
+                    System.out.println(red + bold + "MASUKKAN TAK VALID!" + reset);
                 }
             }
            
         System.out.println(green + bold + "INVENTORY" + reset);
         inventory.showInventory();
-    
+
         System.out.println(green + bold + "TAMBAH TANAMAN KE DECK: " + reset);
         while (continueLoop) {
             if (deck.getDeckSize() < 6) {
@@ -648,19 +666,19 @@ public class GameEngine {
                         int index1 = gameScanner.nextInt();
                         if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
                             deck.addPlant(inventory.getPlant(index1 - 1));
-                            System.out.println(inventory.getInventory().get(index1 - 1).getItem().getName() + " ditambah ke deck!");
-                            System.out.println("Deck size is: " + deck.getDeckSize());
+                            System.out.println(green + bold + inventory.getInventory().get(index1 - 1).getItem().getName() + " DITAMBAH KE DECK!" + reset);
+                            System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
                             invalidInput = false;
                         } else {
-                            System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan " + inventory.getInventory().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
                         gameScanner.next(); // clear the invalid input
                     } catch (PlantAlreadyPickedException e) {
-                        System.out.println(e.getClass().getName() + "! Tanaman sudah dipilih sebelumnya!");
+                        System.out.println(red + bold + e.getClass().getName() + "! TANAMAN SUDAH DIPILIH SEBELUMNYA!" + reset);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! Indeks di luar batas!");
+                        System.out.println(red + bold + e.getClass().getName() + "! INDEKS DI LUAR BATAS!" + reset);
                     }
                 }
             } else {
@@ -684,30 +702,30 @@ public class GameEngine {
                         int index3 = gameScanner.nextInt();
                         if (index2 >= 1 && index2 <= deck.getDeckOfPlants().size() && index3 >= 1 && index3 <= deck.getDeckOfPlants().size()) {
                             if (index2 == index3) {
-                                System.out.println(green + bold + "TIDAK BISA DITUKAR DENGAN POSISI SAMA" + reset);
+                                System.out.println(red + bold + "TIDAK BISA DITUKAR DENGAN POSISI SAMA" + reset);
                             } else {
                                 deck.swapDeck(index2 - 1, index3 - 1);
-                                System.out.println(deck.getDeckOfPlants().get(index2 - 1).getItem().getName() + " berhasil ditukar dengan " + deck.getDeckOfPlants().get(index3 - 1).getItem().getName());
+                                System.out.println(green + bold + deck.getDeckOfPlants().get(index2 - 1).getItem().getName() + " BERHASIL DITUKAR DENGAN " + deck.getDeckOfPlants().get(index3 - 1).getItem().getName());
                                 System.out.println(green + bold + "DECK: " + reset);
                                 deck.displayDeck();
                             }
                             invalidInput = false;
                         } else {
-                            System.out.println(green + bold + "INDEKS TAK VALID! Harap masukkan angka antara 1 dan " + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA" + reset);
                         gameScanner.next(); // clear the invalid input
                     } catch (CannotSwapDeckException e) {
-                        System.out.println(e.getClass().getName() + "! Tidak bisa menukar tanaman!");
+                        System.out.println(red + bold + e.getClass().getName() + "! TIDAK BISA MENUKAR TANAMAN!");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! Indeks tidak valid!");
+                        System.out.println(red + bold + e.getClass().getName() + "! INDEKS TIDAK VALID!");
                     }
                 }
             } else if (switchChoice == 'N') {
                 break;
             } else {
-                System.out.println(green + bold + "MASUKKAN TAK VALID!" + reset);
+                System.out.println(red + bold + "MASUKKAN TAK VALID!" + reset);
             }
         }
 
@@ -721,29 +739,30 @@ public class GameEngine {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
                         int index4 = gameScanner.nextInt();
                         if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                            System.out.println(deck.getDeckOfPlants().get(index4 - 1).getItem().getName() + " sudah dihapus");
+                            System.out.println(green + bold + deck.getDeckOfPlants().get(index4 - 1).getItem().getName() + " SUDAH DIHAPUS");
                             deck.deletePlant(index4 - 1);
-                            System.out.println("Deck:");
+                            System.out.println(green + bold + "DECK:");
                             deck.displayDeck();
                             invalidInput = false;
                         } else {
-                            System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka antara 1 dan " + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println(green + bold + "INPUT TAK VALID! Harap masukkan angka." + reset);
+                        System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
                         gameScanner.next(); // clear the invalid input
                     } catch (CannotDeletePlantException e) {
-                        System.out.println(e.getClass().getName() + "! Tanaman tidak dapat dihapus!");
+                        System.out.println(red + bold + e.getClass().getName() + "! TANAMAN TIDAK DAPAT DIHAPUS!");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getClass().getName() + "! Indeks tidak valid!");
+                        System.out.println(red + bold + e.getClass().getName() + "! INDEKS TIDAK VALID!");
                     }
                 }
             } else if (deleteChoice == 'N') {
                 break;
             } else {
-                System.out.println(green + bold + "INPUT TAK VALID!" + reset);
+                System.out.println(red + bold + "INPUT TAK VALID!" + reset);
             }
         }
+
     
 
 
@@ -757,19 +776,19 @@ public class GameEngine {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         if (elapsedTime < 100) { // Day time
                             if (!isDay) {
-                                System.out.println(green + bold + "SEKARANG PAGI HARII!!!" + reset);
+                                System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
                                 sun.generateSun();
                             }
                         } else { // Night time
                             if (isDay) {
-                                System.out.println(green + bold + "UDAH MALEM NIH!" + reset);
+                                System.out.println(green + bold + "UDAH MALEM NIH!!!" + reset);
                                 isDay = false;
                                 sun.stopGenerateSun();
                             }
                         }
                         if (Sun.sun > lastSun) {
-                            System.out.println("Current sun: " + Sun.sun);
+                            System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset);
                             lastSun = Sun.sun;
                         }
                         if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
@@ -798,7 +817,7 @@ public class GameEngine {
             
                         if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
-                                System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
+                                System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
                                 isSpawning = true;
                                 map.setSpawningZombie(isSpawning);
                             }
@@ -806,13 +825,13 @@ public class GameEngine {
             
                             if (elapsedTime >= 100 && !flagEventTriggered) { // Trigger flag event
                                 Map.setFlag(true);
-                                System.out.println(green + bold + "Flag Triggered" + reset);
+                                System.out.println(red + bold + "FLAG TRIGGERED" + reset);
                                 flagEventTriggered = true;
                             }
             
                         } else {
                             if (isSpawning) {
-                                System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
+                                System.out.println(red + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                                 isSpawning = false;
                                 map.setSpawningZombie(isSpawning);
                                 Thread.currentThread().interrupt();
@@ -853,7 +872,7 @@ public class GameEngine {
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         try {
-                            System.out.println("Current time: " + elapsedTime);
+                            System.out.println(yellow + bold + "CURRENT TIME: " + elapsedTime + reset);
                             map.viewMap();
                             Thread.sleep(5000);
                         } catch (InterruptedException e) {
@@ -869,7 +888,7 @@ public class GameEngine {
             zombieMover.start();
 
             while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
-                System.out.println(green + bold + "INGIN MENANANAM (T) ATAU MENGGALI (G)?" + reset);
+                System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 String choice = gameScanner.nextLine();
                 if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
@@ -887,16 +906,11 @@ public class GameEngine {
                             if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
                                 map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
                                 invalidInput = false;
-                                System.out.println("Current sun: " + Sun.sun);
+                                System.out.println(yellow + bold + "CURRENT SUN " + Sun.sun + reset);
                             } else {
-                                System.out.println(green + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
+                                System.out.println(red + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
                             }
                         }
-                        
-
-                        System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
-                        plantChoice = gameScanner .next().charAt(0);
-
                     }
                 }
                 else if(choice.equals("G")){
@@ -912,16 +926,15 @@ public class GameEngine {
                                 map.removePlantFromTile(row2-1, column2);
                                 // map.viewMap();
                                 invalidInput = false;
-                                System.out.println("Current sun: " + Sun.sun);                
+                                System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset); 
+                                               
                             } else {
-                                System.out.println(green + bold + "KOORDINAT TAK VALID!" + reset);
+                                System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
                             }
                         }
                         
                     }
                 }
-                //Scanner gameScanner  = new Scanner(System.in); 
-                
         } 
         mapViewer.interrupt();
         // zombieMover.interrupt();
@@ -981,27 +994,9 @@ public class GameEngine {
         String green = "\033[32m"; 
         String bold = "\033[1m"; 
         String reset = "\033[0m";  
-        boolean validInput = false;
-        System.out.println(green + bold + "INGIN BERMAIN KEMBALI?? (Y/N)" + reset);
-        
-        while (!validInput) {
-            
-            String input = gameScanner.nextLine(); 
-    
-            if (input.equals("Y")) {
-                validInput = true;
-                startGame(); 
-            } else if (input.equals("N")) {
-                System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
-                validInput = true; 
-                inGame = false;
-                displayMainMenu();
-            } 
-        }
+        System.out.println(green + bold + "KEMBALI KE MENU GAME..." + reset);
+        System.out.println(" ");
+        displayMainMenu();
     }
-        
-    
-    
-    
 }
 

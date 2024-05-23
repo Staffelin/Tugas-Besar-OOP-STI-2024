@@ -15,7 +15,7 @@ public class DolphinRiderZombie extends Zombie {
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
         if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasDived) {
             if (nextTile.getListTanaman().get(1) instanceof Tallnut) {
-                System.out.println("Harus basic attack nch!");
+                System.out.println("HARUS BASIC ATTACK!");
                 basicAttack();
                 hasDived = true;
             }
@@ -31,7 +31,7 @@ public class DolphinRiderZombie extends Zombie {
         for (int i = 0; i < nextTile.getListTanaman().size(); i++) {
             Plant p = nextTile.getListTanaman().get(i);
             p.die();
-            System.out.println("Zombie " + getName() + " vaults over " + p.getName() + " at " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
+            System.out.println("ZOMBIE " + getName() + " VAULTS OVER " + p.getName() + " AT " + "(" + nextTile.getRow() + ", " + nextTile.getColumn() + ")");
         }
         Petak currentTile = Map.getFromMatriksPetak(getRow(), getColumn());
         currentTile.removeZombie(this);
@@ -43,7 +43,7 @@ public class DolphinRiderZombie extends Zombie {
             Plant p2 = newTile.getListTanaman().get(0);
             p2.die();
         }
-        System.out.println("Zombie " + getName() + " is now at " + "(" + getRow() + ", " + getColumn() + ")");
+        System.out.println("ZOMBIE " + getName() + " IS NOW AT " + "(" + getRow() + ", " + getColumn() + ")");
         hasDived = true;
     }
     

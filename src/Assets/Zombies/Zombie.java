@@ -104,7 +104,6 @@ public class Zombie implements Position {
             setAttackSpeed(1);
             setMovementSpeed(10);
             slowed = false;
-            // System.out.println("Udah normal");
         }
     }
 
@@ -114,7 +113,7 @@ public class Zombie implements Position {
             setMovementSpeed(20);
             timeSlowed = System.currentTimeMillis();
             slowed = true;
-            System.out.println("Zombie kena slow effect");
+            System.out.println("ZOMBIE KENA SLOW EFFECT");
         }
     }
 
@@ -147,8 +146,7 @@ public class Zombie implements Position {
     }
 
     public void takeDamage(int damage) {
-        // System.out.println("Zombie taking "+damage+" damage"); // Add this line
-        System.out.println("Health " + getName() + " di row (" + getRow() + ", " + getColumn() + ")" +" sekarang adalah " + getHealth());
+        System.out.println("HEALTH " + getName() + " DI ROW (" + getRow() + ", " + getColumn() + ")" +" SEKARANG ADALAH " + getHealth());
         this.health -= damage;
         if (this.health <= 0) {
             die();
@@ -157,7 +155,7 @@ public class Zombie implements Position {
 
 
     protected void die() {
-        System.out.println(name + " has died at " + (getRow()+1) + ", " + getColumn());  
+        System.out.println(name + " HAS DIED AT" + (getRow()+1) + ", " + getColumn());  
         setDie();
         Map.getFactoryZombie().getSpawnedZombies().remove(this);
         // Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());  

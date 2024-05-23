@@ -78,18 +78,15 @@ public class Map {
             for (int j = MatriksPetak[i].length - 1; j > 0; j--) {
                 Petak petak = MatriksPetak[i][j];
                 Petak nextPetak = MatriksPetak[i][j - 1];
-                ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); // Create a copy of the list
+                ArrayList<Zombie> zombies = new ArrayList<>(petak.getListZombies()); 
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
                         if(petak.getListTanaman().size() == 0){
                             if (System.currentTimeMillis() - zombie.getSpawnTime() >= 10000) {
-                                petak.removeZombie(zombie); // Pass the zombie to be removed
+                                petak.removeZombie(zombie); 
                                 nextPetak.addZombie(zombie);
-                                // System.out.println("Moving zombies...");
-                                // System.out.println("Moved zombie from (" + i + ", " + j + ") to (" + i + ", " + (j - 1) + ")");
                                 zombie.setRow(i);
                                 zombie.setColumn(j - 1);
-                                // Update the spawn time
     
                                 zombie.setSpawnTime(System.currentTimeMillis());
                             }
@@ -105,7 +102,7 @@ public class Map {
                 }
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){
-                System.out.println("Zombie berhasil mencapai rumah");
+                System.out.println("ZOMBIE BERHASIL MENCAPAI RUMAH");
                 stillPlaying = false;
             }
         }

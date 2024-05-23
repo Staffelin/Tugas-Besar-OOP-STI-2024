@@ -28,8 +28,8 @@ public class PotatoMine extends Plant {
         if (currentTile != null) {
             List<Zombie> currentZombies = new ArrayList<>(currentTile.getListZombies());
             for (Zombie z : currentZombies) {
-                z.takeDamage(this.attack_damage); // Squash kills the zombies
-                System.out.println("Potato mine menyerang zombie di petak asal, di " + z.getRow());
+                z.takeDamage(this.attack_damage); 
+                System.out.println("POTATO MINE MENYERANG ZOMBIE DI PETAK ASAL, DI " + z.getRow());
                 attacked = true;
             }
         }
@@ -37,8 +37,8 @@ public class PotatoMine extends Plant {
         if (rightTile != null) {
                 List<Zombie> rightZombies = new ArrayList<>(rightTile.getListZombies());
                 for (Zombie z : rightZombies) {
-                    z.takeDamage(this.attack_damage); // Squash kills the zombies
-                    System.out.println("Potato mine menyerang zombie di petak kanannya, di " + z.getRow());
+                    z.takeDamage(this.attack_damage); 
+                    System.out.println("POTATO MINE MENYERANG ZOMBIE DI PETAK KANANNYA, DI " + z.getRow());
                     attacked = true;
                 }
             }

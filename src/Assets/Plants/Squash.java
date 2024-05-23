@@ -31,7 +31,7 @@ public class Squash extends Plant{
             List<Zombie> currentZombies = new ArrayList<>(currentTile.getListZombies());
             for (Zombie z : new ArrayList<>(currentZombies)) {
                 z.takeDamage(this.attack_damage); // Squash kills the zombies
-                System.out.println("Squash menyerang zombie di petak asal, di " + z.getRow());
+                System.out.println("SQUASH MENYERANG ZOMBIE DI PETAK ASAL, DI " + z.getRow());
                 attacked = true;
             }
         }
@@ -40,7 +40,7 @@ public class Squash extends Plant{
                 List<Zombie> rightZombies = new ArrayList<>(rightTile.getListZombies());
                 for (Zombie z : new ArrayList<>(rightZombies)) {
                     z.takeDamage(this.attack_damage); // Squash kills the zombies
-                    System.out.println("Squash menyerang zombie di petak kanannya, di " + z.getRow());
+                    System.out.println("SQUASH MENYERANG ZOMBIE DI PETAK KANANNYA, DI " + z.getRow());
                     attacked = true;
                 }
             }
@@ -49,7 +49,7 @@ public class Squash extends Plant{
                 List<Zombie> leftZombies = new ArrayList<>(leftTile.getListZombies());
                 for (Zombie z : new ArrayList<>(leftZombies)) {
                     z.takeDamage(this.attack_damage); // Squash kills the zombies
-                    System.out.println("Squash menyerang zombie di petak kirinya, di " + z.getRow());
+                    System.out.println("SQUASH MENYERANG ZOMBIE DI PETAK KIRINYA, DI " + z.getRow());
                     attacked = true;
                 }
             }

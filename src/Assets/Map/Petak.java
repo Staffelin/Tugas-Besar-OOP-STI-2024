@@ -94,7 +94,7 @@ public abstract class Petak {
                     listTanaman.add(p);
                     p.setColumn(column);
                     p.setRow(row);
-                    System.out.println(p.getName() + " planted");
+                    System.out.println(p.getName() + " PLANTED");
                     Sun.reduceSun(p.getCost());
                     p.setLastPlantedTime(LocalDateTime.now());
                     p.attack();                   
@@ -162,14 +162,14 @@ public abstract class Petak {
 
     public void removeZombie(Zombie zombie) {
         if (listZombies.isEmpty()) {
-            System.out.println("No zombies to remove");
+            System.out.println("NO ZOMBIE TO REMOVE");
         } else if (!listZombies.contains(zombie)) {
             System.out.println("Zombie not found");
         } else {
             listZombies.remove(zombie);
-            // System.out.println("Zombie removed from tile (" + this.row + ", " + this.column + ")");
+        
             
-            // Check if there is a Lilypad and another plant in PetakKolam
+        
             if (this instanceof PetakKolam) {
                 Lilypad lilypad = getLilypad();
                 if (lilypad != null && listTanaman.size() > 1) {

@@ -137,7 +137,7 @@ public class Plant implements Position {
                     }
                     if (z.getHealth() <= 0) {
                         iterator.remove();
-                        System.out.println("Zombie di petak " + z.getRow() + " mati");
+                        System.out.println("ZOMBIE DI PETAK " + z.getRow() + " MATI");
                     }
                 }
             }
@@ -154,7 +154,7 @@ public class Plant implements Position {
     }
 
     public void die() {
-        System.out.println(name + " has died.");
+        System.out.println(name + " HAS DIED.");
         setPlantDie();
         Petak tile = Map.getFromMatriksPetak(this.getRow(), this.getColumn());
         tile.getListTanaman().remove(this); 

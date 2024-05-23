@@ -49,13 +49,13 @@ public class Deck {
 
     public void displayDeck() {
         if (deckOfPlants.isEmpty()) {
-            System.out.println("Deck is empty");
+            System.out.println("DECK IS EMPTY");
             return;
         } else {
             for (int i = 0; i < deckOfPlants.size(); i++) {
                 Slot<Plant> slot = deckOfPlants.get(i);
                 if (slot.getItem() == null) {
-                    System.out.println((i + 1) + ". Empty");
+                    System.out.println((i + 1) + ". EMPTY");
                 } else {
                     System.out.println((i + 1) + ". " + slot.getItem().getName());
                 }

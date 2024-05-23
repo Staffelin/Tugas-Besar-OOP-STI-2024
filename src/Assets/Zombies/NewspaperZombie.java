@@ -7,7 +7,7 @@ public class NewspaperZombie extends Zombie {
 
     public void increaseSpeed() {
         setMovementSpeed(3);
-        System.out.println("Newspaper Zombie now moves faster!");
+        System.out.println("NEWSPAPER ZOMBIE NOW MOVES FASTER!");
         }
     
 
