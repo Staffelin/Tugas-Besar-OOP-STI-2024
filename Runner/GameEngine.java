@@ -758,12 +758,14 @@ public class GameEngine {
 
             zombieSpawner = new Thread(new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     long startTime = System.currentTimeMillis();
                     boolean isSpawning = false;
+                    boolean flagEventTriggered = false;
+            
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        // long cycleTime = elapsedTime % 200; // Cycle repeats every 200 seconds
+            
                         if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(green + bold + "ZOMBIES ARE COMINGG...BRAINSS!!!" + reset);
@@ -771,6 +773,13 @@ public class GameEngine {
                                 map.setSpawningZombie(isSpawning);
                             }
                             map.spawnZombieMap();
+            
+                            if (elapsedTime >= 100 && !flagEventTriggered) { // Trigger flag event
+                                Map.setFlag(true);
+                                System.out.println(green + bold + "Flag Triggered" + reset);
+                                flagEventTriggered = true;
+                            }
+            
                         } else {
                             if (isSpawning) {
                                 System.out.println(green + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
@@ -779,6 +788,7 @@ public class GameEngine {
                                 Thread.currentThread().interrupt();
                             }
                         }
+            
                         try {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
@@ -787,8 +797,8 @@ public class GameEngine {
                         }
                     }
                 }
-
             });
+            
 
             zombieMover = new Thread(new Runnable() {
                 @Override
@@ -809,8 +819,11 @@ public class GameEngine {
             Thread mapViewer = new Thread(new Runnable() {
                 @Override
                 public void run(){
+                    long startTime = System.currentTimeMillis();
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
+                        long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         try {
+                            System.out.println("Current time: " + elapsedTime);
                             map.viewMap();
                             Thread.sleep(5000);
                         } catch (InterruptedException e) {
