@@ -929,7 +929,7 @@ public class GameEngine {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             System.out.println("mapViewer was interrupted, stopping...");
-                            Thread.currentThread().interrupt(); // Preserve the interrupted status
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
