@@ -18,7 +18,7 @@ public class Sun{
     }
 
     public void generateSun() {
-        sun = 50000;
+        sun = 50;
         running = true;
         sunThread = new Thread(() -> {
             while (running) {
