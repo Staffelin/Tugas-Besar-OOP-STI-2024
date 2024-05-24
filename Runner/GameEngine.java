@@ -968,7 +968,7 @@ public class GameEngine {
                         int column2 = gameScanner .nextInt();
                         boolean invalidInput = true;
                         while(invalidInput){
-                            if (row2 >= 0 && row2 <= 5 && column2 >= 0 && column2 <= 9) {
+                            if (row2 >= 0 && row2 <= 6 && column2 >= 0 && column2 <= 9) {
                                 map.removePlantFromTile(row2-1, column2);
                                 // map.viewMap();
                                 invalidInput = false;
