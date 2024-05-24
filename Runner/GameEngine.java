@@ -836,7 +836,7 @@ public class GameEngine {
                             System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset);
                             lastSun = Sun.sun;
                         }
-                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
+                        if(!(map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
                             Thread.currentThread().interrupt();
                         }
                         try {
@@ -859,8 +859,8 @@ public class GameEngine {
             
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-            
-                        if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
+                        long cycletime = elapsedTime % 200;
+                        if (cycletime >= 20 && cycletime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
                                 isSpawning = true;
