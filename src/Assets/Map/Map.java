@@ -1,5 +1,6 @@
 package Map;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,7 +47,10 @@ public class Map {
     public boolean getPlayingStatus(){
         return stillPlaying;
     }
-
+    
+    public void setPlayingStatus(boolean status){
+        stillPlaying = status;
+    }
 
     public static Petak getFromMatriksPetak(int row, int column) {
         if (row >= 0 && row < MatriksPetak.length && column >= 0 && column < MatriksPetak[0].length) {
@@ -103,7 +107,7 @@ public class Map {
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){
                 System.out.println("ZOMBIE BERHASIL MENCAPAI RUMAH");
-                stillPlaying = false;
+                setPlayingStatus(false);
                 break;
             }
         }
@@ -270,9 +274,15 @@ public void attackPlants() {
     public void addPlantToTile(int row, int column, Plant plant) {
         Petak tile = MatriksPetak[row-1][column];
         try {
-            Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
-            tile.tanamTanaman(newPlant);
-            System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
+            if(plant.isPlantable()){
+                Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
+                tile.tanamTanaman(newPlant);
+                System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
+                plant.setLastPlantedTime(LocalDateTime.now());
+            }
+            else{
+                System.out.println(plant.getName() + " masih dalam cooldown untuk ditanam");
+            }
         } catch (CannotAddPlantException e) {
             System.out.println("Cannot add plant to tile: " + e.getMessage());
         } catch (PlantLilypadFirstException e) {

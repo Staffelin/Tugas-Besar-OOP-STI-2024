@@ -818,8 +818,9 @@ public class GameEngine {
                     boolean isDay = false;
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        long cycleTime = elapsedTime % 200;
-                        if (cycleTime < 100) { // Day time
+                        long cycletime = elapsedTime % 200;
+                        if (cycletime < 100) { // Day time
+
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
@@ -836,7 +837,13 @@ public class GameEngine {
                             System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset);
                             lastSun = Sun.sun;
                         }
-                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
+                        if(!map.getPlayingStatus()){
+                            System.out.println("sunGeneration is stopping");
+                            Thread.currentThread().interrupt();
+                        }
+                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().size() == 0)){
+                            map.setPlayingStatus(false);
+                            System.out.println("sunGeneration is stopping");
                             Thread.currentThread().interrupt();
                         }
                         try {
@@ -859,9 +866,8 @@ public class GameEngine {
             
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        long cycleTime = elapsedTime % 200;
-            
-                        if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
+                        long cycletime = elapsedTime % 200;
+                        if (cycletime >= 20 && cycletime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
                                 isSpawning = true;
@@ -880,7 +886,6 @@ public class GameEngine {
                                 System.out.println(red + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                                 isSpawning = false;
                                 map.setSpawningZombie(isSpawning);
-                                Thread.currentThread().interrupt();
                             }
                         }
             
@@ -920,7 +925,7 @@ public class GameEngine {
                         try {
                             System.out.println(yellow + bold + "CURRENT TIME: " + elapsedTime + reset);
                             map.viewMap();
-                            Thread.sleep(5000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             System.out.println("mapViewer was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
@@ -933,7 +938,7 @@ public class GameEngine {
             zombieSpawner.start();
             zombieMover.start();
             System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
-            while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
+            while(map.getPlayingStatus()){
                 String choice = gameScanner.nextLine();
                 if(choice.equals("T")){
                     while(true){
