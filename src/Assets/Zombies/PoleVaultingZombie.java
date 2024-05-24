@@ -5,7 +5,7 @@ import Plants.*;
 public class PoleVaultingZombie extends Zombie {
     private boolean hasVaulted = false;
     public PoleVaultingZombie () {
-        super("OLE VAULTING ZOMBIE", 175, 100, 1, 5, false);
+        super("POLE VAULTING ZOMBIE", 175, 100, 1, 5, false);
     }
     
     @Override
