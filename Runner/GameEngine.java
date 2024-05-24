@@ -670,7 +670,7 @@ public class GameEngine {
                             System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + inventory.getInventory().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -704,7 +704,7 @@ public class GameEngine {
                             deck.displayDeck();
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -736,7 +736,7 @@ public class GameEngine {
                                         System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
                                         invalidInput = false;
                                     } else {
-                                        System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
+                                        System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + inventory.getInventory().size() + "." + reset);
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -788,7 +788,7 @@ public class GameEngine {
                             }
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA" + reset);
@@ -820,6 +820,7 @@ public class GameEngine {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         long cycletime = elapsedTime % 200;
                         if (cycletime < 100) { // Day time
+
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;

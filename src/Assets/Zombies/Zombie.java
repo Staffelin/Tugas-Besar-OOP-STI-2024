@@ -147,6 +147,7 @@ public class Zombie implements Position {
 
     public void takeDamage(int damage) {
         // System.out.println("HEALTH " + getName() + " DI ROW (" + getRow() + ", " + getColumn() + ")" +" SEKARANG ADALAH " + getHealth());
+
         this.health -= damage;
         if (this.health <= 0) {
             die();
