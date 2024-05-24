@@ -937,7 +937,7 @@ public class GameEngine {
                 if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
                     char plantChoice = gameScanner .next().charAt(0);
-                    while (plantChoice == 'Y') {
+                    if (plantChoice == 'Y') {
                         System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITANAM: " + reset);
                         System.out.println(green + bold + "DECK" + reset);
                         deck.displayDeck();
@@ -949,8 +949,9 @@ public class GameEngine {
                         while(invalidInput){
                             if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
                                 map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
-                                invalidInput = false;
                                 System.out.println(yellow + bold + "CURRENT SUN " + Sun.sun + reset);
+                                invalidInput = false;
+                                break;
                             } else {
                                 System.out.println(red + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
                                 break;
@@ -972,6 +973,7 @@ public class GameEngine {
                                 // map.viewMap();
                                 invalidInput = false;
                                 System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset); 
+                                break;
                                                
                             } else {
                                 System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
