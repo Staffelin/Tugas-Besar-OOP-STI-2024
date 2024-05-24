@@ -44,6 +44,7 @@ public class Deck {
             throw new CannotDeletePlantException();
         } else {
             deckOfPlants.remove(index);
+            deckSize--;
         }
     }
 

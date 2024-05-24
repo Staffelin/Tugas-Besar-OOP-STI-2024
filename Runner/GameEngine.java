@@ -688,6 +688,83 @@ public class GameEngine {
             }
         }
 
+        while (continueLoop) {
+            System.out.println(green + bold + "INGIN MENGHAPUS TANAMAN? (Y/N)" + reset);
+            char deleteChoice = gameScanner.next().charAt(0);
+            if (deleteChoice == 'Y') {
+                boolean invalidInput = true;
+                while (invalidInput) {
+                    try {
+                        System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
+                        int index4 = gameScanner.nextInt();
+                        if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
+                            System.out.println(green + bold + deck.getDeckOfPlants().get(index4 - 1).getItem().getName() + " SUDAH DIHAPUS");
+                            deck.deletePlant(index4 - 1);
+                            System.out.println(green + bold + "DECK:");
+                            deck.displayDeck();
+                            invalidInput = false;
+                        } else {
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
+                        gameScanner.next(); // clear the invalid input
+                    } catch (CannotDeletePlantException e) {
+                        System.out.println(red + bold + e.getClass().getName() + "! TANAMAN TIDAK DAPAT DIHAPUS!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(red + bold + e.getClass().getName() + "! INDEKS TIDAK VALID!");
+                    }
+                }
+            } else if (deleteChoice == 'N') {
+                if (deck.getDeckSize() < 6) {
+                    System.out.println("DECK MASIH KOSONG! SILAKAN TAMBAH TANAMAN KE DECK!");
+                    System.out.println(green + bold + "INVENTORY" + reset);
+                    inventory.showInventory();
+            
+                    System.out.println(green + bold + "DECK SEKARANG: " + reset);
+                    deck.displayDeck();
+                    while (continueLoop) {
+                        if (deck.getDeckSize() < 6) {
+                            System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITAMBAHKAN KE DECK: " + reset);
+                            boolean invalidInput = true;
+                            while (invalidInput) {
+                                try {
+                                    int index1 = gameScanner.nextInt();
+                                    if (index1 >= 1 && index1 <= inventory.getInventory().size()) {
+                                        deck.addPlant(inventory.getPlant(index1 - 1));
+                                        System.out.println(green + bold + inventory.getInventory().get(index1 - 1).getItem().getName() + " DITAMBAH KE DECK!" + reset);
+                                        System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
+                                        invalidInput = false;
+                                    } else {
+                                        System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
+                                    gameScanner.next(); // clear the invalid input
+                                } catch (PlantAlreadyPickedException e) {
+                                    System.out.println(red + bold + e.getClass().getName() + "! TANAMAN SUDAH DIPILIH SEBELUMNYA!" + reset);
+                                } catch (IndexOutOfBoundsException e) {
+                                    System.out.println(red + bold + e.getClass().getName() + "! INDEKS DI LUAR BATAS!" + reset);
+                                }
+                            }
+                        } else {
+                            System.out.println(green + bold + "DECK:" + reset);
+                            deck.displayDeck();
+                            break;
+                        }
+                    }
+                }
+                else {
+                    break;
+                }
+            } else {
+                System.out.println(red + bold + "INPUT TAK VALID!" + reset);
+            }
+
+        }
+
+
+
         // Now start the swap and delete process only after deck is full
         while (continueLoop) {
             System.out.println(green + bold + "INGIN MENUKAR TANAMAN? (Y/N)" + reset);
@@ -729,41 +806,8 @@ public class GameEngine {
             }
         }
 
-        while (continueLoop) {
-            System.out.println(green + bold + "INGIN MENGHAPUS TANAMAN? (Y/N)" + reset);
-            char deleteChoice = gameScanner.next().charAt(0);
-            if (deleteChoice == 'Y') {
-                boolean invalidInput = true;
-                while (invalidInput) {
-                    try {
-                        System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DIHAPUS: " + reset);
-                        int index4 = gameScanner.nextInt();
-                        if (index4 >= 1 && index4 <= deck.getDeckOfPlants().size()) {
-                            System.out.println(green + bold + deck.getDeckOfPlants().get(index4 - 1).getItem().getName() + " SUDAH DIHAPUS");
-                            deck.deletePlant(index4 - 1);
-                            System.out.println(green + bold + "DECK:");
-                            deck.displayDeck();
-                            invalidInput = false;
-                        } else {
-                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
-                        }
-                    } catch (InputMismatchException e) {
-                        System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
-                        gameScanner.next(); // clear the invalid input
-                    } catch (CannotDeletePlantException e) {
-                        System.out.println(red + bold + e.getClass().getName() + "! TANAMAN TIDAK DAPAT DIHAPUS!");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println(red + bold + e.getClass().getName() + "! INDEKS TIDAK VALID!");
-                    }
-                }
-            } else if (deleteChoice == 'N') {
-                break;
-            } else {
-                System.out.println(red + bold + "INPUT TAK VALID!" + reset);
-            }
-        }
 
-    
+
 
 
             sunGeneration = new Thread(new Runnable() {
