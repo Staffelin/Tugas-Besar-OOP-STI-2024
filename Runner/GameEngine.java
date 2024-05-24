@@ -813,7 +813,6 @@ public class GameEngine {
             sunGeneration = new Thread(new Runnable() {
                 @Override
                 public void run(){
-                    int day = 1;
                     int lastSun = 0;
                     long startTime = System.currentTimeMillis();
                     boolean isDay = false;
@@ -821,8 +820,7 @@ public class GameEngine {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         long cycletime = elapsedTime % 200;
                         if (cycletime < 100) { // Day time
-                            if (!isDay) {  
-                                System.out.println(green + bold + "Day: " + day++ + reset);
+                            if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
                                 sun.generateSun();
@@ -838,7 +836,7 @@ public class GameEngine {
                             System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset);
                             lastSun = Sun.sun;
                         }
-                        if(elapsedTime >= 160 && (map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
+                        if(!(map.isZombieOnLastTile() || Map.getFactoryZombie().getSpawnedZombies().isEmpty())){
                             Thread.currentThread().interrupt();
                         }
                         try {
@@ -862,7 +860,6 @@ public class GameEngine {
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         long cycletime = elapsedTime % 200;
-            
                         if (cycletime >= 20 && cycletime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
