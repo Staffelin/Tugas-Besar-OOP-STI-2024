@@ -82,7 +82,7 @@ public class Map {
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
                         if(petak.getListTanaman().size() == 0){
-                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 1000) {
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 10000) {
                                 petak.removeZombie(zombie); 
                                 nextPetak.addZombie(zombie);
                                 zombie.setRow(i);
