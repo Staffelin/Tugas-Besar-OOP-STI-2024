@@ -670,7 +670,7 @@ public class GameEngine {
                             System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + inventory.getInventory().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -704,7 +704,7 @@ public class GameEngine {
                             deck.displayDeck();
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -736,7 +736,7 @@ public class GameEngine {
                                         System.out.println(green + bold + "DECK SIZE IS: " + deck.getDeckSize() + reset);
                                         invalidInput = false;
                                     } else {
-                                        System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 10. " + inventory.getInventory().size() + "." + reset);
+                                        System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + inventory.getInventory().size() + "." + reset);
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN INTEGER." + reset);
@@ -788,7 +788,7 @@ public class GameEngine {
                             }
                             invalidInput = false;
                         } else {
-                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI 6." + deck.getDeckOfPlants().size() + "." + reset);
+                            System.out.println(red + bold + "INDEKS TAK VALID! MASUKKAN ANGKA ANTARA 1 SAMPAI " + deck.getDeckOfPlants().size() + "." + reset);
                         }
                     } catch (InputMismatchException e) {
                         System.out.println(red + bold + "INPUT TAK VALID! MASUKKAN ANGKA" + reset);
@@ -818,7 +818,8 @@ public class GameEngine {
                     boolean isDay = false;
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        if (elapsedTime < 100) { // Day time
+                        long cycleTime = elapsedTime % 200;
+                        if (cycleTime < 100) { // Day time
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
@@ -858,8 +859,9 @@ public class GameEngine {
             
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+                        long cycleTime = elapsedTime % 200;
             
-                        if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
+                        if (cycleTime >= 20 && cycleTime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
                                 isSpawning = true;
