@@ -47,7 +47,10 @@ public class Map {
     public boolean getPlayingStatus(){
         return stillPlaying;
     }
-
+    
+    public void setPlayingStatus(boolean status){
+        stillPlaying = status;
+    }
 
     public static Petak getFromMatriksPetak(int row, int column) {
         if (row >= 0 && row < MatriksPetak.length && column >= 0 && column < MatriksPetak[0].length) {
@@ -104,7 +107,7 @@ public class Map {
             }
             if(MatriksPetak[i][0].getListZombies().size() > 0){
                 System.out.println("ZOMBIE BERHASIL MENCAPAI RUMAH");
-                stillPlaying = false;
+                setPlayingStatus(false);
                 break;
             }
         }
@@ -274,8 +277,8 @@ public void attackPlants() {
             if(plant.isPlantable()){
                 Plant newPlant = plant.getClass().getDeclaredConstructor().newInstance();
                 tile.tanamTanaman(newPlant);
-                plant.setLastPlantedTime(LocalDateTime.now());
                 System.out.println(newPlant.getName() + " berhasil ditanam di (" + row + ", " + column + ")");
+                plant.setLastPlantedTime(LocalDateTime.now());
             }
             else{
                 System.out.println(plant.getName() + " masih dalam cooldown untuk ditanam");
