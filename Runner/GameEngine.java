@@ -10,10 +10,10 @@ public class GameEngine {
 
     private static Scanner menuScanner = new Scanner(System.in);
     private static Scanner gameScanner = new Scanner(System.in);
-    private static Thread sunGeneration;
-    private static Thread zombieSpawner;
-    private static Thread zombieMover;
-    private static Thread mapViewer;
+    // private static Thread sunGeneration;
+    // private static Thread zombieSpawner;
+    // private static Thread zombieMover;
+    // private static Thread mapViewer;
     private static boolean inGame = true;
     public static void main(String[] args) {
         displayMainMenu();
@@ -810,7 +810,7 @@ public class GameEngine {
 
 
 
-            sunGeneration = new Thread(new Runnable() {
+            Thread sunGeneration = new Thread(new Runnable() {
                 @Override
                 public void run(){
                     int lastSun = 0;
@@ -857,7 +857,7 @@ public class GameEngine {
                 }
             });
 
-            zombieSpawner = new Thread(new Runnable() {
+            Thread zombieSpawner = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     long startTime = System.currentTimeMillis();
@@ -901,7 +901,7 @@ public class GameEngine {
             });
             
 
-            zombieMover = new Thread(new Runnable() {
+            Thread zombieMover = new Thread(new Runnable() {
                 @Override
                 public void run(){
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
@@ -1011,7 +1011,7 @@ public class GameEngine {
                 }
         } 
         mapViewer.interrupt();
-        // zombieMover.interrupt();
+        zombieMover.interrupt();
         // zombieSpawner.interrupt();
         EndGamePrint(map);
         }
@@ -1025,10 +1025,10 @@ public class GameEngine {
         String bold = "\033[1m"; // Kode bold
         String reset = "\033[0m";  
         String red = "\033[31m";
-        zombieMover.interrupt();
-        if(mapViewer != null){
-            mapViewer.interrupt();
-        }
+        // zombieMover.interrupt();
+        // if(mapViewer != null){
+        //     mapViewer.interrupt();
+        // }
         if (Map.getFactoryZombie().getSpawnedZombies() != null) {
             if (Map.getFactoryZombie().getSpawnedZombies().size() == 0 && !map.isSpawningZombie()) {
                 System.out.println(yellow + bold);
