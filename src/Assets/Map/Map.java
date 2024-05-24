@@ -247,16 +247,16 @@ public void attackPlants() {
                     else if (currentTile.getListTanaman().get(1) instanceof Jalapeno) {
                         System.out.print(blue + "{ " + reset + "  J " + blue + " }" + reset  + " ");
                     }
-                    else if (currentTile.getListTanaman().get(0) instanceof Lilypad) {
+                    else if (currentTile.getListTanaman().get(1) instanceof Lilypad) {
                         System.out.print(blue + "{ " + reset + "  L " + blue + " }" + reset  + " ");
                     }
-                    else if (currentTile.getListTanaman().get(0) instanceof SnowPea) {
+                    else if (currentTile.getListTanaman().get(1) instanceof SnowPea) {
                         System.out.print(blue + "{ " + reset + "  O " + blue + " }" + reset  + " ");
                     }
-                    else if (currentTile.getListTanaman().get(0) instanceof Tallnut) {
+                    else if (currentTile.getListTanaman().get(1) instanceof Tallnut) {
                         System.out.print(blue + "{ " + reset + "  T " + blue + " }" + reset  + " ");
                     }
-                    else if (currentTile.getListTanaman().get(0) instanceof Wallnut) {
+                    else if (currentTile.getListTanaman().get(1) instanceof Wallnut) {
                         System.out.print(blue + "{ " + reset + "  N " + blue + " }" + reset  + " ");
                     }
                 } else {
