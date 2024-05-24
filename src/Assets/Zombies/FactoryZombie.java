@@ -6,8 +6,8 @@ import Map.*;
 
 public class FactoryZombie {
     private String[] listSpawnableZombieDarat = {"BucketheadZombie", "ConeheadZombie", "FootballZombie", "Gargantuar", "NewspaperZombie", "NormalZombie", "PoleVaultingZombie", "Yetizombie"};
-    // private String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
-    private String[] listSpawnableZombieKolam = {"DolphinRiderZombie"};
+    private String[] listSpawnableZombieKolam = {"DolphinRiderZombie", "DuckyTubeZombie"};
+
     private Random random = new Random();
     private int normalSpawnSize = 10;
     private int flagSpawnSize = 25;
