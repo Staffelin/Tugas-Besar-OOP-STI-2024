@@ -818,7 +818,8 @@ public class GameEngine {
                     boolean isDay = false;
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                        if (elapsedTime < 100) { // Day time
+                        long cycletime = elapsedTime % 200;
+                        if (cycletime < 100) { // Day time
                             if (!isDay) {
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
