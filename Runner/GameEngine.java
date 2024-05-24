@@ -930,10 +930,9 @@ public class GameEngine {
             mapViewer.start();
             zombieSpawner.start();
             zombieMover.start();
-
+            System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
             while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
                 String choice = gameScanner.nextLine();
-                System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
                     char plantChoice = gameScanner .next().charAt(0);
@@ -958,6 +957,7 @@ public class GameEngine {
                             }
                         }
                     }
+                    System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 }
                 else if(choice.equals("G")){
                     System.out.println(green + bold + "INGIN MENGGALI TANAMAN? (Y/N)" + reset);
@@ -982,8 +982,8 @@ public class GameEngine {
                         }
                         
                     }
+                    System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 }
-            
         } 
         mapViewer.interrupt();
         // zombieMover.interrupt();
