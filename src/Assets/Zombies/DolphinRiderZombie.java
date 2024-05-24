@@ -1,8 +1,7 @@
 package Zombies;
 
 import Map.*;
-import Plants.Plant;
-import Plants.Tallnut;
+import Plants.*;
 
 public class DolphinRiderZombie extends Zombie {
     public DolphinRiderZombie () {
@@ -13,8 +12,8 @@ public class DolphinRiderZombie extends Zombie {
     @Override
     public void attack() {
         Petak nextTile = Map.getFromMatriksPetak(getRow(), getColumn());
-        if (nextTile != null && nextTile.getJumlahTanaman() > 0 && !nextTile.getListTanaman().isEmpty() && !hasDived) {
-            if (nextTile.getListTanaman().get(1) instanceof Tallnut) {
+        if (nextTile.getListTanaman().get(0) instanceof Lilypad && !hasDived) {
+            if (nextTile.getListTanaman().size() > 1 && nextTile.getListTanaman().get(1) instanceof Tallnut) {
                 System.out.println("HARUS BASIC ATTACK!");
                 basicAttack();
                 hasDived = true;
