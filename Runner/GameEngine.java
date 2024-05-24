@@ -939,86 +939,100 @@ public class GameEngine {
             zombieSpawner.start();
             zombieMover.start();
             System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
-            while(map.getPlayingStatus()){
+            while (map.getPlayingStatus()) {
                 String choice = gameScanner.nextLine();
-                if(choice.equals("T")){
-                    while(true){
+                if (choice.equals("T")) {
+                    while (true) {
                         System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
-                        char plantChoice = gameScanner .next().charAt(0);
+                        char plantChoice = gameScanner.next().charAt(0);
                         if (plantChoice == 'Y') {
                             System.out.println(green + bold + "MASUKKAN INDEKS TANAMAN YANG INGIN DITANAM: " + reset);
                             System.out.println(green + bold + "DECK" + reset);
                             deck.displayDeck();
-                            int index5 = gameScanner.nextInt();
-                            while(true){
-                                if(index5 >= 1 && index5 <= deck.getDeckOfPlants().size()){
-                                    break;
-                                }
-                                else{
-                                    System.out.println(red + bold + "INDEKS TIDAK VALID!" + reset);
+                            int index5;
+                            while (true) {
+                                if (gameScanner.hasNextInt()) {
                                     index5 = gameScanner.nextInt();
+                                    if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size()) {
+                                        break;
+                                    } else {
+                                        System.out.println(red + bold + "INDEKS TIDAK VALID!" + reset);
+                                    }
+                                } else {
+                                    System.out.println(red + bold + "MASUKKAN ANGKA YANG VALID!" + reset);
+                                    gameScanner.next(); // Buang input yang tidak valid
                                 }
                             }
                             System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DITANAM: " + reset);
-                            int row = gameScanner .nextInt();
-                            int column = gameScanner .nextInt();
-                            boolean invalidInput = true;
-                            while(invalidInput){
-                                if (index5 >= 1 && index5 <= deck.getDeckOfPlants().size() && row >= 0 && row <= 6 && column >= 0 && column <= 9) {
-                                    map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5-1).getItem());
-                                    System.out.println(yellow + bold + "CURRENT SUN " + Sun.sun + reset);
-                                    invalidInput = false;
-                                    break;
+                            int row, column;
+                            while (true) {
+                                if (gameScanner.hasNextInt()) {
+                                    row = gameScanner.nextInt();
+                                    if (gameScanner.hasNextInt()) {
+                                        column = gameScanner.nextInt();
+                                        if (row >= 0 && row <= 6 && column >= 0 && column <= 9) {
+                                            map.addPlantToTile(row, column, deck.getDeckOfPlants().get(index5 - 1).getItem());
+                                            System.out.println(yellow + bold + "CURRENT SUN " + Sun.sun + reset);
+                                            break;
+                                        } else {
+                                            System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
+                                        }
+                                    } else {
+                                        System.out.println(red + bold + "MASUKKAN ANGKA YANG VALID!" + reset);
+                                        gameScanner.next(); // Buang input yang tidak valid
+                                    }
                                 } else {
-                                    System.out.println(red + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
-                                    break;
+                                    System.out.println(red + bold + "MASUKKAN ANGKA YANG VALID!" + reset);
+                                    gameScanner.next(); // Buang input yang tidak valid
                                 }
                             }
-                        }
-                        else if(plantChoice == 'N'){
+                        } else if (plantChoice == 'N') {
                             break;
-                        }
-                        else{
+                        } else {
                             System.out.println(red + bold + "INPUT TIDAK VALID. MASUKKAN Y/N!" + reset);
                         }
                     }
                     System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
-                }
-                else if(choice.equals("G")){
+                } else if (choice.equals("G")) {
                     System.out.println(green + bold + "INGIN MENGGALI TANAMAN? (Y/N)" + reset);
-                    char digChoice = gameScanner .next().charAt(0);
+                    char digChoice = gameScanner.next().charAt(0);
                     if (digChoice == 'Y') {
                         System.out.println(green + bold + "MASUKKAN KOORDINAT TANAMAN YANG INGIN DIGALI: " + reset);
-                        int row2 = gameScanner .nextInt();
-                        int column2 = gameScanner .nextInt();
-                        boolean invalidInput = true;
-                        while(invalidInput){
-                            if (row2 >= 0 && row2 <= 6 && column2 >= 0 && column2 <= 9) {
-                                map.removePlantFromTile(row2-1, column2);
-                                // map.viewMap();
-                                invalidInput = false;
-                                System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset); 
-                                break;
-                                               
+                        int row2, column2;
+                        while (true) {
+                            if (gameScanner.hasNextInt()) {
+                                row2 = gameScanner.nextInt();
+                                if (gameScanner.hasNextInt()) {
+                                    column2 = gameScanner.nextInt();
+                                    if (row2 >= 0 && row2 <= 6 && column2 >= 0 && column2 <= 9) {
+                                        map.removePlantFromTile(row2 - 1, column2);
+                                        System.out.println(yellow + bold + "CURRENT SUN: " + Sun.sun + reset);
+                                        break;
+                                    } else {
+                                        System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
+                                    }
+                                } else {
+                                    System.out.println(red + bold + "MASUKKAN ANGKA YANG VALID!" + reset);
+                                    gameScanner.next(); // Buang input yang tidak valid
+                                }
                             } else {
-                                System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
-                                break;
+                                System.out.println(red + bold + "MASUKKAN ANGKA YANG VALID!" + reset);
+                                gameScanner.next(); // Buang input yang tidak valid
                             }
                         }
-                        
                     }
                     System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 }
-        } 
-        mapViewer.interrupt();
-        zombieMover.interrupt();
-        // zombieSpawner.interrupt();
-        EndGamePrint(map);
+            }
+            mapViewer.interrupt();
+            // zombieMover.interrupt();
+            // zombieSpawner.interrupt();
+            EndGamePrint(map);
+        
+            System.exit(1);
         }
-        
-        System.exit(1);
-        
     }
+    
     
     public static void EndGamePrint(Map map){
         String yellow = "\u001B[33m"; // Kode warna kuning
