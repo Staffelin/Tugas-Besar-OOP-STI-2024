@@ -813,6 +813,7 @@ public class GameEngine {
             sunGeneration = new Thread(new Runnable() {
                 @Override
                 public void run(){
+                    int day = 1;
                     int lastSun = 0;
                     long startTime = System.currentTimeMillis();
                     boolean isDay = false;
@@ -820,7 +821,8 @@ public class GameEngine {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
                         long cycletime = elapsedTime % 200;
                         if (cycletime < 100) { // Day time
-                            if (!isDay) {
+                            if (!isDay) {  
+                                System.out.println(green + bold + "Day: " + day++ + reset);
                                 System.out.println(green + bold + "SEKARANG PAGI HARI!!!" + reset);
                                 isDay = true;
                                 sun.generateSun();
@@ -859,8 +861,9 @@ public class GameEngine {
             
                     while (!Thread.currentThread().isInterrupted() && map.getPlayingStatus()) {
                         long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+                        long cycletime = elapsedTime % 200;
             
-                        if (elapsedTime >= 20 && elapsedTime <= 160) { // Zombie spawning time
+                        if (cycletime >= 20 && cycletime <= 160) { // Zombie spawning time
                             if (!isSpawning) {
                                 System.out.println(red + bold + "ZOMBIES ARE COMING...BRAINS!!!" + reset);
                                 isSpawning = true;
