@@ -886,6 +886,7 @@ public class GameEngine {
                                 System.out.println(red + bold + "ZOMBIES HAVE STOPPED SPAWNING" + reset);
                                 isSpawning = false;
                                 map.setSpawningZombie(isSpawning);
+                                Map.setFlag(false);
                             }
                         }
             
