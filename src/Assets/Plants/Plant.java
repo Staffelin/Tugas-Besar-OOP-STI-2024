@@ -133,7 +133,7 @@ public class Plant implements Position {
                 if (this.getRow() == z.getRow()) {
                     z.takeDamage(attack_damage);
                     if(!(this instanceof Sunflower || this instanceof Lilypad || this instanceof Wallnut || this instanceof Tallnut)) {
-                        // System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + z.getRow() + ", " + z.getColumn() + ")");
+                        System.out.println("Tanaman " + getName() + " Menyerang " + z.getName() + " di " + "(" + z.getRow() + ", " + z.getColumn() + ")");
                     }
                     if (z.getHealth() <= 0) {
                         iterator.remove();
