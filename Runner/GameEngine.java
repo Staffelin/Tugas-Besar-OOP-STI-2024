@@ -10,10 +10,10 @@ public class GameEngine {
 
     private static Scanner menuScanner = new Scanner(System.in);
     private static Scanner gameScanner = new Scanner(System.in);
-    // private static Thread sunGeneration;
-    // private static Thread zombieSpawner;
-    // private static Thread zombieMover;
-    // private static Thread mapViewer;
+    private static Thread sunGeneration;
+    private static Thread zombieSpawner;
+    private static Thread zombieMover;
+    private static Thread mapViewer;
     private static boolean inGame = true;
     public static void main(String[] args) {
         displayMainMenu();
