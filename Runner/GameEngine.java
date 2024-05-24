@@ -918,7 +918,7 @@ public class GameEngine {
                         try {
                             System.out.println(yellow + bold + "CURRENT TIME: " + elapsedTime + reset);
                             map.viewMap();
-                            Thread.sleep(5000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             System.out.println("mapViewer was interrupted, stopping...");
                             Thread.currentThread().interrupt(); // Preserve the interrupted status
@@ -932,8 +932,8 @@ public class GameEngine {
             zombieMover.start();
 
             while(sunGeneration.isAlive() && (zombieMover.isAlive() || zombieSpawner.isAlive())){
-                System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 String choice = gameScanner.nextLine();
+                System.out.println(green + bold + "INGIN MENANAM (T) ATAU MENGGALI (G)?" + reset);
                 if(choice.equals("T")){
                     System.out.println(green + bold + "INGIN MENANAM TANAMAN? (Y/N)" + reset);
                     char plantChoice = gameScanner .next().charAt(0);
@@ -953,6 +953,7 @@ public class GameEngine {
                                 System.out.println(yellow + bold + "CURRENT SUN " + Sun.sun + reset);
                             } else {
                                 System.out.println(red + bold + "INDEKS ATAU KOORDINAT TAK VALID!" + reset);
+                                break;
                             }
                         }
                     }
@@ -974,11 +975,13 @@ public class GameEngine {
                                                
                             } else {
                                 System.out.println(red + bold + "KOORDINAT TAK VALID!" + reset);
+                                break;
                             }
                         }
                         
                     }
                 }
+            
         } 
         mapViewer.interrupt();
         // zombieMover.interrupt();

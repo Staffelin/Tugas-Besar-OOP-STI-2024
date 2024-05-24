@@ -82,7 +82,7 @@ public class Map {
                 for (Zombie zombie : zombies) {
                     if (zombie.getDie() == false) {
                         if(petak.getListTanaman().size() == 0){
-                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 10000) {
+                            if (System.currentTimeMillis() - zombie.getSpawnTime() >= 1000) {
                                 petak.removeZombie(zombie); 
                                 nextPetak.addZombie(zombie);
                                 zombie.setRow(i);
@@ -104,6 +104,7 @@ public class Map {
             if(MatriksPetak[i][0].getListZombies().size() > 0){
                 System.out.println("ZOMBIE BERHASIL MENCAPAI RUMAH");
                 stillPlaying = false;
+                break;
             }
         }
     }
